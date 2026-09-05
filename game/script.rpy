@@ -14,10 +14,10 @@ define player = Character("You")
 define player_m = Character ("You", window_background="mall_gui/textbox.png")
 define megan = Character("Megan", window_background="mall_gui/textbox.png")
 define brian = Character("Brian", window_background="mall_gui/textbox.png")
-define megan_b = Character("The Bride", window_background = Image("gui/textbox.png", xalign = 0.5, yalign = 1.0), color = "#ffff")
-define brian_s = Character("The Pumpkin",  window_background = Image("gui/textbox.png", xalign = 0.5, yalign = 1.0), color = "#e9820dff")
+define megan_b = Character("The Bride", window_background = Image("gui/textbox.png", xalign = 0.5, yalign = 1.1), color = "#ffff")
+define brian_s = Character("The Pumpkin",  window_background = Image("gui/textbox.png", xalign = 0.5, yalign = 1.1), color = "#e9820dff")
 define neil = Character("Neil", window_background="mall_gui/textbox.png")
-define neil_v = Character("Count Blud", window_background = Image("gui/textbox.png", xalign = 0.5, yalign = 1.0), color = "#b91313ff")
+define neil_v = Character("Count Blud", window_background = Image("gui/textbox.png", xalign = 0.5, yalign = 1.1), color = "#b91313ff")
 define mystery = Character("???")
 default spooky = False  
 default mall = ""
@@ -37,9 +37,11 @@ label start:
 
     "For most inside the Salem Mall, the day was almost done. But for you, the night had just begun."
 
-    "Up the stairs, turn right, turn right, keep going past the three beauty salons and one comic shop, and there you were. A rather nondescript storefront, painted black. It looked like it had been thrown up by the ghost of Spirit Halloween."
+    "Up the stairs, turn right, turn right, keep going past the three beauty salons and one comic shop, and there you were."
+    
+    "Your pride and joy. A rather nondescript storefront, painted black. It currently looked like it had been thrown up by the ghost of Spirit Halloween, thanks to the mall decorators."
 
-    "The sign was large, in neon and had taken almost half of your budget. {b}{color=[green]} LOCK&KEY ESCAPE ROOMS.{/color}{/b}"
+    "Above was a large sign, in neon and had taken almost half of your budget. {b}{color=[green]} LOCK&KEY ESCAPE ROOMS.{/color}{/b}"
 
     "Below was a smaller poster, designed with more enthusiasm than experience-{i}{b}COMING SOON: {color=[red]} COUNT BLUD'S MYSTERY MANSION!{/color}{/b}{/i}"
 
@@ -189,10 +191,36 @@ label start:
     brian "I think I tripped over them while I was walking in."
 
     brian "Sorry!"
+
+    neil "Curse you Brian!"
+
+    "The sigh that goes through creates feedback."
+
+    neil "Can we start, please?"
+
+    "7:15."
+
+    "You meet Megan's gaze, and she hands you another walkie-talkie."
+
+    "Letter in hand, you turn towards the door."
     
     $ spooky = True 
-    "Time to get spooky."
+
+    player_m "Neil?"
+
+    neil "Yes?"
+
+    menu: 
+        "It's time.":
+            $ spooky = True 
+            player "TIme to get spooky."
 
 
 
-    return
+    jump mainhall 
+
+label mainhall: 
+    scene mainhall 
+
+label end: 
+    return 
