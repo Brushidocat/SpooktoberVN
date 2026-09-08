@@ -23,6 +23,9 @@ default spooky = False
 default mall = ""
 define red = '#f31b1b'
 define green = '#38ff7b'
+default chestKey = ""
+define chestisLocked = True 
+
 
 # The game starts here.
 
@@ -249,6 +252,7 @@ label mainhall:
     "Megan trots past you to take her place by the wall."
 
     megan_b "{i}You should have never come here, strange traveler.{/i}"
+    "Her voice is super flat."
     megan_b "{i}This is the lair of the Great Vampire Lord Count Blud{/i}"
     megan_b "{i}I was lured in once too, but I became his sacrifice, now I am trapped.{/i}"
     megan_b "{i}There is a way out of here. Unlike me, you are mortal. Find the sun lantern, confront Count Blud and we shall be freed.{/i}"
@@ -265,6 +269,33 @@ label mainhall:
     neil_v "FOOLISH MORTALS! YOU SHALL NEVER ESCAPE MY LAIR~"
 
     neil_v "TONIGHT, ME AND MY BRETHEREN SHALL FEAST!"
+
+    neil_v "YOU'll NEVER FIGURE OUT THE THREE PIECES OF MY {bt=h5-s0.5-p10.0} SECRET INCANTATION {/bt} TO OPEN THE DOOR!"
+
+    "Click."
+
+    megan_b "Right, what he said. {i}Maybe there's a hint in that letter.{/i}"
+
+    show screen mainhall 
+
+label chest: 
+    "There's a large chest. It's been rather roughly painted gold, but the material is genuine wood."
+    if chestisLocked=True: 
+        "There's a large lock keeping the chest shut."
+
+label paintings: 
+    "A row of paintings."
+
+label gargoyle: 
+    "A massive gargoyle."
+    "You made it yourself using paper-mache and some stuff you salvaged."
+
+label Bride_Hints: 
+    
+
+label hallway: 
+    "Long and thin."
+
 
 
 
