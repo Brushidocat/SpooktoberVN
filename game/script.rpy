@@ -166,7 +166,7 @@ label start:
 
     ##{sc=[range]}Text{/sc}
     
-    "WELCOME TO MY {bt=h5-s0.5-p10.0} HAUNTED MANSION!{/bt}"
+    neil_v "WELCOME TO MY {bt=h5-s0.5-p10.0} HAUNTED MANSION!{/bt}"
 
     neil_v "IN HERE, YOU SHALL BECOME MY NEXT {sc} {color=red} SAAAAAACRIFICE! {/color}{/sc}"
 
@@ -176,7 +176,7 @@ label start:
 
     neil_v "NOW THAT YOU ARE TRAPPED, YOU SHALL NEVER ESCAAAAAAAPE-" 
 
-    megan "Neil, quit it. You're early."
+    megan "You're early."
 
     stop music 
 
@@ -248,8 +248,27 @@ label mainhall:
 
     "Megan trots past you to take her place by the wall."
 
-    megan_b "{i} You should have never come here, strange traveler. {/i}"
+    megan_b "{i}You should have never come here, strange traveler.{/i}"
     megan_b "{i}This is the lair of the Great Vampire Lord Count Blud{/i}"
+    megan_b "{i}I was lured in once too, but I became his sacrifice, now I am trapped.{/i}"
+    megan_b "{i}There is a way out of here. Unlike me, you are mortal. Find the sun lantern, confront Count Blud and we shall be freed.{/i}"
+    megan_b "{i}Unfortu-"
+
+    neil_v "WELCOME TO MY {bt=h5-s0.5-p10.0} HAUNTED MANSION!{/bt}"
+
+    neil_v "IN HERE, YOU SHALL BECOME MY NEXT {sc} {color=red} SAAAAAACRIFICE! {/color}{/sc}"
+
+    "Megan clicked her tongue, but kept quiet." 
+
+    "Clearly, he'd practiced this, it was better to play along for now."
+
+    neil_v "FOOLISH MORTALS! YOU SHALL NEVER ESCAPE MY LAIR~"
+
+    neil_v "TONIGHT, ME AND MY BRETHEREN SHALL FEAST!"
+
+
+
+
 
 label end: 
     return 
