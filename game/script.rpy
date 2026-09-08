@@ -23,8 +23,7 @@ default spooky = False
 default mall = ""
 define red = '#f31b1b'
 define green = '#38ff7b'
-default chestKey = ""
-define chestisLocked = True 
+
 
 
 # The game starts here.
@@ -274,14 +273,38 @@ label mainhall:
 
     "Click."
 
-    megan_b "Right, what he said. {i}Maybe there's a hint in that letter.{/i}"
+    megan "Right, what he said." 
+    
+    megan_b "{i}Maybe there's a hint in that letter.{/i}"
 
     show screen mainhall 
+
+##Keys and important flags for Mainhall 
+
+default chestKey = "UREM"
+default chestisLocked = True 
+default attemptedKey = ""
+default gargoyleisLocked = True 
+default gargoyleKey = 1, 2, 3,
+
+
+
+label letter: 
+    "Each word inside the letter was wriiten as clearly as possible."
+    "{i} Dear Unfortunate So{color=red}U{/color}l,"
+    "{i} If you are reading this, then I fea{color=red}R{/color} the worst has come to pass.{/i}"
+    "{i} Fear not, if you are unsure where to start, the hint is close at hand.{/i}"
+    "{i}Signed, a fri{color=red}E{/color}nd."
+    "{i}PS, do not trust the bride, she {color=red}M{/color}erely wants more company."
 
 label chest: 
     "There's a large chest. It's been rather roughly painted gold, but the material is genuine wood."
     if chestisLocked=True: 
         "There's a large lock keeping the chest shut."
+        "Try the code?"
+        menu: 
+            "Yes.": 
+                
 
 label paintings: 
     "A row of paintings."
@@ -289,12 +312,60 @@ label paintings:
 label gargoyle: 
     "A massive gargoyle."
     "You made it yourself using paper-mache and some stuff you salvaged."
+    if gargoyleisLocked = True: 
+        "There's something in it's jaws, you can't see it from here though."
 
-label Bride_Hints: 
+default mhDoorisLocked = True
+
+label mainhall_Doors: 
+    "Impressively thick and detailed, the doors stand in front of you."
+    if mainhall_Doors: 
+        "Right now, they are closed."
+        "Speak the incantation?"
     
 
+default brideHints = 0
+
+label Bride_Hints: 
+    "Megan looks at you as you approach and stuff her phone back in her pocket." 
+    if brideHints == 0: 
+        megan_b "{i}Do you need a hint? The vampire lord changes the incantation every time."
+        megan "Chest hint is in the letter. Had to use the colored ink." 
+        megan "Glad that's not out of my paycheck."
+        $ brideHints += 1
+    else if brideHints == 1: 
+        megan_b "{i}Everything you need is here, I believe. I would help, but alas, I cannot."
+        megan "Hey, do I have to clean off fingerprints from those paintings every time?"
+    else if brideHints == 2: 
+        megan_b "{i} The great beast contains part of the code in its mouth. It seems to have a fondness for the paintings in this gallery.{/i}"
+        megan "Have to admit, I like the gargoyle."
+        megan "Once this is all over, you mind if I take it home? I can use it to scare the neighbors."
+        megan "You sure people'll notice those hints on the paintings?" 
+    else: 
+        megan "That's all I got for you, boss."
+        megan "Unless you want to talk about my salary."
+
+label mainhall_End: 
+    "The moment the three words leave your mouth, the door "
+
+        
+
+
+
 label hallway: 
-    "Long and thin."
+    "Long and thin, the hallway stretches out in front of you. And there, standing on the side of the room trying to right a chair, was a long, lanky figure."
+    "His pumpkin mask glows faintly like the fake torches in the banisters"
+    brian "Hey boss! Er-Oh, sorry. One sec." 
+    "He finally turns the chair upright, then straightens his back."
+    brian_s "{i}Ah! Another guest for the master?"
+    brain_s "{i}Poor soul, much like the pale megan-madam-{/i} shit-"
+    brian_s "{i}Much like the pale madam next door, you have been trapped here. I assume she's tasked you with getting the Sun lantern?"
+    brian_s "{i}Don't be fooled, she's merely trying to distract you."
+    brian_s "{i}You should find the-the...."
+    "Silence. Brian looks at you blankly for a moment. He grabs something from his pocket and reads it." 
+    brian_s "{i}Moon dagger!{/i}"
+
+
 
 
 
