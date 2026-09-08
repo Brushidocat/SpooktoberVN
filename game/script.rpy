@@ -356,33 +356,56 @@ label mainhall_End:
             brian "Boss! You okay?"
             "Even Megan looked concerned."
             player_m "I'm fine."
-
+            "Maybe it was the air pressure?"
+            "Brian waits until you gather yourself, before going back to the side hall. Thankfully, the door remains open." 
         "Look to Megan.": 
+            "Megan gives you a bored shrug. No help there." 
+            "Then, the door swings open."
         "Wait and see.": 
-    "Instead, it remained closed. Then-shuffling." 
-    "Click!"
+            "You wait, maybe the connection was weak."
+            "The door swings open after a moment."
+    
 
         
 
 
 
 label hallway: 
-    "Long and thin, the hallway stretches out in front of you. And there, standing on the side of the room trying to right a chair, was a long, lanky figure."
-    "His pumpkin mask glows faintly like the fake torches in the banisters"
+    "Long and thin, the hallway stretches out in front of you. The door on the other side was flanked by two large boxes. One yellow, one blue. And there, standing on the side of the room trying to right a chair, was a long, lanky figure."
+    "His pumpkin mask glows faintly like the fake torches in the banisters. His cheap suit is slightly wrinkled."
     brian "Hey boss! Er-Oh, sorry. One sec." 
     "He finally turns the chair upright, then straightens his back."
     brian_s "{i}Ah! Another guest for the master?"
     brain_s "{i}Poor soul, much like the pale megan-madam-{/i} shit-"
     brian_s "{i}Much like the pale madam next door, you have been trapped here. I assume she's tasked you with getting the Sun lantern?"
-    brian_s "{i}Don't be fooled, she's merely distracting you. She is very lonely. You should find the moon dagger instead!{/i}" 
-    brian_s "Who knows, perhaps you may even become the new count yourself!"
+    "The pumpkin headed servant shook his head."
+    brian_s "{i}Don't be fooled, she's merely distracting you. She is very lonely. You should find the moon dagger instead! It is his main source of power. Without it, he will have nothing.{/i}" 
+    brian_s "{i}Who knows, perhaps you may even become the new count!{/i}"
     brian_s "{i}I'm quite tired of his Lord Count Blud myself,"
     brian_s "{i}The master is quite clever, however. He's encased both artefacts in magical containers, there is only one key, the-the{/i}"
     "Brian stops, and glances at his hand."
     brian_s "{i}Blood Ruby.{/i}"
     "He gestures behind you, where a large glass gem resides inside a glass case." 
     "Underneath, in large industrial text, was the phrase: DO NOT BREAK!"
-    brian_s ""
+    brian_s "{i}I would open the case itself, but avast-alas, I've lost the key!"
+    brian_s "{i}Perhaps you can find it? Remember though, the Ruby can only be used once!{/i}"
+    "After a brief pause, he rights himself and takes off the mask with a bright smile."
+    brian "How was that? I finally managed to remember most of my lines!"
+    brian "Neil helped me practice." 
+    menu:
+        "Good job.": 
+            "Brian gives you a bright smile."
+            brian "Thanks!"
+        "You're supposed to stay in character.": 
+            brian "Whoops! Sorry boss, I got excited."
+    "Brian quickly jams the helmet back on his head. With a quick thunk, the light flickers back on, and he starts pretending to dust the furniture."
+    call screen hallway 
+
+label drawer: 
+    "You open the drawer."
+
+
+            
 
 
 
