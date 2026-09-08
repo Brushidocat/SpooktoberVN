@@ -130,6 +130,24 @@ label start:
         "Thanks Megan, I'll wire you the money later.":
             "Megan gives you a short nod."
 
+    megan "Do I have to say the thing?"
+
+    menu: 
+        "Don't make her say the thing.":
+            player_m "It's alright. I'll be doing it anyway."
+            "Megan gives you a nod."
+        "It is the final runthrough.":
+            megan "Not really part of my job description."
+            player_m "It's in case something happens, I'll give you a raise."
+            "Megan takes a big sigh."
+            megan "{i}Ah, you've made it.{/i}"
+            megan "{i}We have a new delivery for you. It has to be handed in-person-"
+            megan "Do we have to do this every time? These people are literally paying us to do this." 
+            player_m "It's to get them into the role. Helps them buy into the illusion."
+            "{i} This is true! It's called The Magic Circle! It's also used in DnD and in most video games."
+            megan "Whatever you say."
+            megan "{i}We've had some complaints about the house though. Be careful.{/i}"
+
     "Suddenly, there was a staticky crack, then a tinny, hushed voice filters through the speakers. A familiar voice."
 
     mystery "-I can't find the extension cord-No I need to put it in the middle of the room-it has the best acoustics-"
@@ -192,7 +210,7 @@ label start:
 
     brian "Sorry!"
 
-    neil "Curse you Brian!"
+    neil "Curse you Brian and your large feet!"
 
     "The sigh that goes through creates feedback."
 
@@ -203,6 +221,8 @@ label start:
     "You meet Megan's gaze, and she hands you another walkie-talkie."
 
     "Letter in hand, you turn towards the door."
+
+    "Click!"
     
     $ spooky = True 
 
@@ -221,6 +241,15 @@ label start:
 
 label mainhall: 
     scene mainhall 
+    play music monster musuem fadein 0.5
+    "Soft, flickering light greeted you through the door. On cue, the music started from various hidden bluetooth speakers."
+
+    megan "'scuse."
+
+    "Megan trots past you to take her place by the wall."
+
+    megan_b "{i} You should have never come here, strange traveler. {/i}"
+    megan_b "{i}This is the lair of the Great Vampire Lord Count Blud{/i}"
 
 label end: 
     return 
