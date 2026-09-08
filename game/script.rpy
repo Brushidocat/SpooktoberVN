@@ -346,7 +346,21 @@ label Bride_Hints:
         megan "Unless you want to talk about my salary."
 
 label mainhall_End: 
-    "The moment the three words leave your mouth, the door "
+    "The moment the three words leave your mouth, the door should have opened."
+    menu:
+        "Try the door.": 
+            "You step forward and try the handle. It doesn't budge."
+            "Before you can speak, suddenly the handle pushes down on its own, and swings wildly."
+            "You jump back before the edge of the door catches your face."
+            "A nervous face pokes from the now open doorway."
+            brian "Boss! You okay?"
+            "Even Megan looked concerned."
+            player_m "I'm fine."
+
+        "Look to Megan.": 
+        "Wait and see.": 
+    "Instead, it remained closed. Then-shuffling." 
+    "Click!"
 
         
 
@@ -360,10 +374,16 @@ label hallway:
     brian_s "{i}Ah! Another guest for the master?"
     brain_s "{i}Poor soul, much like the pale megan-madam-{/i} shit-"
     brian_s "{i}Much like the pale madam next door, you have been trapped here. I assume she's tasked you with getting the Sun lantern?"
-    brian_s "{i}Don't be fooled, she's merely trying to distract you."
-    brian_s "{i}You should find the-the...."
-    "Silence. Brian looks at you blankly for a moment. He grabs something from his pocket and reads it." 
-    brian_s "{i}Moon dagger!{/i}"
+    brian_s "{i}Don't be fooled, she's merely distracting you. She is very lonely. You should find the moon dagger instead!{/i}" 
+    brian_s "Who knows, perhaps you may even become the new count yourself!"
+    brian_s "{i}I'm quite tired of his Lord Count Blud myself,"
+    brian_s "{i}The master is quite clever, however. He's encased both artefacts in magical containers, there is only one key, the-the{/i}"
+    "Brian stops, and glances at his hand."
+    brian_s "{i}Blood Ruby.{/i}"
+    "He gestures behind you, where a large glass gem resides inside a glass case." 
+    "Underneath, in large industrial text, was the phrase: DO NOT BREAK!"
+    brian_s ""
+
 
 
 
