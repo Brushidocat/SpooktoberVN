@@ -239,9 +239,9 @@ label start:
 
 
 
-    jump mainhall 
+    jump mainhall_start
 
-label mainhall: 
+label mainhall_start: 
     scene mainhall 
     play music monster musuem fadein 0.5
     "Soft, flickering light greeted you through the door. On cue, the music started from various hidden bluetooth speakers."
@@ -277,6 +277,9 @@ label mainhall:
     
     megan_b "{i}Maybe there's a hint in that letter.{/i}"
 
+    jump mainhall 
+    
+label mainhall: 
     show screen mainhall 
 
 ##Keys and important flags for Mainhall 
@@ -285,9 +288,7 @@ default chestKey = "UREM"
 default chestisLocked = True 
 default attemptedKey = ""
 default gargoyleisLocked = True 
-default gargoyleKey = 1, 2, 3,
-
-
+default gargoyleKey = 1, 2, 3, 4
 
 label letter: 
     "Each word inside the letter was wriiten as clearly as possible."
@@ -327,51 +328,54 @@ label mainhall_Doors:
 
 default brideHints = 0
 
-label Bride_Hints: 
+label Megan: 
     "Megan looks at you as you approach and stuff her phone back in her pocket." 
+    megan_b "{i}Do you need a hint? The vampire lord changes the incantation every time."
+    menu: 
+        "Yes.": 
+            "Megan rolls her eyes, but proceeds anyway."
+            jump BrideHints
+        "No.": 
+            jump mainhall 
+        "Just wanted to check up on you.": 
+            "Megan raised an eyebrow."
+            megan "I'm fine, if that's what you're asking."
+            jump mainhall 
+
+
+
+label BrideHints: 
     if brideHints == 0: 
-        megan_b "{i}Do you need a hint? The vampire lord changes the incantation every time."
-        megan "Chest hint is in the letter. Had to use the colored ink." 
+        megan_b "{i}That letter you came in with, I recognise its seal. Perhaps it contains a clue?"
+        megan "I see why we have a color printer in the back now." 
         megan "Glad that's not out of my paycheck."
         $ brideHints += 1
     else if brideHints == 1: 
-        megan_b "{i}Everything you need is here, I believe. I would help, but alas, I cannot."
-        megan "Hey, do I have to clean off fingerprints from those paintings every time?"
+        megan_b "{i}I've seen those paintings move and shake sometimes, as if they are alive. Perhaps you should take a closer look."
+        megan "Hey, do I have to clean off fingerprints off those frames every time they check them?"
+        $ brideHints += 1 
     else if brideHints == 2: 
         megan_b "{i} The great beast contains part of the code in its mouth. It seems to have a fondness for the paintings in this gallery.{/i}"
         megan "Have to admit, I like the gargoyle."
         megan "Once this is all over, you mind if I take it home? I can use it to scare the neighbors."
         megan "You sure people'll notice those hints on the paintings?" 
+        $ brideHints += 1 
     else: 
         megan "That's all I got for you, boss."
         megan "Unless you want to talk about my salary."
+    jump mainhall 
 
 label mainhall_End: 
-    "The moment the three words leave your mouth, the door should have opened."
-    menu:
-        "Try the door.": 
-            "You step forward and try the handle. It doesn't budge."
-            "Before you can speak, suddenly the handle pushes down on its own, and swings wildly."
-            "You jump back before the edge of the door catches your face."
-            "A nervous face pokes from the now open doorway."
-            brian "Boss! You okay?"
-            "Even Megan looked concerned."
-            player_m "I'm fine."
-            "Maybe it was the air pressure?"
-            "Brian waits until you gather yourself, before going back to the side hall. Thankfully, the door remains open." 
-        "Look to Megan.": 
-            "Megan gives you a bored shrug. No help there." 
-            "Then, the door swings open."
-        "Wait and see.": 
-            "You wait, maybe the connection was weak."
-            "The door swings open after a moment."
+    "The moment the three words leave your mouth, the door unlocks and swings open on its own, as if by a ghost."
+    jump hallway_start
+    
     
 
         
 
 
 
-label hallway: 
+label hallway_start: 
     "Long and thin, the hallway stretches out in front of you. The door on the other side was flanked by two large boxes. One yellow, one blue. And there, standing on the side of the room trying to right a chair, was a long, lanky figure."
     "His pumpkin mask glows faintly like the fake torches in the banisters. His cheap suit is slightly wrinkled."
     brian "Hey boss! Er-Oh, sorry. One sec." 
@@ -380,7 +384,8 @@ label hallway:
     brain_s "{i}Poor soul, much like the pale megan-madam-{/i} shit-"
     brian_s "{i}Much like the pale madam next door, you have been trapped here. I assume she's tasked you with getting the Sun lantern?"
     "The pumpkin headed servant shook his head."
-    brian_s "{i}Don't be fooled, she's merely distracting you. She is very lonely. You should find the moon dagger instead! It is his main source of power. Without it, he will have nothing.{/i}" 
+    brian_s "{i}Don't be fooled, she's merely distracting you. She is a lonely spectre." 
+    brian_s "You should find the moon dagger instead! It is his main source of power. Without it, he will have nothing.{/i}" 
     brian_s "{i}Who knows, perhaps you may even become the new count!{/i}"
     brian_s "{i}I'm quite tired of his Lord Count Blud myself,"
     brian_s "{i}The master is quite clever, however. He's encased both artefacts in magical containers, there is only one key, the-the{/i}"
@@ -403,7 +408,13 @@ label hallway:
     call screen hallway 
 
 label drawer: 
-    "You open the drawer."
+    "You open the drawer. It opens smoothly. Until it gets halfway. Then it stops."
+    "You try again. Nothing. It feels like the drawer's hit something solid."
+    "Immediately, Brian comes over."
+    brian "Huh, that's weird."
+    brian "Here, let me-"
+    "He grips the handle and tugs a little harder. It doesn't budge."
+    brian "Maybe some paint got in the-Hang on."
 
 
             
