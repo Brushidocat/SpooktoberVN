@@ -308,6 +308,7 @@ label chest:
 
 label paintings: 
     "A row of paintings."
+    return 
 
 label gargoyle: 
     "A massive gargoyle."
