@@ -312,18 +312,24 @@ label paintings:
     return 
 
 label gargoyle: 
-    "A massive gargoyle."
+    "A gargoyle stands on a stone podium."
     "You made it yourself using paper-mache and some stuff you salvaged."
+    "With a curved beak, large wings, and hooked claws, it was suitably an impressive piece. You based it on a certain cartoon you watched as a kid."
     if gargoyleisLocked == True: 
         "There's something in it's jaws, you can't see it from here though."
+label carpet: 
+    jump mainhall 
 
 default mhDoorisLocked = True
+default mh_incantation = ""
+define mh_incantation_try = ""
 
 label mainhall_Doors: 
     "Impressively thick and detailed, the doors stand in front of you."
     if mainhall_Doors: 
         "Right now, they are closed."
         "Speak the incantation?"
+        
     
 
 default brideHints = 0
@@ -367,6 +373,7 @@ label BrideHints:
 
 label mainhall_End: 
     "The moment the three words leave your mouth, the door should have unlocked and swing open on its own, as if by a ghost."
+    "Instead-"
     neil_v "HOW HOW COULD YOU HAVE FIGURED OUT MY SECRET PASSWORD!? INCONCEIVABLE!!!"
     neil_v "COULD IT BE?! CURSE YOU, MY FORMER BRIDE!" 
     "Megan clearly doesn't pay attention."
@@ -408,7 +415,10 @@ label hallway_start:
         "You're supposed to stay in character.": 
             brian "Whoops! Sorry boss, I got excited."
     "Brian quickly jams the helmet back on his head. With a quick thunk, the light flickers back on, and he starts pretending to dust the furniture."
-    call screen hallway 
+    jump hallway 
+
+label hallway: 
+    call screen hallway
 
 label drawer: 
     "You open the drawer. It opens smoothly. Until it gets halfway. Then it stops."
@@ -418,11 +428,40 @@ label drawer:
     brian "Here, let me-"
     "He grips the handle and tugs a little harder. It doesn't budge."
     brian "Maybe some paint got in the-Hang on."
+    jump hallway 
+
+label bookcase: 
+    jump hallway 
+
+label hiddenCompartment: 
+    jump hallway 
+
+label moonbox: 
+    jump hallway 
+label sunbox: 
+    jump hallway 
+
+label hallwaydoor: 
+    ""
+    jump ballroom_start
+
+label ballroom_start: 
+    jump ballroom 
+
+label ballroom: 
+    call screen ballroom 
 
 
-            
+label piano: 
+    jump ballroom 
 
+label banquetTable: 
+    jump ballroom 
 
+label pedestalSun: 
+    jump ballroom 
+label pedestalMoon: 
+    jump ballroom 
 
 
 
