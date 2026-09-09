@@ -300,7 +300,7 @@ label letter:
 
 label chest: 
     "There's a large chest. It's been rather roughly painted gold, but the material is genuine wood."
-    if chestisLocked=True: 
+    if chestisLocked == True: 
         "There's a large lock keeping the chest shut."
         "Try the code?"
         menu: 
@@ -314,7 +314,7 @@ label paintings:
 label gargoyle: 
     "A massive gargoyle."
     "You made it yourself using paper-mache and some stuff you salvaged."
-    if gargoyleisLocked = True: 
+    if gargoyleisLocked == True: 
         "There's something in it's jaws, you can't see it from here though."
 
 default mhDoorisLocked = True
@@ -366,7 +366,12 @@ label BrideHints:
     jump mainhall 
 
 label mainhall_End: 
-    "The moment the three words leave your mouth, the door unlocks and swings open on its own, as if by a ghost."
+    "The moment the three words leave your mouth, the door should have unlocked and swing open on its own, as if by a ghost."
+    neil_v "HOW HOW COULD YOU HAVE FIGURED OUT MY SECRET PASSWORD!? INCONCEIVABLE!!!"
+    neil_v "COULD IT BE?! CURSE YOU, MY FORMER BRIDE!" 
+    "Megan clearly doesn't pay attention."
+    neil_v "NO MATTER! EVEN WITH HELP, THERE'S NO WAY YOU SHALL DEFEAT MEE!" 
+
     jump hallway_start
     
     
@@ -388,9 +393,7 @@ label hallway_start:
     brian_s "You should find the moon dagger instead! It is his main source of power. Without it, he will have nothing.{/i}" 
     brian_s "{i}Who knows, perhaps you may even become the new count!{/i}"
     brian_s "{i}I'm quite tired of his Lord Count Blud myself,"
-    brian_s "{i}The master is quite clever, however. He's encased both artefacts in magical containers, there is only one key, the-the{/i}"
-    "Brian stops, and glances at his hand."
-    brian_s "{i}Blood Ruby.{/i}"
+    brian_s "{i}The master is quite clever, however. He's encased both artefacts in magical containers, there is only one key, the Blood Ruby." 
     "He gestures behind you, where a large glass gem resides inside a glass case." 
     "Underneath, in large industrial text, was the phrase: DO NOT BREAK!"
     brian_s "{i}I would open the case itself, but avast-alas, I've lost the key!"
