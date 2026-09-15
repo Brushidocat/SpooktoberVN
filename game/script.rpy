@@ -426,11 +426,14 @@ label drawer:
     "Immediately, Brian comes over."
     brian "Huh, that's weird."
     brian "Here, let me-"
+    ##Shake 
     "He grips the handle and tugs a little harder. It doesn't budge."
     brian "Maybe some paint got in the-Hang on."
     jump hallway 
 
 label bookcase: 
+    "Approaching the bookcase reveals obvious signs of most of the books being glued together. That was mostly to reduce cleanup, and because one time Neil did a spin and toppled every single book onto the floor."
+    
     jump hallway 
 
 label hiddenCompartment: 
