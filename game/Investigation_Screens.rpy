@@ -8,15 +8,9 @@ screen mainhall():
         ##Chest 
         ##hotspot (9, 650, 634, 402) 
         ## action Jump("chest") tooltip "A large, conspicuous chest." hovered ShowTransient("the_img", img="investigations1_hover1.png") unhovered Hide("the_img")
-        ## Painting01
-        ## Painting02 
-        ## Painting03 
+        ## Paintings
         ## Gargoyle 
         ## Door 
-            ## if doorOpen: 
-                ## jump (hallway)
-            ## else: 
-                ## jump (ClosedDoor)
         $ tooltip = GetTooltip()
         if tooltip:
             text "[tooltip]" xalign 0.5 yalign 0.5
@@ -41,7 +35,8 @@ screen ballroom():
     imagemap:
         ground "images/mainhall.jpg" at parallax_shift(z_pos=0.6, sprite = False)
         ##Piano 
-        ##
+        ##banquettable 
+        ##shoutyman 
 
 screen addFrame(img):
     zorder 100 

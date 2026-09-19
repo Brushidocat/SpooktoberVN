@@ -34,6 +34,11 @@ label start:
     # add a file (named either "bg room.png" or "bg room.jpg") to the
     # images directory to show it.
 
+    menu: 
+        "ChestCode":
+            jump chest_code
+        ""
+
 
     scene shops_closed
 
@@ -284,11 +289,12 @@ label mainhall:
 
 ##Keys and important flags for Mainhall 
 
-default chestKey = "UREM"
+define chestKey = "urem"
 default chestisLocked = True 
-default attemptedKey = ""
+default chestKey_try = ""
 default gargoyleisLocked = True 
-default gargoyleKey = 1, 2, 3, 4
+define gargoyleKey = {red, blue, green, red}
+default tabletCollected = 0 
 
 label letter: 
     "Each word inside the letter was wriiten as clearly as possible."
@@ -304,11 +310,44 @@ label chest:
         "There's a large lock keeping the chest shut."
         "Try the code?"
         menu: 
-            "Yes.": 
+            "Yes.":
+                jump chest_code: 
+            "No":
+                jump mainhall 
+
+label chest_code: 
+    python: 
+        chestKey_try = renpy.input()
+        chestKey_try = chestKey_try.strip()
+        chestKey_try = chestKey_try.upper()
+    if chestKey_Attmpet == chestKey: 
+        "The lock clicks open and you put it to the side."
+        menu: 
+            "Open the chest.":
+                "Using two hands, you push the lid open."
+                "Inside is barren, only a broken piece of tablet lays at the bottom."
+                menu: 
+                    "Take the tablet.":
+                        "It is cool underneath your fingertips."
+                        jump mainhall 
+    else: 
+        "Nothing. It looks like you got the wrong code."
+        megan "Didn't you set the code yourself?"
+        "You remain silent."
+        menu: 
+            "Leave?":
+                "You leave the chest alone for now."
+            "Try again":
+                jump chest_code
+    
                 
 
-label paintings: 
+label paintings:
+    ##TODO: Make this an imagemap? 
     "A row of paintings."
+    menu: 
+        "Look at the first painting.": 
+            "It's "
     return 
 
 label gargoyle: 
@@ -317,10 +356,18 @@ label gargoyle:
     "With a curved beak, large wings, and hooked claws, it was suitably an impressive piece. You based it on a certain cartoon you watched as a kid."
     if gargoyleisLocked == True: 
         "There's something in it's jaws, you can't see it from here though."
+    menu: 
+        "Check the base.":
+            "Below the gargoyle, is a row of buttons with colored images on them."
+        "Leave.": 
+            jump mainhall 
+
+label gargoyle_code: 
+    ""
 label carpet: 
     jump mainhall 
 
-default mhDoorisLocked = True
+default mainhall_Doors = True
 default mh_incantation = ""
 define mh_incantation_try = ""
 
@@ -329,23 +376,40 @@ label mainhall_Doors:
     if mainhall_Doors: 
         "Right now, they are closed."
         "Speak the incantation?"
+        menu: 
+            "Yes."
+            "No"
+
+label MainhallDoors_Code: 
+    python: 
+        mh_incantation_try = renpy.input()
+        mh_incantation_try = mh_incantation_try.strip()
+        mh_incantation_try = mh_incantation_try.upper()
+    if mh_incantation_try == mh_incantation:
+        jump mainhall_End
         
-    
+label table: 
+    #TODO: Drag and Drop?
+    "The large wooden table dominates the room. There are several scratches all over the front. Some of them end abruptly, forming a rectangle in their negative space."
+    menu: 
+        "Put the tablets down on the table." if tabletCollected == 3: 
+            ##Insert Drag and Drop
+        "Go back.": 
+            jump mainhall 
+
 
 default brideHints = 0
 
 label Megan: 
-    "Megan looks at you as you approach and stuff her phone back in her pocket." 
+    "Megan looks at you as you approach and stuff her phone back in her pocket."
+    you "We need to run through your lines."
+    "Megan raised an eyebrow. Then she shrugs." 
     megan_b "{i}Do you need a hint? The vampire lord changes the incantation every time."
     menu: 
         "Yes.": 
             "Megan rolls her eyes, but proceeds anyway."
             jump BrideHints
         "No.": 
-            jump mainhall 
-        "Just wanted to check up on you.": 
-            "Megan raised an eyebrow."
-            megan "I'm fine, if that's what you're asking."
             jump mainhall 
 
 
@@ -375,17 +439,28 @@ label mainhall_End:
     "The moment the three words leave your mouth, the door should have unlocked and swing open on its own, as if by a ghost."
     "Instead-"
     neil_v "HOW HOW COULD YOU HAVE FIGURED OUT MY SECRET PASSWORD!? INCONCEIVABLE!!!"
+    "He sounds a little different, as if he had something in his mouth."
     neil_v "COULD IT BE?! CURSE YOU, MY FORMER BRIDE!" 
-    "Megan clearly doesn't pay attention."
+    "Megan ignores him."
     neil_v "NO MATTER! EVEN WITH HELP, THERE'S NO WAY YOU SHALL DEFEAT MEE!" 
-
+    neil_v "MUAHAHAHAHAHAHAHA-ack."
+    neil "*Cough*! *Cough*!"
+    you "You alright there?"
+    neil "I-hrk! NO BREATH MINT CAN-gack-STOP ME! I SHALL RETUUUURN."
+    megan "Open the door Neil."
+    "The double doors unlock with an audible click. Then the PA system turned off."
+    megan "See ya, Boss. Catch you after the break."
     jump hallway_start
+
+
+
+default haveGem == False 
+default bookcaseCode = ""
+define bookcaseCode_try = ""
+define drawerCode = ""
+define drawerCode_Try = ""
+default endRoute = ""
     
-    
-
-        
-
-
 
 label hallway_start: 
     "Long and thin, the hallway stretches out in front of you. The door on the other side was flanked by two large boxes. One yellow, one blue. And there, standing on the side of the room trying to right a chair, was a long, lanky figure."
@@ -394,17 +469,18 @@ label hallway_start:
     "He finally turns the chair upright, then straightens his back."
     brian_s "{i}Ah! Another guest for the master?"
     brain_s "{i}Poor soul, much like the pale megan-madam-{/i} shit-"
-    brian_s "{i}Much like the pale madam next door, you have been trapped here. I assume she's tasked you with getting the Sun lantern?"
+    brian_s "{i}Much like the pale madam next door, you have been trapped here. I assume she's tasked you with getting the Sun Lantern?"
     "The pumpkin headed servant shook his head."
     brian_s "{i}Don't be fooled, she's merely distracting you. She is a lonely spectre." 
-    brian_s "You should find the moon dagger instead! It is his main source of power. Without it, he will have nothing.{/i}" 
+    brian_s "{i}You should find the moon dagger instead! It is his main source of power. Without it, he will have nothing.{/i}" 
     brian_s "{i}Who knows, perhaps you may even become the new count!{/i}"
     brian_s "{i}I'm quite tired of his Lord Count Blud myself,"
     brian_s "{i}The master is quite clever, however. He's encased both artefacts in magical containers, there is only one key, the Blood Ruby." 
     "He gestures behind you, where a large glass gem resides inside a glass case." 
     "Underneath, in large industrial text, was the phrase: DO NOT BREAK!"
-    brian_s "{i}I would open the case itself, but avast-alas, I've lost the key!"
-    brian_s "{i}Perhaps you can find it? Remember though, the Ruby can only be used once!{/i}"
+    brian_s "{i}I would open the case itself, but avast-alas, I have no way to open it myself!"
+    "Something falls out of his pocket. A thick, heaavy looking key that looks like ti would perfectly fit the lock on the glass case. He pauses, unblinking, looks down, then looks back up. Then lunges for the key and shoves it into his pocket."
+    brian_s "{i}P-perhaps you can find it? Remember though, the Ruby can only be used once! Choose wisely who you side with.{/i}"
     "After a brief pause, he rights himself and takes off the mask with a bright smile."
     brian "How was that? I finally managed to remember most of my lines!"
     brian "Neil helped me practice." 
@@ -414,13 +490,40 @@ label hallway_start:
             brian "Thanks!"
         "You're supposed to stay in character.": 
             brian "Whoops! Sorry boss, I got excited."
+        "Did you forget to put the key back?":
+            brian "...yes."
+            brian "I'll put it back in the bookshelf later."
+    brian_s "I am your humble servant, if you are able to job my memory, perhaps I can help guide your way!"
     "Brian quickly jams the helmet back on his head. With a quick thunk, the light flickers back on, and he starts pretending to dust the furniture."
     jump hallway 
 
 label hallway: 
     call screen hallway
 
-label drawer: 
+label brian: 
+    "Brian perks up when you approach him."
+    brian "Something up, boss?"
+    you "Do you remember the hints?"
+    brian "Oh right! Yes I do! You want me to recite them?" 
+    menu: 
+        "Yes,":
+            jump servant_hints
+        "Not right now.":
+            brian "Alright, I'll be right here."
+            jump hallway 
+
+default servantHints = 0 
+
+label servant_hints: 
+    if servantHints ==0: 
+        brian "Alright, alright. *ahem*"
+        brian_s "{i}Are you stuck, dear guest? Fear not, while I do not know the exact location of the key, perhaps a look around the area will do you well?"
+    if servantHints == 1:
+        brian_s "Feel free to explore more of the mansion. The main hall is always available to you."
+
+default havePaper = False 
+
+label firstdrawer: 
     "You open the drawer. It opens smoothly. Until it gets halfway. Then it stops."
     "You try again. Nothing. It feels like the drawer's hit something solid."
     "Immediately, Brian comes over."
@@ -429,26 +532,126 @@ label drawer:
     ##Shake 
     "He grips the handle and tugs a little harder. It doesn't budge."
     brian "Maybe some paint got in the-Hang on."
+    "The drawer rattles ominously as he yanks harder. And yet still, it doesn't move." 
+    brian "COme onnnn-!"
+    "THUNK!"
+    "The drawer suddenly flies open, and Brian stumbles backwards. Eyes wide, limbs flailing, his back hits the opposite wall." 
+    "A vase falls over."
+    "There's a few things inside the second drawer. A piece of paper, and a small wooden clock with numbers on them."
+    menu: 
+        "Check the paper.":
+            "Dear His Most Illustrious Count Blud,"
+            "As you have requested, I have taken care to hide the key to the Blood Ruby in a secure place."
+            "I have hidden it within the hallways of our castle, and the code closeby."
+            "No one shall be able to REVERSE the curse you've casted on this place."
+            "Your most loyal servant, the Pumpkin."
+            "eerhT ytneveS derdnuH eviF dnasuohT ytnewT."
+        "Look at the clock.":
+            "The clock is just a shell. There isn't anything inside. Instead, some of the numbers on the front have small colored paint underneath them."
+            menu clockcheck: 
+                "Put down the clock.":
+                    "You put the clock back into the shelf."
+                "Inspect the clock.":
+                    "Underneath, you spot some clumsily carved words. MAIN HALL."
+                    jump clockcheck
     jump hallway 
+
+label mirror: 
+    "The mirror has been polished to an almost perfect shine and hung proudly."
+    menu: 
+        "Place the paper to the mirror?":
+            "You hold the paper to the mirror, and immediately you see words."
+            "Decoded, it writes:"
+            "Twenty Thousand Five Hundred Seventy Three."
+        "Leave.":
+            jump hallway 
+
+label drawer: 
+    "There is a small drawer shoved to the left wall with two shelves."
+    menu: 
+        "Try the top shelf.":
+            jump firstdrawer
+        "Try the lower shelf.":
+            jump seconddrawer 
+        "Leave.":
+            jump hallway 
 
 label bookcase: 
-    "Approaching the bookcase reveals obvious signs of most of the books being glued together. That was mostly to reduce cleanup, and because one time Neil did a spin and toppled every single book onto the floor."
-    
+    "Approaching the bookcase reveals obvious signs of most of the books being glued together. That was mostly to reduce cleanup, and because one time Brian bumped his elbow on the bookshelf and toppled every single book onto the floor. On top of him."
+    "It bulges conspicuously from the wall, and rails are fixed to the top and bottom of it."
+    "He was fine, thankfully."
+    "The floor on the other hand...It was good they were having a carpet sale at the depo."
+    menu: 
+        "Look at the bookcase closer.":
+            "Walking to the side, you spot a small keypad with numbers."
+            menu: 
+                "Try a code?":
+                    jump bookcase_code
+                "Leave the bookcase."
     jump hallway 
 
+label bookcase_code: 
+    python: 
+        bookcaseCode_try = renpy.input()
+        bookcaseCode_try = bookcaseCode_try.strip()
+        bookcaseCode_try = bookcaseCode_try.upper()
+    if bookcaseCode_try == bookcaseCode:
+        jump mainhall_End
+
+
 label hiddenCompartment: 
+    "The hidden compartment swings open." 
+    "It's a tiny little square hole, painted black with a small cushion where the key should have rested."
+    brian "Hold on, one sec-"
+    "Tink, goes the key back on the pillow."
+    menu: 
+        "Take the key.":
+            jump hallway
+        "Take the key while staring directly at Brian.":
+            "Brian stares back at you."
     jump hallway 
 
 label moonbox: 
+    "This case has a moon carefully painted on it, surrounded by stars. A large teardrop shaped hole sits in the front."
+    if hasGem: 
+        "Do you put the gem inside?":
+            menu: 
+                "Yes.":
+                    $ endRoute = "moon"
+                    "The gem fits perfectly into the hole, and after a little bit of fiddling, it settles inside."
+                    "You can feel under your fingertips something loosen. And the front lid opens easily."
+                    jump ballroom_start
+                "No":
+                    "You leave it alone."
+                    jump hallway 
+
     jump hallway 
-label sunbox: 
+label sunbox:
+    "A sun decorates this case, with squiggly rays against a dark sky. On the front lies a large teardrop shaped hole." 
+    if hasGem: 
+        "Do you put the gem inside?":
+            menu: 
+                "Yes.":
+                    $ endRoute = "sun"
+                    "The gem fits perfectly into the hole, and after a little bit of fiddling, it settles inside."
+                    "You can feel under your fingertips something loosen. And the front lid opens easily."
+                    jump ballroom_start
+                "No":
+                    "You leave it alone."
+                    jump hallway 
     jump hallway 
 
-label hallwaydoor: 
-    ""
-    jump ballroom_start
+label gemcase: 
+    jump hallway 
 
 label ballroom_start: 
+    "The box was empty."
+    "Wait, why...?"
+    "You stare at the empty box, the little pedestal where the 'relic' should be. Nothing."
+    "You look at Brian."
+    "He looks just as confused as you are. Which is even more worrying."
+    neil_v "MUAHAHAHAHAHAH~"
+    neil_v "FOOLS! DID YOU THINK I WOULD PUT MY RELICS OF POWER IN SUCH FLIMSY SECURITY!?"
     jump ballroom 
 
 label ballroom: 
@@ -456,9 +659,11 @@ label ballroom:
 
 
 label piano: 
+    "Red paint has been splattered against the keys, "
     jump ballroom 
 
-label banquetTable: 
+label banquetTable:
+
     jump ballroom 
 
 label pedestalSun: 
