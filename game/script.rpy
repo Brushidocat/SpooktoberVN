@@ -294,6 +294,7 @@ default chestisLocked = True
 default chestKey_try = ""
 default gargoyleisLocked = True 
 define gargoyleKey = {red, blue, green, red}
+default gargoyleKey_try = {}
 default tabletCollected = 0 
 
 label letter: 
@@ -448,6 +449,7 @@ label mainhall_End:
     you "You alright there?"
     neil "I-hrk! NO BREATH MINT CAN-gack-STOP ME! I SHALL RETUUUURN."
     megan "Open the door Neil."
+    "Silence."
     "The double doors unlock with an audible click. Then the PA system turned off."
     megan "See ya, Boss. Catch you after the break."
     jump hallway_start
@@ -518,8 +520,10 @@ label servant_hints:
     if servantHints ==0: 
         brian "Alright, alright. *ahem*"
         brian_s "{i}Are you stuck, dear guest? Fear not, while I do not know the exact location of the key, perhaps a look around the area will do you well?"
-    if servantHints == 1:
-        brian_s "Feel free to explore more of the mansion. The main hall is always available to you."
+    else if servantHints == 1:
+        brian_s "{i}Feel free to explore more of the mansion. The main hall is always available to you."
+    else if servantHints == 2: 
+        brian_s "{i} The master has a fondness for mirrors. Windows to the soul, he says. And yet, I've never gotten a glimpse of his reflection."
 
 default havePaper = False 
 
@@ -545,7 +549,7 @@ label firstdrawer:
             "I have hidden it within the hallways of our castle, and the code closeby."
             "No one shall be able to REVERSE the curse you've casted on this place."
             "Your most loyal servant, the Pumpkin."
-            "eerhT ytneveS derdnuH eviF dnasuohT ytnewT."
+            "PS. eerhT ytneveS derdnuH eviF dnasuohT ytnewT."
         "Look at the clock.":
             "The clock is just a shell. There isn't anything inside. Instead, some of the numbers on the front have small colored paint underneath them."
             menu clockcheck: 
@@ -597,6 +601,8 @@ label bookcase_code:
         bookcaseCode_try = bookcaseCode_try.upper()
     if bookcaseCode_try == bookcaseCode:
         jump mainhall_End
+    else: 
+        "There is a faint negative *beep* as you get the code wrong."
 
 
 label hiddenCompartment: 
@@ -609,6 +615,7 @@ label hiddenCompartment:
             jump hallway
         "Take the key while staring directly at Brian.":
             "Brian stares back at you."
+            brian "I realise now I could have just given it to you."
     jump hallway 
 
 label moonbox: 
@@ -652,6 +659,8 @@ label ballroom_start:
     "He looks just as confused as you are. Which is even more worrying."
     neil_v "MUAHAHAHAHAHAH~"
     neil_v "FOOLS! DID YOU THINK I WOULD PUT MY RELICS OF POWER IN SUCH FLIMSY SECURITY!?"
+    "Now Megan started wandering into the hallway. She looks mildly more annoyed than she usually did."
+    megan ""
     jump ballroom 
 
 label ballroom: 
