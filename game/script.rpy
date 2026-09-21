@@ -392,10 +392,10 @@ label mainhall_Doors:
     "Impressively thick and detailed, the doors stand in front of you."
     if mainhall_Doors: 
         "Right now, they are closed."
-        "Speak the incantation?"
         menu: 
-            "Yes."
-            "No"
+            "Speak the incantation.":
+                jump MainhallDoors_Code
+            "Leave it be for now."
 
 label MainhallDoors_Code: 
     python: 
@@ -404,6 +404,13 @@ label MainhallDoors_Code:
         mh_incantation_try = mh_incantation_try.upper()
     if mh_incantation_try == mh_incantation:
         jump mainhall_End
+    else: 
+        "You try the door, but it doesn't budge. Maybe you did it wrong?"
+        menu: 
+            "Try again.":
+                jump MainhallDoors_Code
+            "Leave.":
+                jump mainhall
         
 label table: 
     #TODO: Drag and Drop?
@@ -601,10 +608,11 @@ label bookcase:
     "It bulges conspicuously from the wall, and rails are fixed to the top and bottom of it."
     "He was fine, thankfully."
     "The floor on the other hand...It was good they were having a carpet sale at the depo."
+    "As you get closer to the bookcase, Brian immediately perks up and, doing his best to be inconspicuous, shuffles closer to you. He keeps glancing at it in intervals."
     menu: 
         "Look at the bookcase closer.":
             "Walking to the side, you spot a small keypad with numbers."
-            menu: 
+            menu tryBookcase: 
                 "Try a code?":
                     jump bookcase_code
                 "Leave the bookcase."
@@ -616,9 +624,13 @@ label bookcase_code:
         bookcaseCode_try = bookcaseCode_try.strip()
         bookcaseCode_try = bookcaseCode_try.upper()
     if bookcaseCode_try == bookcaseCode:
-        jump mainhall_End
+        jump hiddenCompartment
     else: 
         "There is a faint negative *beep* as you get the code wrong."
+        "Brian inches a little closer, opens his mouth, then closes it."
+        jump tryBookcase
+
+
 
 
 label hiddenCompartment: 
@@ -636,25 +648,21 @@ label hiddenCompartment:
 
 label moonbox: 
     "This case has a moon carefully painted on it, surrounded by stars. A large teardrop shaped hole sits in the front."
-    if hasGem: 
-        "Do you put the gem inside?":
-            menu: 
-                "Yes.":
-                    $ endRoute = "moon"
-                    "The gem fits perfectly into the hole, and after a little bit of fiddling, it settles inside."
-                    "You can feel under your fingertips something loosen. And the front lid opens easily."
-                    jump ballroom_start
-                "No":
-                    "You leave it alone."
-                    jump hallway 
+    menu: 
+        "Put the gem into the slot" if hasGem: 
+            $ endRoute = "moon"
+            "The gem fits perfectly into the hole, and after a little bit of fiddling, it settles inside."
+            "You can feel under your fingertips something loosen. And the front lid opens easily."
+            jump ballroom_start
+        "No":
+            "You leave it alone."
+            jump hallway 
 
     jump hallway 
 label sunbox:
     "A sun decorates this case, with squiggly rays against a dark sky. On the front lies a large teardrop shaped hole." 
-    if hasGem: 
-        "Do you put the gem inside?":
             menu: 
-                "Yes.":
+                "Put the gem in the slot?" if hasGem:
                     $ endRoute = "sun"
                     "The gem fits perfectly into the hole, and after a little bit of fiddling, it settles inside."
                     "You can feel under your fingertips something loosen. And the front lid opens easily."
@@ -673,14 +681,33 @@ label ballroom_start:
     "You stare at the empty box, the little pedestal where the 'relic' should be. Nothing."
     "You look at Brian."
     "He looks just as confused as you are. Which is even more worrying."
+    brian "I know I put it in there, honest!"
     neil_v "MUAHAHAHAHAHAH~"
     neil_v "FOOLS! DID YOU THINK I WOULD PUT MY RELICS OF POWER IN SUCH FLIMSY SECURITY!?"
-    "Now Megan started wandering into the hallway. She looks mildly more annoyed than she usually did."
-    megan ""
+    "Megan wandered into the hallway. Her eyes immediately lock onto the empty case."
+    megan "Seriously?"
+    "She looks mildly more annoyed than she usually does."
+    megan "What is he doing this time?"
+    brian "I don't know! Um-He said something about wanting to talk to the Boss about adding something before the runthrough." 
+    brian "But since the Boss was late, I thought he just forgot about it!"
+    megan "What exactly did he say?"
+    brian "Uh-a boss fight?"
+    "Both you and Megan slowly turn to Brian incredulously. Even he seems to realise what he just said."
+    megan "A boss fight? In an escape room?"
+    neil_v "IF YOU WISH TO VANQUISH ME, COME TO THE BALLROOM! WHERE WE SHALL HAVE A BATTLE FOR THE AGESSS!"
+
+
+    
+
+
+
+    
     jump ballroom 
 
 label ballroom: 
     call screen ballroom 
+
+label 
 
 
 label piano: 
