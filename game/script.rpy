@@ -293,7 +293,7 @@ define chestKey = "urem"
 default chestisLocked = True 
 default chestKey_try = ""
 default gargoyleisLocked = True 
-define gargoyleKey = {red, blue, green, red}
+define gargoyleKey = {"red", "blue", "blue"}
 default gargoyleKey_try = {}
 default tabletCollected = 0 
 
@@ -308,7 +308,7 @@ label letter:
 label chest: 
     "There's a large chest. It's been rather roughly painted gold, but the material is genuine wood."
     if chestisLocked == True: 
-        "There's a large lock keeping the chest shut."
+        "There's a large lock keeping the chest shut. It's one of those word-based locks, with four turning dials."
         "Try the code?"
         menu: 
             "Yes.":
@@ -348,7 +348,11 @@ label paintings:
     "A row of paintings."
     menu: 
         "Look at the first painting.": 
-            "It's "
+            "It's a picture of a desolate landscape with a red moon."
+        "Look at the second painting.": 
+            "Here is a regal portrait of a garden filled with red roses, "
+        "Look at the third painting.": 
+            "A portrait of an extremely pale man. He wears a red brooch, a black cape, and has a white dagger in his hands."
     return 
 
 label gargoyle: 
@@ -363,8 +367,20 @@ label gargoyle:
         "Leave.": 
             jump mainhall 
 
+define codenumber = 0 
+
 label gargoyle_code: 
-    ""
+    if codenumber > 0: 
+        menu: 
+            "Press the red button.": 
+                $ gargoyleKey_try = gargoyleKey_try.append(red)
+
+            "Press the blue button.":
+
+            "Press the green button.":
+    else if gargoyleKey == gargoyleKey_try:
+        "The tablet loosens from the gargoyle's grip. You take it out easily."
+
 label carpet: 
     jump mainhall 
 
