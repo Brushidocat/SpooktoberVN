@@ -338,6 +338,7 @@ label chest_code:
         menu: 
             "Leave?":
                 "You leave the chest alone for now."
+                jump hallway
             "Try again":
                 jump chest_code
     
@@ -346,13 +347,18 @@ label chest_code:
 label paintings:
     ##TODO: Make this an imagemap? 
     "A row of paintings."
-    menu: 
+    menu paintings: 
         "Look at the first painting.": 
-            "It's a picture of a desolate landscape with a red moon."
+            "It's a picture of a desolate landscape with a red moon, a dark blue mountain in the background, and a "
+            jump paintings 
         "Look at the second painting.": 
-            "Here is a regal portrait of a garden filled with red roses, "
+            "Here is a regal portrait of a garden filled with white roses, "
+            jump paintings
         "Look at the third painting.": 
             "A portrait of an extremely pale man. He wears a red brooch, a black cape, and has a white dagger in his hands."
+            jump paintings 
+        "Go back.":
+            jump mainhall 
     return 
 
 label gargoyle: 
@@ -395,7 +401,8 @@ label mainhall_Doors:
         menu: 
             "Speak the incantation.":
                 jump MainhallDoors_Code
-            "Leave it be for now."
+            "Leave it be for now.":
+                jump mainhall 
 
 label MainhallDoors_Code: 
     python: 
@@ -695,13 +702,28 @@ label ballroom_start:
     "Both you and Megan slowly turn to Brian incredulously. Even he seems to realise what he just said."
     megan "A boss fight? In an escape room?"
     neil_v "IF YOU WISH TO VANQUISH ME, COME TO THE BALLROOM! WHERE WE SHALL HAVE A BATTLE FOR THE AGESSS!"
+    "Obviously, physically fighting the vampire was not part of the game. You had no idea how he'd planned this, or even if there was a plan."
+    you "Megan, can you try and find him?"
+    "Megan nodded, and glided to the staff door at the other end of the hallway."
+    "You weren't sure what you'd find on the other side of the door. But there really was only one way to find out."
+    brian "What-what should I do, boss?"
+    you "Come with me, might need your help with some of this."
+    "Nothing."
+    "The ballroom wasn't that large, there weren't many places for Neil to hide." 
 
+    "MMMmph! MMMPH!!"
+    "Except one."
 
-    
-
-
-
-    
+    "The coffin. It was actually a door to the staff room, connected by a short tube."
+    "*Thunk!* *Thunk!*"
+    "Something was hitting the lid of the wood."
+    neil "Help! I'm stuck!!"
+    "Well that's...anticlimatic."
+    "Looks like you have a stuck vampire on your hands."
+    "Even if you had the heart to leave him in there, the props he had were the main part of the escape room! You didn't have enough time to change it."
+    "The question wasn't whether you should. The question was..."
+    menu: 
+        "How?"
     jump ballroom 
 
 label ballroom: 
