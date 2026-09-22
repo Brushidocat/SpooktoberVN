@@ -495,8 +495,8 @@ default endRoute = ""
     
 
 label hallway_start: 
-    "Long and thin, the hallway stretches out in front of you. The door on the other side was flanked by two large boxes. One yellow, one blue. And there, standing on the side of the room trying to right a chair, was a long, lanky figure."
-    "His pumpkin mask glows faintly like the fake torches in the banisters. His cheap suit is slightly wrinkled."
+    "The long, thin hallway stretches out far in front of you. The door on the other side was flanked by two large boxes. One yellow, one blue. And there, standing on the side of the room trying to right a chair, was a long, lanky figure."
+    "His pumpkin mask eyes glow with an eerie light, and his suit is slightly wrinkled."
     brian "Hey boss! Er-Oh, sorry. One sec." 
     "He finally turns the chair upright, then straightens his back."
     brian_s "{i}Ah! Another guest for the master?"
@@ -511,7 +511,7 @@ label hallway_start:
     "He gestures behind you, where a large glass gem resides inside a glass case." 
     "Underneath, in large industrial text, was the phrase: DO NOT BREAK!"
     brian_s "{i}I would open the case itself, but avast-alas, I have no way to open it myself!"
-    "Something falls out of his pocket. A thick, heaavy looking key that looks like ti would perfectly fit the lock on the glass case. He pauses, unblinking, looks down, then looks back up. Then lunges for the key and shoves it into his pocket."
+    "Something falls out of his pocket. A thick, heaavy looking key that looks like it would perfectly fit the lock on the glass case. He pauses, unblinking, looks down, then looks back up. Then lunges for the key and shoves it into his pocket."
     brian_s "{i}P-perhaps you can find it? Remember though, the Ruby can only be used once! Choose wisely who you side with.{/i}"
     "After a brief pause, he rights himself and takes off the mask with a bright smile."
     brian "How was that? I finally managed to remember most of my lines!"
@@ -581,15 +581,18 @@ label firstdrawer:
             "No one shall be able to REVERSE the curse you've casted on this place."
             "Your most loyal servant, the Pumpkin."
             "PS. eerhT ytneveS derdnuH eviF dnasuohT ytnewT."
+    jump hallway 
+label seconddrawer:
+    menu: 
         "Look at the clock.":
             "The clock is just a shell. There isn't anything inside. Instead, some of the numbers on the front have small colored paint underneath them."
             menu clockcheck: 
                 "Put down the clock.":
                     "You put the clock back into the shelf."
+                    jump drawer 
                 "Inspect the clock.":
                     "Underneath, you spot some clumsily carved words. MAIN HALL."
                     jump clockcheck
-    jump hallway 
 
 label mirror: 
     "The mirror has been polished to an almost perfect shine and hung proudly."
@@ -622,6 +625,7 @@ label bookcase:
             "Walking to the side, you spot a small keypad with numbers."
             menu tryBookcase: 
                 "Try a code?":
+                    "Brian gets even closer as you start pressing buttons."
                     jump bookcase_code
                 "Leave the bookcase."
     jump hallway 
@@ -681,6 +685,25 @@ label sunbox:
     jump hallway 
 
 label gemcase: 
+    "The gem lies inside large thick glass, nestled comfortably in a small platform. It glitters brilliantly under the warm light."
+    "And of course, there was the large, bright red sign hanging above it. DO. NOT. BREAK!"
+    "It almost completely fills your vision."
+    menu: 
+        "Break the glass.":
+            brian "Hey what are you doing with that vase-"
+            "SMASH!"
+            "..."
+            #Black
+            "Not only did you break your own set, you even managed to cut your hand."
+            "You had no choice but to delay the opening of your new escape room."
+            "Lock n Key studios closed down not a month later."
+            menu: 
+                "End Game?":
+                    return
+                "Rethink your choices?":
+                    jump gemcase
+        "Use the key" if haveKey: 
+        "Leave the case.":
     jump hallway 
 
 label ballroom_start: 
@@ -715,7 +738,7 @@ label ballroom_start:
     ##Show ballroom 
 
     "Nothing."
-    "The ballroom wasn't that large, there weren't many places for Neil to hide." 
+    "Despite it's grand name, the ballroom wasn't actually that large, there weren't many places for Neil to hide." 
 
     "MMMmph! MMMPH!!"
     "Except one."
@@ -747,16 +770,23 @@ label megan_ballroom:
     megan "All I had to do was think 'what would an idiotic theatre kid do to get into his role'?" 
     megan "Plus I could hear him in the hallways."
     megan "How much oxygen do you think he's used already?"
-    you "It's not airtight."
-    megan "Ah, right. You should probably make sure Brian doesn't try to use the vents to get to Neil."
+    you "It's not airtight, there's vents."
+    megan "Ah, right. You should probably make sure Brian doesn't try to use them to get to Neil."
+    you "Because he'll get stuck?"
+    megan "Because he'll get stuck."
 
 
 label piano: 
     "Red paint has been splattered against the keys, "
     jump ballroom 
 
-label banquetTable:
+define banquetTableKey = {}
+default banquetTable_Try = {}
+default bloodLevel = 0 
 
+label banquetTable:
+    menu: 
+        "Add"
     jump ballroom 
 
 label pedestalSun: 
@@ -764,7 +794,14 @@ label pedestalSun:
 label pedestalMoon: 
     jump ballroom 
 
-
+label pedestalBlood: 
+    if bloodLevel = 0: 
+        "The granite bowl is bone dry."
+    else if bloodLevel = 1: 
+        "There's a thin layer of dark red liquid in the bowl."
+    else if bloodLevel = 2: 
+        "There is more liquid inside the bowl than before. Thick and viscous, it looks likes you just need a little more to fill the bowl."
+    jump ballroom 
 
 
 
