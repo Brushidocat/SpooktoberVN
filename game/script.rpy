@@ -570,7 +570,8 @@ label firstdrawer:
     brian "COme onnnn-!"
     "THUNK!"
     "The drawer suddenly flies open, and Brian stumbles backwards. Eyes wide, limbs flailing, his back hits the opposite wall." 
-    "A vase falls over."
+    megan "Did Brian fall again?"
+    brian "I'm fine!"
     "There's a few things inside the second drawer. A piece of paper, and a small wooden clock with numbers on them."
     menu: 
         "Check the paper.":
@@ -705,9 +706,14 @@ label ballroom_start:
     "Obviously, physically fighting the vampire was not part of the game. You had no idea how he'd planned this, or even if there was a plan."
     you "Megan, can you try and find him?"
     "Megan nodded, and glided to the staff door at the other end of the hallway."
-    "You weren't sure what you'd find on the other side of the door. But there really was only one way to find out."
+    "Brian took a few steps towards where Megan left, paused, then turned to you with wide, panicking eyes."
     brian "What-what should I do, boss?"
-    you "Come with me, might need your help with some of this."
+    you "Come with me." 
+    "Brian gives you a short, quick nod. Tapping his feet nervously as your hand clasped the painted gold handle and pulled." 
+    "You couldn't blame him. You weren't sure what you'd find on the other side of the door either. But there really was only one way to find out."
+    "The door opens smoothly."
+    ##Show ballroom 
+
     "Nothing."
     "The ballroom wasn't that large, there weren't many places for Neil to hide." 
 
@@ -719,6 +725,9 @@ label ballroom_start:
     "Something was hitting the lid of the wood."
     neil "Help! I'm stuck!!"
     "Well that's...anticlimatic."
+    "Brian immediately ran to the coffin and started trying to pry the lid open with his fingers."
+    brian "Neil, open the door!"
+    neil "I can't!"
     "Looks like you have a stuck vampire on your hands."
     "Even if you had the heart to leave him in there, the props he had were the main part of the escape room! You didn't have enough time to change it."
     "The question wasn't whether you should. The question was..."
@@ -729,7 +738,17 @@ label ballroom_start:
 label ballroom: 
     call screen ballroom 
 
-label 
+label megan_ballroom: 
+    "Megan arrived barely five minutes later, arms folded."
+    megan "So Neil's really stuck? Damn." 
+    megan "He's really getting into the role now."
+    you "You saw it?" 
+    megan "He set his walkie-talkie against the mic."
+    megan "All I had to do was think 'what would an idiotic theatre kid do to get into his role'?" 
+    megan "Plus I could hear him in the hallways."
+    megan "How much oxygen do you think he's used already?"
+    you "It's not airtight."
+    megan "Ah, right. You should probably make sure Brian doesn't try to use the vents to get to Neil."
 
 
 label piano: 
