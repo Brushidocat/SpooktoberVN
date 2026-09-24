@@ -22,7 +22,7 @@ screen the_img(img):
 
 screen hallway(): 
     imagemap: 
-        ground "images/mainhall.jpg" at parallax_shift(z_pos=0.6, sprite = False)
+        ground "images/hallway.jpg" at parallax_shift(z_pos=0.6, sprite = False)
         ## Drawer 
         ## Sun box 
         ## Moon Box 
@@ -33,7 +33,7 @@ screen hallway():
 
 screen ballroom():
     imagemap:
-        ground "images/mainhall.jpg" at parallax_shift(z_pos=0.6, sprite = False)
+        ground "images/ballroom.jpg" at parallax_shift(z_pos=0.6, sprite = False)
         ##Piano 
         ##banquettable 
         ##shoutyman 

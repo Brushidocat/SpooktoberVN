@@ -46,7 +46,8 @@ label start:
 
     "Up the stairs, turn right, turn right, keep going past the three beauty salons and one comic shop, and there you were."
     
-    "Your pride and joy. A rather nondescript storefront, painted black. It currently looked like it had been thrown up by the ghost of Spirit Halloween, thanks to the mall decorators."
+    "Your pride and joy. A rather nondescript storefront, painted black, with no windows and a few framed posters on the wall."
+    "It currently looked like it had been thrown up by the ghost of Spirit Halloween, thanks to the mall decorators. Cheap bat banners 'borrowed' from the Spirit Halloween, cobwebs made of cheap nylon, and a couple of limp green streamers."
 
     "Above was a large sign, in neon and had taken almost half of your budget. {b}{color=[green]} LOCK&KEY ESCAPE ROOMS.{/color}{/b}"
 
@@ -68,7 +69,7 @@ label start:
     
     "You would have to either delay the opening of the Halloween Themed Escape Room to the day AFTER the biggest Halloween event of the year, or open it and face the possibility of an angry mob should something go horribly wrong."
 
-    "A full year of begging for funds, planning, designing, hiring, and dealing with a particularly disoriented safety inspector, down the drain."
+    "A full year of begging for funds, planning, designing, hiring, and dealing with a particularly hungry safety inspector, down the drain."
     
     "Your lease would be gone, and your store would probably join the row of pastels."
 
@@ -143,7 +144,7 @@ label start:
         "Don't make her say the thing.":
             player_m "It's alright. I'll be doing it anyway."
             "Megan gives you a nod."
-        "It is the final runthrough.":
+        "It {i}is{/i} the final runthrough.":
             megan "Not really part of my job description."
             player_m "It's in case something happens, I'll give you a raise."
             "Megan takes a big sigh."
@@ -639,7 +640,8 @@ label bookcase_code:
         jump hiddenCompartment
     else: 
         "There is a faint negative *beep* as you get the code wrong."
-        "Brian inches a little closer, opens his mouth, then closes it."
+        brian "D'oh!"
+        "...You were going to give Brian a cookie later."
         jump tryBookcase
 
 
@@ -703,6 +705,7 @@ label gemcase:
                 "Rethink your choices?":
                     jump gemcase
         "Use the key" if haveKey: 
+            ""
         "Leave the case.":
     jump hallway 
 
@@ -728,17 +731,26 @@ label ballroom_start:
     neil_v "IF YOU WISH TO VANQUISH ME, COME TO THE BALLROOM! WHERE WE SHALL HAVE A BATTLE FOR THE AGESSS!"
     "Obviously, physically fighting the vampire was not part of the game. You had no idea how he'd planned this, or even if there was a plan."
     you "Megan, can you try and find him?"
-    "Megan nodded, and glided to the staff door at the other end of the hallway."
-    "Brian took a few steps towards where Megan left, paused, then turned to you with wide, panicking eyes."
-    brian "What-what should I do, boss?"
+    "Megan nodded, and glided to the staff door at the other end of the hallway." 
+    megan "It's locked."
+    "Damn it."
+    you "Try the other entrance, around the back."
+    "Megan groaned, but obeyed. Her tattered wedding trailed fluttered as she disappeared through the main hall."
+    "Meanwhile, Brian was pacing in tight little circles."
+    brian "What-what do we do, boss?"
     you "Come with me." 
-    "Brian gives you a short, quick nod. Tapping his feet nervously as your hand clasped the painted gold handle and pulled." 
+    "Brian gives you a short, quick nod. His feet nervously tapped against the ground as your hand clasped the painted gold handle." 
     "You couldn't blame him. You weren't sure what you'd find on the other side of the door either. But there really was only one way to find out."
-    "The door opens smoothly."
+    "The door opens smoothly, the air pressure changed, and the temperature dropped a degree."
+    "Both you and Brian stepped through the threshold and...."
     ##Show ballroom 
 
     "Nothing."
     "Despite it's grand name, the ballroom wasn't actually that large, there weren't many places for Neil to hide." 
+    brian "Wh-where is he?"
+    "There was a tremor in Brian's voice as he tiptoed across the fake marble tiles."
+    "THUNK!"
+    "B"
 
     "MMMmph! MMMPH!!"
     "Except one."
@@ -751,8 +763,12 @@ label ballroom_start:
     "Brian immediately ran to the coffin and started trying to pry the lid open with his fingers."
     brian "Neil, open the door!"
     neil "I can't!"
+    you "Neil, there's an emergency unlock in the staff room, Megan's heading there. She can let you out."
+    "The thumping stops."
+    you "Neil. Did you lock both doors to the staff room?"
     "Looks like you have a stuck vampire on your hands."
     "Even if you had the heart to leave him in there, the props he had were the main part of the escape room! You didn't have enough time to change it."
+    "You could call the fire department to get him out, "
     "The question wasn't whether you should. The question was..."
     menu: 
         "How?"
@@ -774,10 +790,19 @@ label megan_ballroom:
     megan "Ah, right. You should probably make sure Brian doesn't try to use them to get to Neil."
     you "Because he'll get stuck?"
     megan "Because he'll get stuck."
+    "Megan takes out her phone."
+    megan "Say the word, and I'll get the fire truck here. Maybe the police, if you want."
+    "It was definitely the most sensible solution. Neil had definitely messed with company property"
+    "But..."
+    "Megan seems to sense your hesitation."
+    megan "Look, I don't particularly care about escape rooms or this company or whatever. Or Neil." 
+    megan "But I want to get paid."
 
+label brian_ballroom: 
+    brian "Hey Boss!"
 
 label piano: 
-    "Red paint has been splattered against the keys, "
+    "Red paint has been splattered against the keys."
     jump ballroom 
 
 define banquetTableKey = {}
@@ -795,12 +820,14 @@ label pedestalMoon:
     jump ballroom 
 
 label pedestalBlood: 
-    if bloodLevel = 0: 
+    if bloodLevel == 0: 
         "The granite bowl is bone dry."
-    else if bloodLevel = 1: 
+    else if bloodLevel == 1: 
         "There's a thin layer of dark red liquid in the bowl."
-    else if bloodLevel = 2: 
+    else if bloodLevel == 2: 
         "There is more liquid inside the bowl than before. Thick and viscous, it looks likes you just need a little more to fill the bowl."
+    else if bloodLevel == 3: 
+        "The blood level is full, and burbling too, the hidden pipe was now spewing little compressed air bubbles under the liquid."
     jump ballroom 
 
 
@@ -808,4 +835,5 @@ label pedestalBlood:
 
 
 label end: 
+    "With the final "
     return 
