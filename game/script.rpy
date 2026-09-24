@@ -214,7 +214,7 @@ label start:
 
     "The walkie-talkie in Megan's hands crackled, and another, more apologetic voice trickled in."
 
-    brian "I think I tripped over them while I was walking in."
+    brian "I think I tripped over a cable while I was walking in."
 
     brian "Sorry!"
 
@@ -231,8 +231,6 @@ label start:
     "Letter in hand, you turn towards the door."
 
     "Click!"
-    
-    $ spooky = True 
 
     player_m "Neil?"
 
@@ -323,11 +321,12 @@ label chest_code:
         chestKey_try = chestKey_try.strip()
         chestKey_try = chestKey_try.upper()
     if chestKey_Attmpet == chestKey: 
-        "The lock clicks open and you put it to the side."
+        "The lock becomes heavier under your fingers as the lock loosens. You put it to the side."
         menu: 
             "Open the chest.":
                 "Using two hands, you push the lid open."
-                "Inside is barren, only a broken piece of tablet lays at the bottom."
+                "Inside the chest lays a broken piece of tablet lays at the bottom."
+                $ tabletCollected += 1
                 menu: 
                     "Take the tablet.":
                         "It is cool underneath your fingertips."
@@ -350,10 +349,10 @@ label paintings:
     "A row of paintings."
     menu paintings: 
         "Look at the first painting.": 
-            "It's a picture of a desolate landscape with a red moon, a dark blue mountain in the background, and a "
+            "It's a picture of a desolate landscape with a red moon, a dark blue mountain in the background, and a dark night sky with yellow stars."
             jump paintings 
         "Look at the second painting.": 
-            "Here is a regal portrait of a garden filled with white roses, "
+            "Here is a regal portrait of a garden filled with red roses, white lilies, and purple wolfsbane."
             jump paintings
         "Look at the third painting.": 
             "A portrait of an extremely pale man. He wears a red brooch, a black cape, and has a white dagger in his hands."
@@ -367,10 +366,14 @@ label gargoyle:
     "You made it yourself using paper-mache and some stuff you salvaged."
     "With a curved beak, large wings, and hooked claws, it was suitably an impressive piece. You based it on a certain cartoon you watched as a kid."
     if gargoyleisLocked == True: 
-        "There's something in it's jaws, you can't see it from here though."
-    menu: 
+        "There's something in it's jaws, a section of a stone tablet."
+    menu gargoylecheck: 
         "Check the base.":
-            "Below the gargoyle, is a row of buttons with colored images on them."
+            "Below the gargoyle, is a row of buttons with images on them."
+            "From right to left, was an engraving of a moon, a lily, and a gem."
+            jump gargoylecheck
+        "Try a code.":
+            jump gargoyle_code
         "Leave.": 
             jump mainhall 
 
@@ -387,6 +390,8 @@ label gargoyle_code:
             "Press the green button.":
     else if gargoyleKey == gargoyleKey_try:
         "The tablet loosens from the gargoyle's grip. You take it out easily."
+        $ tabletCollected += 1 
+        jump mainhall 
 
 label carpet: 
     jump mainhall 
@@ -540,6 +545,8 @@ label brian:
     brian "Oh right! Yes I do! You want me to recite them?" 
     menu: 
         "Yes,":
+            you "Remember, keep your head straight. Don't give them too much help."
+            brian "Got it!"
             jump servant_hints
         "Not right now.":
             brian "Alright, I'll be right here."
@@ -549,12 +556,15 @@ default servantHints = 0
 
 label servant_hints: 
     if servantHints ==0: 
+        "Brian's head twitches towards the drawer before he realises it."
         brian "Alright, alright. *ahem*"
         brian_s "{i}Are you stuck, dear guest? Fear not, while I do not know the exact location of the key, perhaps a look around the area will do you well?"
-    else if servantHints == 1:
-        brian_s "{i}Feel free to explore more of the mansion. The main hall is always available to you."
-    else if servantHints == 2: 
+    else if servantHints == 2:
+        brian_s "{i}Feel free to explore more of the mansion."
+        "You catch his eyes flick towards "
+    else if servantHints == 1: 
         brian_s "{i} The master has a fondness for mirrors. Windows to the soul, he says. And yet, I've never gotten a glimpse of his reflection."
+    jump hallway 
 
 default havePaper = False 
 
@@ -575,13 +585,19 @@ label firstdrawer:
     brian "I'm fine!"
     "There's a few things inside the second drawer. A piece of paper, and a small wooden clock with numbers on them."
     menu: 
-        "Check the paper.":
+        "Check the paper." if not havePaper:
             "Dear His Most Illustrious Count Blud,"
             "As you have requested, I have taken care to hide the key to the Blood Ruby in a secure place."
             "I have hidden it within the hallways of our castle, and the code closeby."
             "No one shall be able to REVERSE the curse you've casted on this place."
             "Your most loyal servant, the Pumpkin."
             "PS. eerhT ytneveS derdnuH eviF dnasuohT ytnewT."
+            menu: 
+                "Take the paper.":
+                    $ havePaper == True 
+                    jump hallway 
+                "Leave it in the drawer.":
+                    jump hallway 
     jump hallway 
 label seconddrawer:
     menu: 
@@ -597,11 +613,12 @@ label seconddrawer:
 
 label mirror: 
     "The mirror has been polished to an almost perfect shine and hung proudly."
-    menu: 
-        "Place the paper to the mirror?":
+    menu mirrorchoice: 
+        "Place the paper to the mirror?" if havePaper:
             "You hold the paper to the mirror, and immediately you see words."
             "Decoded, it writes:"
             "Twenty Thousand Five Hundred Seventy Three."
+            jump mirrorchoice
         "Leave.":
             jump hallway 
 
@@ -617,7 +634,6 @@ label drawer:
 
 label bookcase: 
     "Approaching the bookcase reveals obvious signs of most of the books being glued together. That was mostly to reduce cleanup, and because one time Brian bumped his elbow on the bookshelf and toppled every single book onto the floor. On top of him."
-    "It bulges conspicuously from the wall, and rails are fixed to the top and bottom of it."
     "He was fine, thankfully."
     "The floor on the other hand...It was good they were having a carpet sale at the depo."
     "As you get closer to the bookcase, Brian immediately perks up and, doing his best to be inconspicuous, shuffles closer to you. He keeps glancing at it in intervals."
@@ -746,16 +762,16 @@ label ballroom_start:
     ##Show ballroom 
 
     "Nothing."
-    "Despite it's grand name, the ballroom wasn't actually that large, there weren't many places for Neil to hide." 
     brian "Wh-where is he?"
     "There was a tremor in Brian's voice as he tiptoed across the fake marble tiles."
     "THUNK!"
-    "B"
-
+    "Brian actually shrieks and jumps a foot in the air."
+    "THUNK THUNK!"
+    "Despite it's grand name, the ballroom wasn't actually that large, there weren't many places for Neil to hide." 
     "MMMmph! MMMPH!!"
     "Except one."
-
-    "The coffin. It was actually a door to the staff room, connected by a short tube."
+    "The coffin. Originally, once the puzzle was complete, Neil was meant to open the door to 'confront' the players, then depending on whether they used the Sun Lantern or the Moon dagger, they would be lead to two different endings."
+    "It connected straight into a smaller room, where Neil could wait."
     "*Thunk!* *Thunk!*"
     "Something was hitting the lid of the wood."
     neil "Help! I'm stuck!!"
@@ -764,8 +780,11 @@ label ballroom_start:
     brian "Neil, open the door!"
     neil "I can't!"
     you "Neil, there's an emergency unlock in the staff room, Megan's heading there. She can let you out."
-    "The thumping stops."
+    "The thumping stops. Too abruptly." 
+    neil "..."
+    "Your stomach sinks into your gut."
     you "Neil. Did you lock both doors to the staff room?"
+    neil "Yeah."
     "Looks like you have a stuck vampire on your hands."
     "Even if you had the heart to leave him in there, the props he had were the main part of the escape room! You didn't have enough time to change it."
     "You could call the fire department to get him out, "
@@ -781,10 +800,6 @@ label megan_ballroom:
     "Megan arrived barely five minutes later, arms folded."
     megan "So Neil's really stuck? Damn." 
     megan "He's really getting into the role now."
-    you "You saw it?" 
-    megan "He set his walkie-talkie against the mic."
-    megan "All I had to do was think 'what would an idiotic theatre kid do to get into his role'?" 
-    megan "Plus I could hear him in the hallways."
     megan "How much oxygen do you think he's used already?"
     you "It's not airtight, there's vents."
     megan "Ah, right. You should probably make sure Brian doesn't try to use them to get to Neil."
@@ -795,8 +810,11 @@ label megan_ballroom:
     "It was definitely the most sensible solution. Neil had definitely messed with company property"
     "But..."
     "Megan seems to sense your hesitation."
-    megan "Look, I don't particularly care about escape rooms or this company or whatever. Or Neil." 
-    megan "But I want to get paid."
+    megan "Look, I don't particularly care about escape rooms or this company or whatever." 
+    megan "But I want to get paid. And I know what'll happen to this place if the trucks come. The mall will cut this place like a tumor."
+    megan "So it's your call."
+    you "Thanks, Megan. I'll keep it in mind." 
+    jump ballroom
 
 label brian_ballroom: 
     brian "Hey Boss!"
@@ -805,13 +823,16 @@ label piano:
     "Red paint has been splattered against the keys."
     jump ballroom 
 
-define banquetTableKey = {}
+define banquetTableKey = {"eye", "fingers", "fruit", "flower"}
 default banquetTable_Try = {}
 default bloodLevel = 0 
 
 label banquetTable:
+    "There's a huge array of fake food and body parts on the table. A veritable horror-feast, if you could stomach plaster in your teeth."
+    "There are ears, fingers, flowers, and even a large plaster heart on a dish."
     menu: 
-        "Add"
+        "Add eye.":
+        "Finish":
     jump ballroom 
 
 label pedestalSun: 
@@ -821,7 +842,7 @@ label pedestalMoon:
 
 label pedestalBlood: 
     if bloodLevel == 0: 
-        "The granite bowl is bone dry."
+        "The granite bowl is bone dry. You see the tiniest little spout at the base of the bowl."
     else if bloodLevel == 1: 
         "There's a thin layer of dark red liquid in the bowl."
     else if bloodLevel == 2: 
