@@ -10,7 +10,7 @@
 
 ## window_background = Image("gui/textbox.png", xalign = 0.5, yalign = 1.0)
 
-define player = Character("You")
+define you = Character("You")
 define player_m = Character ("You", window_background="mall_gui/textbox.png")
 define megan = Character("Megan", window_background="mall_gui/textbox.png")
 define brian = Character("Brian", window_background="mall_gui/textbox.png")
@@ -33,12 +33,6 @@ label start:
     # Show a background. This uses a placeholder by default, but you can
     # add a file (named either "bg room.png" or "bg room.jpg") to the
     # images directory to show it.
-
-    menu: 
-        "ChestCode":
-            jump chest_code
-        ""
-
 
     scene shops_closed
 
@@ -95,11 +89,11 @@ label start:
 
     "Huh? What was that odd glow in the corner?" 
 
-    show megan default 
+    show megan phone
 
     "Her pale face looked even more ghastly backlit by her phone screen. Her eyes and cheeks, smudged using dollar store makeup, looked even more sunken and hollow. To complete the effect was her wild hair and tattered white dress."
     
-    "Unfortunatley, the bored, half-lidded expression she had on ruined the effect quite badly."
+    "Unfortunately, the bored, half-lidded expression she had on ruined the effect quite badly."
 
     player_m "Megan?"
 
@@ -247,7 +241,7 @@ label start:
 
 label mainhall_start: 
     scene mainhall 
-    play music monster musuem fadein 0.5
+    play music monster_musuem fadein 0.5
     "Soft, flickering light greeted you through the door. On cue, the music started from various hidden bluetooth speakers."
 
     megan "'scuse."
@@ -311,7 +305,7 @@ label chest:
         "Try the code?"
         menu: 
             "Yes.":
-                jump chest_code: 
+                jump chest_code
             "No":
                 jump mainhall 
 
@@ -342,20 +336,31 @@ label chest_code:
             "Try again":
                 jump chest_code
     
+default hascheckedPainting = False 
                 
 
 label paintings:
     ##TODO: Make this an imagemap? 
     "A row of paintings."
-    menu paintings: 
+    menu: 
         "Look at the first painting.": 
             "It's a picture of a desolate landscape with a red moon, a dark blue mountain in the background, and a dark night sky with yellow stars."
+            menu: 
+                "Check behind the painting?":
+                    "With careful hands, you flip the landscape over, but you see nothing."
             jump paintings 
         "Look at the second painting.": 
-            "Here is a regal portrait of a garden filled with red roses, white lilies, and purple wolfsbane."
+            "Here is a regal garden filled with red roses, white lilies, and purple wolfsbane."
+            menu: 
+                "Check behind the painting?":
+                    "You turn it over, but find nothing."
             jump paintings
         "Look at the third painting.": 
             "A portrait of an extremely pale man. He wears a red brooch, a black cape, and has a white dagger in his hands."
+            menu: 
+                "Check the painting?":
+                    "Oh! You found something! A  tablet piece, cold and smooth."
+                    $ tabletCollected += 1
             jump paintings 
         "Go back.":
             jump mainhall 
@@ -367,11 +372,11 @@ label gargoyle:
     "With a curved beak, large wings, and hooked claws, it was suitably an impressive piece. You based it on a certain cartoon you watched as a kid."
     if gargoyleisLocked == True: 
         "There's something in it's jaws, a section of a stone tablet."
-    menu gargoylecheck: 
+    menu gargoylelook: 
         "Check the base.":
             "Below the gargoyle, is a row of buttons with images on them."
             "From right to left, was an engraving of a moon, a lily, and a gem."
-            jump gargoylecheck
+            jump gargoylelook
         "Try a code.":
             jump gargoyle_code
         "Leave.": 
@@ -380,24 +385,46 @@ label gargoyle:
 define codenumber = 0 
 
 label gargoyle_code: 
-    if codenumber > 0: 
-        menu: 
-            "Press the red button.": 
-                $ gargoyleKey_try = gargoyleKey_try.append(red)
+    menu: 
+        "Press the red button.": 
+            $ gargoyleKey_try = gargoyleKey_try.append("red")
+            $ codenumber += 1 
+            if codenumber ==3: 
+                jump gargoylecheck
+            else: 
+                jump gargoyle_code
 
-            "Press the blue button.":
+        "Press the blue button.":
+            $ gargoyleKey_try = gargoyleKey_try.append("blue")
+            $ codenumber += 1 
+            if codenumber ==3: 
+                jump gargoylecheck
+            else: 
+                jump gargoyle_code
 
-            "Press the green button.":
-    else if gargoyleKey == gargoyleKey_try:
+        "Press the green button.":
+            $ gargoyleKey_try = gargoyleKey_try.append("green")
+            $ codenumber += 1 
+            if codenumber ==3: 
+                jump gargoylecheck
+            else: 
+                jump gargoyle_code
+    
+label gargoylecheck: 
+    if gargoyleKey == gargoyleKey_try:
         "The tablet loosens from the gargoyle's grip. You take it out easily."
         $ tabletCollected += 1 
         jump mainhall 
+    else: 
+        "The gargoyle remains still."
+        $ codenumber = 0 
+        $ gargoyleKey_try = {}
 
 label carpet: 
     jump mainhall 
 
 default mainhall_Doors = True
-default mh_incantation = ""
+default mh_incantation = "red rivers run deep tonight"
 define mh_incantation_try = ""
 
 label mainhall_Doors: 
@@ -419,6 +446,7 @@ label MainhallDoors_Code:
         jump mainhall_End
     else: 
         "You try the door, but it doesn't budge. Maybe you did it wrong?"
+        $ mh_incantation_try = ""
         menu: 
             "Try again.":
                 jump MainhallDoors_Code
@@ -430,7 +458,8 @@ label table:
     "The large wooden table dominates the room. There are several scratches all over the front. Some of them end abruptly, forming a rectangle in their negative space."
     menu: 
         "Put the tablets down on the table." if tabletCollected == 3: 
-            ##Insert Drag and Drop
+            "You put all three tablets on the table, and arrange them."
+            "Together, they spell out the words. 'Red Rivers Run Deep Tonight.'"
         "Go back.": 
             jump mainhall 
 
@@ -457,11 +486,11 @@ label BrideHints:
         megan "I see why we have a color printer in the back now." 
         megan "Glad that's not out of my paycheck."
         $ brideHints += 1
-    else if brideHints == 1: 
+    elif brideHints == 1: 
         megan_b "{i}I've seen those paintings move and shake sometimes, as if they are alive. Perhaps you should take a closer look."
         megan "Hey, do I have to clean off fingerprints off those frames every time they check them?"
         $ brideHints += 1 
-    else if brideHints == 2: 
+    elif brideHints == 2: 
         megan_b "{i} The great beast contains part of the code in its mouth. It seems to have a fondness for the paintings in this gallery.{/i}"
         megan "Have to admit, I like the gargoyle."
         megan "Once this is all over, you mind if I take it home? I can use it to scare the neighbors."
@@ -492,7 +521,7 @@ label mainhall_End:
 
 
 
-default haveGem == False 
+default haveGem = False 
 default bookcaseCode = ""
 define bookcaseCode_try = ""
 define drawerCode = ""
@@ -563,10 +592,10 @@ label servant_hints:
         brian "Alright, alright. *ahem*"
         brian_s "{i}Are you stuck, dear guest? Fear not, while I do not know the exact location of the key, perhaps a look around the area will do you well?"
         $ servant_hints += 1
-    else if servantHints == 2:
+    elif servantHints == 2:
         brian_s "{i}Feel free to explore more of the mansion. Especially the MAIN HALL." 
         $ servant_hints +=1
-    else if servantHints == 1: 
+    elif servantHints == 1: 
         brian_s "{i} The master has a fondness for mirrors. Windows to the soul, he says. And yet, I've never gotten a glimpse of his reflection."
     else: 
         "Brian goes very silent."
@@ -576,7 +605,7 @@ label servant_hints:
         "Other than a few candy wrappers, nothing comes up."
         brian "Oh, I must have left it in the staff room. But I can run and grab it if you need it." 
         you "I don't think that's necessary."
-
+        "Brian looks very relieved."
     jump hallway 
 
 default havePaper = False 
@@ -595,8 +624,8 @@ label firstdrawer:
     "THUNK!"
     "The drawer suddenly flies open, and Brian stumbles backwards. Eyes wide, limbs flailing, his back hits the opposite wall." 
     megan "Did Brian fall again?"
-    brian "I'm fine!"
-    "There's a "
+    brian "I'm fine! I'll-uh-go sweep a corner." 
+
     menu: 
         "Check the paper." if not havePaper:
             "Dear His Most Illustrious Count Blud,"
@@ -612,7 +641,7 @@ label firstdrawer:
                 "Leave it in the drawer.":
                     jump hallway 
     jump hallway 
-label seconddrawer:
+label seconddrawer_open:
     menu: 
         "Look at the clock.":
             "The clock is just a shell. There isn't anything inside. Instead, some of the numbers on the front have small colored paint underneath them."
@@ -674,6 +703,7 @@ label bookcase_code:
         "There is a faint negative *beep* as you get the code wrong."
         brian "D'oh!"
         "...You were going to give Brian a cookie later."
+        $ bookcaseCode_try = ""
         jump tryBookcase
 
 
@@ -707,15 +737,15 @@ label moonbox:
     jump hallway 
 label sunbox:
     "A sun decorates this case, with squiggly rays against a dark sky. On the front lies a large teardrop shaped hole." 
-            menu: 
-                "Put the gem in the slot?" if hasGem:
-                    $ endRoute = "sun"
-                    "The gem fits perfectly into the hole, and after a little bit of fiddling, it settles inside."
-                    "You can feel under your fingertips something loosen. And the front lid opens easily."
-                    jump ballroom_start
-                "No":
-                    "You leave it alone."
-                    jump hallway 
+    menu: 
+        "Put the gem in the slot?" if hasGem:
+            $ endRoute = "sun"
+            "The gem fits perfectly into the hole, and after a little bit of fiddling, it settles inside."
+            "You can feel under your fingertips something loosen. And the front lid opens easily."
+            jump ballroom_start
+        "No":
+            "You leave it alone."
+            jump hallway 
     jump hallway 
 
 label gemcase: 
@@ -737,8 +767,10 @@ label gemcase:
                 "Rethink your choices?":
                     jump gemcase
         "Use the key" if haveKey: 
-            ""
+            "Easy as pie. You take the gem from it's cushion. Each facet refracts the pale light like glitter."
+            $ hasGem = True 
         "Leave the case.":
+            jump hallway
     jump hallway 
 
 label ballroom_start: 
@@ -806,7 +838,8 @@ label ballroom_start:
     "You could call the fire department to get him out, "
     "The question wasn't whether you should. The question was..."
     menu: 
-        "How?"
+        "How?":
+            jump ballroom
     jump ballroom 
 
 label ballroom: 
@@ -846,13 +879,18 @@ default bloodLevel = 0
 label banquetTable:
     "There's a huge array of fake food and body parts on the table. A veritable horror-feast, if you could stomach plaster in your teeth."
     "There are ears, fingers, flowers, and even a large plaster heart on a dish."
-    menu: 
-        "Add eye.":
-        "Add fingers": 
-        "Add heart.": 
-        "Add flower": 
-        "Add fake chocolates.": 
+    "A scroll lays rolled up on the side."
+    menu banquetchoice: 
+        "Check the note.":
+            "Potion of Weakening."
+            "One of ten servants, bony and thin."
+            "An orb, of which all rely, even as it lies."
+            "Thin skin reveals tender sweet flesh inside."
+            "Add perfumed scent, fresh from the cemetary. Mourn the dead."
+            jump banquetchoice
+
         "Finish":
+            "You created a small bowl of ingredients."
     jump ballroom 
 
 label pedestalSun: 
@@ -860,14 +898,15 @@ label pedestalSun:
 label pedestalMoon: 
     jump ballroom 
 
-label pedestalBlood: 
+label pedestalBlood:
+    "The stone pedestal stands right in the middle of the room. This was important to solving the puzzle, you know."
     if bloodLevel == 0: 
         "The granite bowl is bone dry. You see the tiniest little spout at the base of the bowl."
-    else if bloodLevel == 1: 
+    elif bloodLevel == 1: 
         "There's a thin layer of dark red liquid in the bowl."
-    else if bloodLevel == 2: 
+    elif bloodLevel == 2: 
         "There is more liquid inside the bowl than before. Thick and viscous, it looks likes you just need a little more to fill the bowl."
-    else if bloodLevel == 3: 
+    elif bloodLevel == 3: 
         "The blood level is full, and burbling too, the hidden pipe was now spewing little compressed air bubbles under the liquid."
     jump ballroom 
 
