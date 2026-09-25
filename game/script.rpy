@@ -559,11 +559,21 @@ label servant_hints:
         "Brian's head twitches towards the drawer before he realises it."
         brian "Alright, alright. *ahem*"
         brian_s "{i}Are you stuck, dear guest? Fear not, while I do not know the exact location of the key, perhaps a look around the area will do you well?"
+        $ servant_hints += 1
     else if servantHints == 2:
-        brian_s "{i}Feel free to explore more of the mansion."
-        "You catch his eyes flick towards "
+        brian_s "{i}Feel free to explore more of the mansion. Especially the MAIN HALL." 
+        $ servant_hints +=1
     else if servantHints == 1: 
         brian_s "{i} The master has a fondness for mirrors. Windows to the soul, he says. And yet, I've never gotten a glimpse of his reflection."
+    else: 
+        "Brian goes very silent."
+        brian "Um...I think I ran out of lines."
+        brian "I can-uh-get the cheat sheet!" 
+        "He starts patting his pockets frantically."
+        "Other than a few candy wrappers, nothing comes up."
+        brian "Oh, I must have left it in the staff room. But I can run and grab it if you need it." 
+        you "I don't think that's necessary."
+
     jump hallway 
 
 default havePaper = False 
@@ -643,9 +653,15 @@ label bookcase:
             menu tryBookcase: 
                 "Try a code?":
                     "Brian gets even closer as you start pressing buttons."
+                    "You can almost hear him breathing."
+                    you "Uh, Brian-sorry, I can't concentrate with you that close."
+                    "Brian immediately walks backwards and almost trips over his own feet."
                     jump bookcase_code
                 "Leave the bookcase."
     jump hallway 
+
+label firstdrawer: 
+    "The first drawer "
 
 label bookcase_code: 
     python: 
@@ -832,6 +848,9 @@ label banquetTable:
     "There are ears, fingers, flowers, and even a large plaster heart on a dish."
     menu: 
         "Add eye.":
+        "Add Fingers": 
+        "Add heart.": 
+        "Add Flower": 
         "Finish":
     jump ballroom 
 
@@ -856,5 +875,14 @@ label pedestalBlood:
 
 
 label end: 
-    "With the final "
+    "With the final piece in place, the coffin door swings open, and a floppy pile of stick thin limbs and black velvet cloth crumples to the floor."
+    "Neil gasps, flops over onto his back to meet all three sets of eyes."
+    neil_v "You have-gasp-done it! I am-wheeze-the great Count Blud-!"
+    megan "Dude."
+    "Neil's eyes take a moment to focus on Megan's face. Then Brian's, and then yours."
+    neil "...I messed up big time, didn't I?" 
+    brian "Are you okay, Neil?"
+    neil "Could be-better."
+
+
     return 
