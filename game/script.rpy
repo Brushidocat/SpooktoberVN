@@ -848,9 +848,10 @@ label banquetTable:
     "There are ears, fingers, flowers, and even a large plaster heart on a dish."
     menu: 
         "Add eye.":
-        "Add Fingers": 
+        "Add fingers": 
         "Add heart.": 
-        "Add Flower": 
+        "Add flower": 
+        "Add fake chocolates.": 
         "Finish":
     jump ballroom 
 
@@ -882,7 +883,11 @@ label end:
     "Neil's eyes take a moment to focus on Megan's face. Then Brian's, and then yours."
     neil "...I messed up big time, didn't I?" 
     brian "Are you okay, Neil?"
-    neil "Could be-better."
+    neil "Could be-better. It's stuffy in there." 
+    megan "You could have taken off the costume."
+    neil "Yeah."
+    megan "So what do we do now?"
+    
 
 
     return 
