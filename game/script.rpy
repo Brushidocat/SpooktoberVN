@@ -475,15 +475,15 @@ label BrideHints:
 label mainhall_End: 
     "The moment the three words leave your mouth, the door should have unlocked and swing open on its own, as if by a ghost."
     "Instead-"
-    neil_v "HOW HOW COULD YOU HAVE FIGURED OUT MY SECRET PASSWORD!? INCONCEIVABLE!!!"
+    neil_v "HOW?! HOW COULD YOU HAVE FIGURED OUT MY SECRET PASSWORD!? {bt=h5-s0.5-p10.0}INCONCEIVABLE!!!"
     "He sounds a little different, as if he had something in his mouth."
     neil_v "COULD IT BE?! CURSE YOU, MY FORMER BRIDE!" 
     "Megan ignores him."
     neil_v "NO MATTER! EVEN WITH HELP, THERE'S NO WAY YOU SHALL DEFEAT MEE!" 
-    neil_v "MUAHAHAHAHAHAHAHA-ack."
+    neil_v "{bt=h5-s0.5-p10.0}MUAHAHAHAHAHAHAHA{/bt}-ack."
     neil "*Cough*! *Cough*!"
     you "You alright there?"
-    neil "I-hrk! NO BREATH MINT CAN-gack-STOP ME! I SHALL RETUUUURN."
+    neil "I-hrk! NO BREATH MINT CAN-gack-STOP ME! I SHALL {bt=h5-s0.5-p10.0}RETUUUURN.{/bt}"
     megan "Open the door Neil."
     "Silence."
     "The double doors unlock with an audible click. Then the PA system turned off."
@@ -517,7 +517,9 @@ label hallway_start:
     "He gestures behind you, where a large glass gem resides inside a glass case." 
     "Underneath, in large industrial text, was the phrase: DO NOT BREAK!"
     brian_s "{i}I would open the case itself, but avast-alas, I have no way to open it myself!"
-    "Something falls out of his pocket. A thick, heaavy looking key that looks like it would perfectly fit the lock on the glass case. He pauses, unblinking, looks down, then looks back up. Then lunges for the key and shoves it into his pocket."
+    "Something falls out of his pocket. A thick, heaavy looking key that looks like it would perfectly fit the lock on the glass case."
+    "He pauses, unblinking, looks down, then looks back up."
+    "Then he lunges for the key with all the grace of an american linebacker and shoves it into his pocket."
     brian_s "{i}P-perhaps you can find it? Remember though, the Ruby can only be used once! Choose wisely who you side with.{/i}"
     "After a brief pause, he rights himself and takes off the mask with a bright smile."
     brian "How was that? I finally managed to remember most of my lines!"
@@ -532,6 +534,7 @@ label hallway_start:
             brian "...yes."
             brian "I'll put it back in the bookshelf later."
     brian_s "I am your humble servant, if you are able to job my memory, perhaps I can help guide your way!"
+
     "Brian quickly jams the helmet back on his head. With a quick thunk, the light flickers back on, and he starts pretending to dust the furniture."
     jump hallway 
 
@@ -593,7 +596,7 @@ label firstdrawer:
     "The drawer suddenly flies open, and Brian stumbles backwards. Eyes wide, limbs flailing, his back hits the opposite wall." 
     megan "Did Brian fall again?"
     brian "I'm fine!"
-    "There's a few things inside the second drawer. A piece of paper, and a small wooden clock with numbers on them."
+    "There's a "
     menu: 
         "Check the paper." if not havePaper:
             "Dear His Most Illustrious Count Blud,"
@@ -659,9 +662,6 @@ label bookcase:
                     jump bookcase_code
                 "Leave the bookcase."
     jump hallway 
-
-label firstdrawer: 
-    "The first drawer "
 
 label bookcase_code: 
     python: 
