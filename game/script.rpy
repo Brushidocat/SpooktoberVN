@@ -887,11 +887,24 @@ label banquetTable:
             "An orb, of which all rely, even as it lies."
             "Thin skin reveals tender sweet flesh inside."
             "Add perfumed scent, fresh from the cemetary. Mourn the dead."
+            "Add all into the bowl, and bring it to the blood."
+            "With it, the vampire will weaken."
             jump banquetchoice
-
+        "Take a closer look at the table.": 
+            jump banquetTry 
         "Finish":
             "You created a small bowl of ingredients."
     jump ballroom 
+
+label banquetTry: 
+    menu: 
+        "Add Eyes."
+        "Add Fingers"
+        "Place a Fruit"
+        "Take a flower."
+        "Add the Heart"
+        "Put a fake chocolate."
+        "Finish."
 
 label pedestalSun: 
     jump ballroom 
@@ -900,6 +913,7 @@ label pedestalMoon:
 
 label pedestalBlood:
     "The stone pedestal stands right in the middle of the room. This was important to solving the puzzle, you know."
+    "A second, smaller pillar stands near it, with a small round indent perfect for a bowl."
     if bloodLevel == 0: 
         "The granite bowl is bone dry. You see the tiniest little spout at the base of the bowl."
     elif bloodLevel == 1: 
@@ -908,6 +922,17 @@ label pedestalBlood:
         "There is more liquid inside the bowl than before. Thick and viscous, it looks likes you just need a little more to fill the bowl."
     elif bloodLevel == 3: 
         "The blood level is full, and burbling too, the hidden pipe was now spewing little compressed air bubbles under the liquid."
+    menu: 
+        "Put bowl of ingredients in the indent." if banquetTable_Try != {}: 
+            for item in banquetTable_try: 
+                if item not in banquetTable: 
+                    "You wait, but nothing happens. You take the bowl of ingredients back." 
+            else: 
+                "As you place the ingredients down, you hear a small click."
+                "Then, burbling fills the room."
+                $ banquetTable_Try = {}
+                jump pedestalBlood
+                
     jump ballroom 
 
 
