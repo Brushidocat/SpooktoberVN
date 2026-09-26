@@ -124,6 +124,7 @@ label start:
             "She stares at you pointedly. Fair enough."
 
     megan "Oh. Right."
+    show megan default 
     "Megan hands out a neatly folded envelope to you. It was sealed with fake wax, and had been dyed with tea around the edges to look a little old."
 
     megan "Printer finally started working."
@@ -271,6 +272,8 @@ label mainhall_start:
 
     "Click."
 
+    show megan phone 
+
     megan "Right, what he said." 
     
     megan_b "{i}Maybe there's a hint in that letter.{/i}"
@@ -278,6 +281,7 @@ label mainhall_start:
     jump mainhall 
     
 label mainhall: 
+    hide megan 
     show screen mainhall 
 
 ##Keys and important flags for Mainhall 
@@ -467,6 +471,7 @@ label table:
 default brideHints = 0
 
 label Megan: 
+    show megan default 
     "Megan looks at you as you approach and stuff her phone back in her pocket."
     you "We need to run through your lines."
     "Megan raised an eyebrow. Then she shrugs." 
@@ -532,6 +537,7 @@ default endRoute = ""
 label hallway_start: 
     "The long, thin hallway stretches out far in front of you. The door on the other side was flanked by two large boxes. One yellow, one blue. And there, standing on the side of the room trying to right a chair, was a long, lanky figure."
     "His pumpkin mask eyes glow with an eerie light, and his suit is slightly wrinkled."
+    show brian default 
     brian "Hey boss! Er-Oh, sorry. One sec." 
     "He finally turns the chair upright, then straightens his back."
     brian_s "{i}Ah! Another guest for the master?"
@@ -563,7 +569,7 @@ label hallway_start:
             brian "...yes."
             brian "I'll put it back in the bookshelf later."
     brian_s "I am your humble servant, if you are able to job my memory, perhaps I can help guide your way!"
-
+    hide brian default 
     "Brian quickly jams the helmet back on his head. With a quick thunk, the light flickers back on, and he starts pretending to dust the furniture."
     jump hallway 
 
@@ -571,6 +577,7 @@ label hallway:
     call screen hallway
 
 label brian: 
+    show brian default 
     "Brian perks up when you approach him."
     brian "Something up, boss?"
     you "Do you remember the hints?"
@@ -779,12 +786,14 @@ label ballroom_start:
     "You stare at the empty box, the little pedestal where the 'relic' should be. Nothing."
     "You look at Brian."
     "He looks just as confused as you are. Which is even more worrying."
+    show brian default at left 
     brian "I know I put it in there, honest!"
     neil_v "MUAHAHAHAHAHAH~"
     neil_v "FOOLS! DID YOU THINK I WOULD PUT MY RELICS OF POWER IN SUCH FLIMSY SECURITY!?"
     "Megan wandered into the hallway. Her eyes immediately lock onto the empty case."
     megan "Seriously?"
     "She looks mildly more annoyed than she usually does."
+    show megan default at right 
     megan "What is he doing this time?"
     brian "I don't know! Um-He said something about wanting to talk to the Boss about adding something before the runthrough." 
     brian "But since the Boss was late, I thought he just forgot about it!"
@@ -846,6 +855,7 @@ label ballroom:
     call screen ballroom 
 
 label megan_ballroom: 
+    show megan default 
     "Megan arrived barely five minutes later, arms folded."
     megan "So Neil's really stuck? Damn." 
     megan "He's really getting into the role now."
@@ -863,10 +873,21 @@ label megan_ballroom:
     megan "But I want to get paid. And I know what'll happen to this place if the trucks come. The mall will cut this place like a tumor."
     megan "So it's your call."
     you "Thanks, Megan. I'll keep it in mind." 
+    hide megan default 
     jump ballroom
 
 label brian_ballroom: 
+    show brian default 
     brian "Hey Boss!"
+    brian "Do you think I can fit in those vents? I've been kind of going ham on the candy, but I think if I take off my mask I can fit in!"
+    you "Brian, please no. We can't afford another employee getting stuck."
+    brian "Okay."
+    brian "Um..Boss?"
+    brian "Is it okay if you-uh-give Neil a break?"
+    brian "He's-look, we kind of know each other. He's-he's not normally like this."
+    brian "And this is his favorite holiday, so maybe-maybe he got too excited?"
+    you "I'll...think about it."
+    jump ballroom 
 
 label piano: 
     "Red paint has been splattered against the keys."
@@ -882,6 +903,7 @@ label banquetTable:
     "A scroll lays rolled up on the side."
     menu banquetchoice: 
         "Check the note.":
+            ## paper sound 
             "Potion of Weakening."
             "One of ten servants, bony and thin."
             "An orb, of which all rely, even as it lies."
@@ -899,24 +921,31 @@ label banquetTable:
 label banquetTry: 
     menu: 
         "Add Eyes.": 
+            ## add tink sound 
             $ banquetTable_Try.append("eye")
             jump banquetTry
         "Add Fingers": 
+            ## add tink sound 
             $ banquetTable_Try.append("fingers")
             jump banquetTry
         "Place a Fruit": 
+            ## add tink sound 
             $ banquetTable_Try.append("fruit")
             jump banquetTry
         "Take a flower.": 
+            ## add tink sound 
             $ banquetTable_Try.append("flower")
             jump banquetTry
         "Add the Heart": 
+            ## add tink sound 
             $ banquetTable_Try.append("heart")
             jump banquetTry
         "Put a fake chocolate.": 
+            ## add tink sound 
             $ banquetTable_Try.append("chocolate")
             jump banquetTry
         "Empty the bowl": 
+            ## add tink sound 
             $ banquetTable_Try = {}
         "Finish.": 
             jump banquetTable
@@ -968,7 +997,17 @@ label end:
     neil "Could be-better. It's stuffy in there." 
     megan "You could have taken off the costume."
     neil "Yeah."
-    megan "So what do we do now?"
+    brian "I'll go grab some water, there's some at the cooler out front, right?"
+    you "Yeah, got it for the receptionists. You'll have to ask them."
+    brian "No worries! They like me!"
+    "Yeah, he did kind of have the 'sweet patootie' vibe older women seemed to adore."
+
+    megan "So, boss, what do we do?"
+    megan "My vote is lock him in the staff room."
+    neil "MEGAN?!"
+    megan ""
+
+
     
 
 
