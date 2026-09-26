@@ -898,13 +898,28 @@ label banquetTable:
 
 label banquetTry: 
     menu: 
-        "Add Eyes."
-        "Add Fingers"
-        "Place a Fruit"
-        "Take a flower."
-        "Add the Heart"
-        "Put a fake chocolate."
-        "Finish."
+        "Add Eyes.": 
+            $ banquetTable_Try.append("eye")
+            jump banquetTry
+        "Add Fingers": 
+            $ banquetTable_Try.append("fingers")
+            jump banquetTry
+        "Place a Fruit": 
+            $ banquetTable_Try.append("fruit")
+            jump banquetTry
+        "Take a flower.": 
+            $ banquetTable_Try.append("flower")
+            jump banquetTry
+        "Add the Heart": 
+            $ banquetTable_Try.append("heart")
+            jump banquetTry
+        "Put a fake chocolate.": 
+            $ banquetTable_Try.append("chocolate")
+            jump banquetTry
+        "Empty the bowl": 
+            $ banquetTable_Try = {}
+        "Finish.": 
+            jump banquetTable
 
 label pedestalSun: 
     jump ballroom 
@@ -927,11 +942,14 @@ label pedestalBlood:
             for item in banquetTable_try: 
                 if item not in banquetTable: 
                     "You wait, but nothing happens. You take the bowl of ingredients back." 
-            else: 
-                "As you place the ingredients down, you hear a small click."
-                "Then, burbling fills the room."
-                $ banquetTable_Try = {}
-                jump pedestalBlood
+                    jump ballroom   
+                else: 
+                    "As you place the ingredients down, you hear a small click."
+                    "Then, burbling fills the room."
+                    $ banquetTable_Try = {}
+                    jump pedestalBlood
+        "Leave the pedestal alone.": 
+            jump ballroom
                 
     jump ballroom 
 
