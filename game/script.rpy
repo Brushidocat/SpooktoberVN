@@ -987,6 +987,8 @@ label pedestalBlood:
 
 
 label end: 
+    show brian default at left 
+    show megan default at right 
     "With the final piece in place, the coffin door swings open, and a floppy pile of stick thin limbs and black velvet cloth crumples to the floor."
     "Neil gasps, flops over onto his back to meet all three sets of eyes."
     neil_v "You have-gasp-done it! I am-wheeze-the great Count Blud-!"
@@ -1001,11 +1003,8 @@ label end:
     you "Yeah, got it for the receptionists. You'll have to ask them."
     brian "No worries! They like me!"
     "Yeah, he did kind of have the 'sweet patootie' vibe older women seemed to adore."
-
     megan "So, boss, what do we do?"
-    megan "My vote is lock him in the staff room."
-    neil "MEGAN?!"
-    megan ""
+    
 
 
     
