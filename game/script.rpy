@@ -504,7 +504,7 @@ label BrideHints:
     else: 
         megan "That's all I got for you, boss."
         megan "Unless you want to talk about my salary."
-    jump mainhall 
+    jump Megan  
 
 label mainhall_End: 
     "The moment the three words leave your mouth, the door should have unlocked and swing open on its own, as if by a ghost."
@@ -613,7 +613,7 @@ label servant_hints:
         brian "Oh, I must have left it in the staff room. But I can run and grab it if you need it." 
         you "I don't think that's necessary."
         "Brian looks very relieved."
-    jump hallway 
+    jump brian  
 
 default havePaper = False 
 
@@ -624,6 +624,7 @@ label firstdrawer:
     brian "Huh, that's weird."
     brian "Here, let me-"
     ##Shake 
+    ## rattle sound 
     "He grips the handle and tugs a little harder. It doesn't budge."
     brian "Maybe some paint got in the-Hang on."
     "The drawer rattles ominously as he yanks harder. And yet still, it doesn't move." 
@@ -652,6 +653,7 @@ label seconddrawer_open:
     menu: 
         "Look at the clock.":
             "The clock is just a shell. There isn't anything inside. Instead, some of the numbers on the front have small colored paint underneath them."
+            "A red dot under the 6, a blue dot under the 3, a yellow dot on the nine, and "
             menu clockcheck: 
                 "Put down the clock.":
                     "You put the clock back into the shelf."
@@ -734,6 +736,7 @@ label moonbox:
     menu: 
         "Put the gem into the slot" if hasGem: 
             $ endRoute = "moon"
+            ## tink sound 
             "The gem fits perfectly into the hole, and after a little bit of fiddling, it settles inside."
             "You can feel under your fingertips something loosen. And the front lid opens easily."
             jump ballroom_start
@@ -747,6 +750,7 @@ label sunbox:
     menu: 
         "Put the gem in the slot?" if hasGem:
             $ endRoute = "sun"
+            ## tink sound 
             "The gem fits perfectly into the hole, and after a little bit of fiddling, it settles inside."
             "You can feel under your fingertips something loosen. And the front lid opens easily."
             jump ballroom_start
@@ -829,6 +833,7 @@ label ballroom_start:
     "Except one."
     "The coffin. Originally, once the puzzle was complete, Neil was meant to open the door to 'confront' the players, then depending on whether they used the Sun Lantern or the Moon dagger, they would be lead to two different endings."
     "It connected straight into a smaller room, where Neil could wait."
+    ## thunk sound 
     "*Thunk!* *Thunk!*"
     "Something was hitting the lid of the wood."
     neil "Help! I'm stuck!!"
@@ -990,6 +995,7 @@ label end:
     show brian default at left 
     show megan default at right 
     "With the final piece in place, the coffin door swings open, and a floppy pile of stick thin limbs and black velvet cloth crumples to the floor."
+    play music shenanigans 
     "Neil gasps, flops over onto his back to meet all three sets of eyes."
     neil_v "You have-gasp-done it! I am-wheeze-the great Count Blud-!"
     megan "Dude."
@@ -998,13 +1004,43 @@ label end:
     brian "Are you okay, Neil?"
     neil "Could be-better. It's stuffy in there." 
     megan "You could have taken off the costume."
-    neil "Yeah."
+    neil "Yeah. I guess."
     brian "I'll go grab some water, there's some at the cooler out front, right?"
     you "Yeah, got it for the receptionists. You'll have to ask them."
     brian "No worries! They like me!"
     "Yeah, he did kind of have the 'sweet patootie' vibe older women seemed to adore."
+    "Brian bolts to the door, and vanishes out the front."
+    hide brian default 
     megan "So, boss, what do we do?"
+    "You slowly turn to Neil, who gingerly stands up."
+    "His hair was stuck to his head, and he was visibly melting."
+    you "First off...The tokens, please. And the staff key."
+    "Neil automatically hands you the two small discs and the metal key."
+    you "Do you understand what you did wrong, Neil?"
+    neil "I...should not have hijacked the entire escape room runthrough right before it opened."
+    you "and?"
+    neil "Stole company property."
+    you "and?"
+    neil "And...lock myself in a coffin."
+    you "...AND?" 
+    neil "And-uh-Oh, right. Locked both entrances to the staff room."
+    you "You do realise how much of a fire hazard that was, right?"
+    neil "Yeah...I'm sorry." 
+    neil "It was dumb and stupid and-I panicked. Badly."
+    neil "I really like this place, so when you hired me-I got really excited."
+    neil "If you fire me...I understand. And even then, I'll-I'll make up for it, somehow."
     
+
+
+    brian "Uh-guys?!"
+    "Suddenly, Brian is standing at the ballroom entrance."
+    brian "You-uh-there's-pee-pe-"
+
+    megan "Pee?"
+
+    brian "There's people, lots-lots of people!"
+
+
 
 
     
