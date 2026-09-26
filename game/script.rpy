@@ -920,7 +920,6 @@ label banquetTable:
         "Take a closer look at the table.": 
             jump banquetTry 
         "Finish":
-            "You created a small bowl of ingredients."
     jump ballroom 
 
 label banquetTry: 
@@ -1029,6 +1028,10 @@ label end:
     neil "It was dumb and stupid and-I panicked. Badly."
     neil "I really like this place, so when you hired me-I got really excited."
     neil "If you fire me...I understand. And even then, I'll-I'll make up for it, somehow."
+    you "..."
+    you "Look, this place is...very important to me too."
+    you "That's why what you did was not okay."
+    you "Not to mention, you could have gotten hurt." 
     
 
 
