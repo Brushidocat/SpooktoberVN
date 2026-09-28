@@ -1013,7 +1013,7 @@ label end:
     megan "So, boss, what do we do?"
     "You slowly turn to Neil, who gingerly stands up."
     "His hair was stuck to his head, and he was visibly melting."
-    you "First off...The tokens, please. And the staff key."
+    you "First off, Neil? Give."
     "Neil automatically hands you the two small discs and the metal key."
     you "Do you understand what you did wrong, Neil?"
     neil "I...should not have hijacked the entire escape room runthrough right before it opened."
@@ -1029,19 +1029,37 @@ label end:
     neil "I really like this place, so when you hired me-I got really excited."
     neil "If you fire me...I understand. And even then, I'll-I'll make up for it, somehow."
     you "..."
-    you "Look, this place is...very important to me too."
+    you "Look, this place is very important to me too."
     you "That's why what you did was not okay."
     you "Not to mention, you could have gotten hurt." 
-    
+    you "That being said, your...antics did reveal more than a few problems with the room."
+    you "Security concerns that will have to be rectified later."
+    you "So you can work today. But you have to stick to the script."
+    you "And afterwards..."
+    menu: 
+        "Fire Neil": 
+            you "You'll be fired."
+            "Neil droops, but he seems to nod and understand."
+            "Megan looks on with an unreadable expression on her face."
+        "Put Neil on cleaning duty.": 
+            you "You're on cleaning duty tomorrow, and for the rest of the week."
+            neil "So I...get to keep the job?"
+            you "And if you actually behave, you might be able to get Count Blud again."
+            "Megan shifts and shrugs." 
 
-
+    megan "A suggestion, Boss?"
+    you "Yeah?"
+    megan "We haven't finished the runthrough yet."
+    "Oh right. You and Megan look at Neil,"
     brian "Uh-guys?!"
-    "Suddenly, Brian is standing at the ballroom entrance."
+    "Suddenly, Brian is standing at the ballroom entrance. Four cold water bottles somehow dangling from his hands.."
     brian "You-uh-there's-pee-pe-"
 
     megan "Pee?"
 
     brian "There's people, lots-lots of people!"
+
+
 
 
 
