@@ -345,6 +345,7 @@ default hascheckedPainting = False
 
 label paintings:
     ##TODO: Make this an imagemap? 
+    scene Paintings
     "A row of paintings."
     menu: 
         "Look at the first painting.": 
@@ -371,6 +372,10 @@ label paintings:
     return 
 
 label gargoyle: 
+    if gagoyleisLocked:
+        scene gargoyle_tablet
+    else:
+        scene gargoyle_notablet
     "A gargoyle stands on a stone podium."
     "You made it yourself using paper-mache and some stuff you salvaged."
     "With a curved beak, large wings, and hooked claws, it was suitably an impressive piece. You based it on a certain cartoon you watched as a kid."
@@ -417,6 +422,7 @@ label gargoyle_code:
 label gargoylecheck: 
     if gargoyleKey == gargoyleKey_try:
         "The tablet loosens from the gargoyle's grip. You take it out easily."
+        scene gargoyle_notablet
         $ tabletCollected += 1 
         jump mainhall 
     else: 
@@ -653,7 +659,7 @@ label seconddrawer_open:
     menu: 
         "Look at the clock.":
             "The clock is just a shell. There isn't anything inside. Instead, some of the numbers on the front have small colored paint underneath them."
-            "A red dot under the 6, a blue dot under the 3, a yellow dot on the nine, and a green dot on the 4."
+            "A red dot under the 6, a blue dot under the 3, a yellow dot on the nine, and a green dot on the 4.w"
             menu clockcheck: 
                 "Put down the clock.":
                     "You put the clock back into the shelf."
