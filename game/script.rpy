@@ -653,7 +653,7 @@ label seconddrawer_open:
     menu: 
         "Look at the clock.":
             "The clock is just a shell. There isn't anything inside. Instead, some of the numbers on the front have small colored paint underneath them."
-            "A red dot under the 6, a blue dot under the 3, a yellow dot on the nine, and "
+            "A red dot under the 6, a blue dot under the 3, a yellow dot on the nine, and a green dot on the 4."
             menu clockcheck: 
                 "Put down the clock.":
                     "You put the clock back into the shelf."
