@@ -23,7 +23,10 @@ default spooky = False
 default mall = ""
 define red = '#f31b1b'
 define green = '#38ff7b'
-
+define creak = "Furniture3_Overwrite-Save-Question.ogg"
+define solve = "Glass1_Save-Game-Question.ogg"
+define tink = "Glass2_Click-Dialogue.ogg"
+define paper = "Cloth_Overwrite-Save-Question.ogg"
 
 
 # The game starts here.
@@ -234,7 +237,7 @@ label start:
     menu: 
         "It's time.":
             $ spooky = True 
-            player "TIme to get spooky."
+            you "TIme to get spooky."
 
 
 
@@ -242,7 +245,7 @@ label start:
 
 label mainhall_start: 
     scene mainhall 
-    play music monster_musuem fadein 0.5
+    play music Through_The_Eyes_Of_The_Doll fadein 0.5
     "Soft, flickering light greeted you through the door. On cue, the music started from various hidden bluetooth speakers."
 
     megan "'scuse."
@@ -302,7 +305,8 @@ label letter:
     "{i}Signed, a fri{color=red}E{/color}nd."
     "{i}PS, do not trust the bride, she {color=red}M{/color}erely wants more company."
 
-label chest: 
+label chest:
+    scene chest 
     "There's a large chest. It's been rather roughly painted gold, but the material is genuine wood."
     if chestisLocked == True: 
         "There's a large lock keeping the chest shut. It's one of those word-based locks, with four turning dials."
@@ -345,7 +349,7 @@ default hascheckedPainting = False
 
 label paintings:
     ##TODO: Make this an imagemap? 
-    scene Paintings
+    scene paintings
     "A row of paintings."
     menu: 
         "Look at the first painting.": 
@@ -364,8 +368,12 @@ label paintings:
             "A portrait of an extremely pale man. He wears a red brooch, a black cape, and has a white dagger in his hands."
             menu: 
                 "Check the painting?":
+                    scene painting_back 
                     "Oh! You found something! A  tablet piece, cold and smooth."
                     $ tabletCollected += 1
+                    menu: 
+                        "Take the tablet.":
+                            jump paintings
             jump paintings 
         "Go back.":
             jump mainhall 
@@ -383,6 +391,7 @@ label gargoyle:
         "There's something in it's jaws, a section of a stone tablet."
     menu gargoylelook: 
         "Check the base.":
+            scene gargoyle_close
             "Below the gargoyle, is a row of buttons with images on them."
             "From right to left, was an engraving of a moon, a lily, and a gem."
             jump gargoylelook
@@ -431,6 +440,7 @@ label gargoylecheck:
         $ gargoyleKey_try = {}
 
 label carpet: 
+    "Red, green, yellow, green, red, blue"
     jump mainhall 
 
 default mainhall_Doors = True
@@ -438,6 +448,7 @@ default mh_incantation = "red rivers run deep tonight"
 define mh_incantation_try = ""
 
 label mainhall_Doors: 
+    scene mainhall doors
     "Impressively thick and detailed, the doors stand in front of you."
     if mainhall_Doors: 
         "Right now, they are closed."
@@ -465,9 +476,11 @@ label MainhallDoors_Code:
         
 label table: 
     #TODO: Drag and Drop?
+    scene table_notablet
     "The large wooden table dominates the room. There are several scratches all over the front. Some of them end abruptly, forming a rectangle in their negative space."
     menu: 
         "Put the tablets down on the table." if tabletCollected == 3: 
+            scene table_withtablet
             "You put all three tablets on the table, and arrange them."
             "Together, they spell out the words. 'Red Rivers Run Deep Tonight.'"
         "Go back.": 
@@ -512,7 +525,8 @@ label BrideHints:
         megan "Unless you want to talk about my salary."
     jump Megan  
 
-label mainhall_End: 
+label mainhall_End:
+    scene mainhall 
     "The moment the three words leave your mouth, the door should have unlocked and swing open on its own, as if by a ghost."
     "Instead-"
     neil_v "HOW?! HOW COULD YOU HAVE FIGURED OUT MY SECRET PASSWORD!? {bt=h5-s0.5-p10.0}INCONCEIVABLE!!!"
@@ -540,14 +554,16 @@ define drawerCode_Try = ""
 default endRoute = ""
     
 
-label hallway_start: 
+label hallway_start:
+    scene hallway 
+    play music Monster_Musuem
     "The long, thin hallway stretches out far in front of you. The door on the other side was flanked by two large boxes. One yellow, one blue. And there, standing on the side of the room trying to right a chair, was a long, lanky figure."
     "His pumpkin mask eyes glow with an eerie light, and his suit is slightly wrinkled."
     show brian default 
     brian "Hey boss! Er-Oh, sorry. One sec." 
     "He finally turns the chair upright, then straightens his back."
     brian_s "{i}Ah! Another guest for the master?"
-    brain_s "{i}Poor soul, much like the pale megan-madam-{/i} shit-"
+    brian_s "{i}Poor soul, much like the pale megan-madam-{/i} shit-"
     brian_s "{i}Much like the pale madam next door, you have been trapped here. I assume she's tasked you with getting the Sun Lantern?"
     "The pumpkin headed servant shook his head."
     brian_s "{i}Don't be fooled, she's merely distracting you. She is a lonely spectre." 
@@ -624,6 +640,7 @@ label servant_hints:
 default havePaper = False 
 
 label firstdrawer: 
+    scene drawer
     "You open the drawer. It opens smoothly. Until it gets halfway. Then it stops."
     "You try again. Nothing. It feels like the drawer's hit something solid."
     "Immediately, Brian comes over."
@@ -655,6 +672,16 @@ label firstdrawer:
                 "Leave it in the drawer.":
                     jump hallway 
     jump hallway 
+
+define smallKey = False 
+
+label seconddrawer: 
+    "This is a small keyhole in the drawer. You pull on the handle, and it is sufficiently locked."
+    menu: 
+        "Use the small key" if smallKey: 
+            "You use the small key. The drawer, thankfully, opens smoothly." 
+            "Brian breathes a sigh of relief."
+            jump seconddrawer_open
 label seconddrawer_open:
     menu: 
         "Look at the clock.":
@@ -669,6 +696,7 @@ label seconddrawer_open:
                     jump clockcheck
 
 label mirror: 
+    scene mirror
     "The mirror has been polished to an almost perfect shine and hung proudly."
     menu mirrorchoice: 
         "Place the paper to the mirror?" if havePaper:
@@ -680,16 +708,18 @@ label mirror:
             jump hallway 
 
 label drawer: 
+    scene drawer
     "There is a small drawer shoved to the left wall with two shelves."
     menu: 
-        "Try the top shelf.":
+        "Try the top handle.":
             jump firstdrawer
-        "Try the lower shelf.":
+        "Try the lower handle.":
             jump seconddrawer 
         "Leave.":
             jump hallway 
 
 label bookcase: 
+    scene bookcase
     "Approaching the bookcase reveals obvious signs of most of the books being glued together. That was mostly to reduce cleanup, and because one time Brian bumped his elbow on the bookshelf and toppled every single book onto the floor. On top of him."
     "He was fine, thankfully."
     "The floor on the other hand...It was good they were having a carpet sale at the depo."
@@ -725,23 +755,28 @@ label bookcase_code:
 
 
 label hiddenCompartment: 
+    scene bookcase open
     "The hidden compartment swings open." 
     "It's a tiny little square hole, painted black with a small cushion where the key should have rested."
     brian "Hold on, one sec-"
-    "Tink, goes the key back on the pillow."
+    scene bookcase open key 
+    "He quickly puts the key back on the pillow."
     menu: 
         "Take the key.":
             jump hallway
         "Take the key while staring directly at Brian.":
             "Brian stares back at you."
             brian "I realise now I could have just given it to you."
+            you "Yup."
     jump hallway 
 
 label moonbox: 
+    scene hallway_moon
     "This case has a moon carefully painted on it, surrounded by stars. A large teardrop shaped hole sits in the front."
     menu: 
         "Put the gem into the slot" if hasGem: 
             $ endRoute = "moon"
+            scene hallway_moon_gem
             ## tink sound 
             "The gem fits perfectly into the hole, and after a little bit of fiddling, it settles inside."
             "You can feel under your fingertips something loosen. And the front lid opens easily."
@@ -752,9 +787,11 @@ label moonbox:
 
     jump hallway 
 label sunbox:
+    scene hallway_sun
     "A sun decorates this case, with squiggly rays against a dark sky. On the front lies a large teardrop shaped hole." 
     menu: 
         "Put the gem in the slot?" if hasGem:
+            scene hallway_sun_gem
             $ endRoute = "sun"
             ## tink sound 
             "The gem fits perfectly into the hole, and after a little bit of fiddling, it settles inside."
@@ -766,6 +803,7 @@ label sunbox:
     jump hallway 
 
 label gemcase: 
+    scene gemcase
     "The gem lies inside large thick glass, nestled comfortably in a small platform. It glitters brilliantly under the warm light."
     "And of course, there was the large, bright red sign hanging above it. DO. NOT. BREAK!"
     "It almost completely fills your vision."
@@ -818,6 +856,7 @@ label ballroom_start:
     megan "It's locked."
     "Damn it."
     you "Try the other entrance, around the back."
+    hide megan default 
     "Megan groaned, but obeyed. Her tattered wedding trailed fluttered as she disappeared through the main hall."
     "Meanwhile, Brian was pacing in tight little circles."
     brian "What-what do we do, boss?"
@@ -826,12 +865,15 @@ label ballroom_start:
     "You couldn't blame him. You weren't sure what you'd find on the other side of the door either. But there really was only one way to find out."
     "The door opens smoothly, the air pressure changed, and the temperature dropped a degree."
     "Both you and Brian stepped through the threshold and...."
-    ##Show ballroom 
+    scene ballroom
+    play music haunted_hijinks
 
     "Nothing."
     brian "Wh-where is he?"
     "There was a tremor in Brian's voice as he tiptoed across the fake marble tiles."
     "THUNK!"
+    hide brian default 
+    show brian panic
     "Brian actually shrieks and jumps a foot in the air."
     "THUNK THUNK!"
     "Despite it's grand name, the ballroom wasn't actually that large, there weren't many places for Neil to hide." 
@@ -844,6 +886,7 @@ label ballroom_start:
     "Something was hitting the lid of the wood."
     neil "Help! I'm stuck!!"
     "Well that's...anticlimatic."
+    show brian panic at right
     "Brian immediately ran to the coffin and started trying to pry the lid open with his fingers."
     brian "Neil, open the door!"
     neil "I can't!"
@@ -898,9 +941,11 @@ label brian_ballroom:
     brian "He's-look, we kind of know each other. He's-he's not normally like this."
     brian "And this is his favorite holiday, so maybe-maybe he got too excited?"
     you "I'll...think about it."
+    hide brian default 
     jump ballroom 
 
 label piano: 
+    scene ballroom piano
     "Red paint has been splattered against the keys."
     jump ballroom 
 
@@ -909,6 +954,7 @@ default banquetTable_Try = {}
 default bloodLevel = 0 
 
 label banquetTable:
+    scene ballroom banquettable
     "There's a huge array of fake food and body parts on the table. A veritable horror-feast, if you could stomach plaster in your teeth."
     "There are ears, fingers, flowers, and even a large plaster heart on a dish."
     "A scroll lays rolled up on the side."
@@ -926,6 +972,7 @@ label banquetTable:
         "Take a closer look at the table.": 
             jump banquetTry 
         "Finish":
+            jump ballroom 
     jump ballroom 
 
 label banquetTry: 
@@ -960,33 +1007,35 @@ label banquetTry:
         "Finish.": 
             jump banquetTable
 
-label pedestalSun: 
-    jump ballroom 
-label pedestalMoon: 
-    jump ballroom 
 
 label pedestalBlood:
     "The stone pedestal stands right in the middle of the room. This was important to solving the puzzle, you know."
     "A second, smaller pillar stands near it, with a small round indent perfect for a bowl."
-    if bloodLevel == 0: 
+    if bloodLevel == 0:
+        scene ballroom bowl01
         "The granite bowl is bone dry. You see the tiniest little spout at the base of the bowl."
     elif bloodLevel == 1: 
+        scene ballroom bowl02
         "There's a thin layer of dark red liquid in the bowl."
     elif bloodLevel == 2: 
+        scene ballroom bowl03
         "There is more liquid inside the bowl than before. Thick and viscous, it looks likes you just need a little more to fill the bowl."
     elif bloodLevel == 3: 
+        scene ballroom bowl04
         "The blood level is full, and burbling too, the hidden pipe was now spewing little compressed air bubbles under the liquid."
     menu: 
         "Put bowl of ingredients in the indent." if banquetTable_Try != {}: 
-            for item in banquetTable_try: 
-                if item not in banquetTable: 
-                    "You wait, but nothing happens. You take the bowl of ingredients back." 
-                    jump ballroom   
-                else: 
-                    "As you place the ingredients down, you hear a small click."
-                    "Then, burbling fills the room."
-                    $ banquetTable_Try = {}
-                    jump pedestalBlood
+            python: 
+                for item in banquetTable_try: 
+                    if item not in banquetTable: 
+                        "You wait, but nothing happens. You take the bowl of ingredients back. Best try again." 
+                        renpy.jump("pedestalBlood")  
+                    else: 
+                        "As you place the ingredients down, you hear a small click. The pedestal instantly lights up, glowing from hidden lights placed on the underside."
+                        "Then, burbling fills the room."
+                        bloodLevel += 1
+                        banquetTable_Try = {}
+                        renpy.jump("pedestalBlood")
         "Leave the pedestal alone.": 
             jump ballroom
                 
@@ -1064,6 +1113,15 @@ label end:
     megan "Pee?"
 
     brian "There's people, lots-lots of people!"
+    play music SwingingThatElectro fadein
+
+    scene shops_warm 
+
+    "The noise greets you before the sight does. A buzzing hum of voices that rise and fall."
+
+    "Outside, you see the source."
+
+    "A rather sizable crowd was waiting at the front. More than you'd ever seen. Many of them had halloween costumes on."
 
 
 
