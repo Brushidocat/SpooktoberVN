@@ -652,7 +652,7 @@ label firstdrawer:
     brian "Maybe some paint got in the-Hang on."
     "The drawer rattles ominously as he yanks harder. And yet still, it doesn't move." 
     brian "COme onnnn-!"
-    "THUNK!"
+    play sound creak 
     "The drawer suddenly flies open, and Brian stumbles backwards. Eyes wide, limbs flailing, his back hits the opposite wall." 
     megan "Did Brian fall again?"
     brian "I'm fine! I'll-uh-go sweep a corner." 
@@ -944,10 +944,21 @@ label brian_ballroom:
     hide brian default 
     jump ballroom 
 
+
+define pianoKey = {1, 2, 3, 4}
 label piano: 
     scene ballroom piano
-    "Red paint has been splattered against the keys."
+    "Red paint has been splattered against the keys to look like blood."
+    "Some keys have less paint on than others."
+    menu: 
+        "Play the piano.":
+            jump pianoCodeCheck
+        "Leave it alone.":
+            jump ballroom 
     jump ballroom 
+
+label pianoCodeCheck: 
+
 
 define banquetTableKey = {"eye", "fingers", "fruit", "flower"}
 default banquetTable_Try = {}
@@ -962,10 +973,10 @@ label banquetTable:
         "Check the note.":
             ## paper sound 
             "Potion of Weakening."
-            "One of ten servants, bony and thin."
+            "Five servants joined together."
             "An orb, of which all rely, even as it lies."
             "Thin skin reveals tender sweet flesh inside."
-            "Add perfumed scent, fresh from the cemetary. Mourn the dead."
+            "Add perfumed scent, fresh from the cemetary made to mourn the dead."
             "Add all into the bowl, and bring it to the blood."
             "With it, the vampire will weaken."
             jump banquetchoice
@@ -1048,6 +1059,7 @@ label pedestalBlood:
 label end: 
     show brian default at left 
     show megan default at right 
+    show neil sad
     "With the final piece in place, the coffin door swings open, and a floppy pile of stick thin limbs and black velvet cloth crumples to the floor."
     play music shenanigans 
     "Neil gasps, flops over onto his back to meet all three sets of eyes."
@@ -1121,14 +1133,20 @@ label end:
 
     "Outside, you see the source."
 
-    "A rather sizable crowd was waiting at the front. More than you'd ever seen. Many of them had halloween costumes on."
+    "A rather sizable crowd was waiting at the front. More than you'd ever seen. Many of them had halloween costumes on, and all of them looked like they were waiting for something to happen." 
 
+    megan "What the hell? Why are there so many?"
 
+    brian "I don't know! Do-oh gosh, are we going to be able to handle this?"
 
+    "Neil looks outside, unusually quiet."
 
+    neil "I uh- may have told my theatre troupe about this place."
 
+    megan "Is your theatre troupe a small army?"
 
-    
+    "You stare at the crowd, take a deep breath, and roll your shoulders."
 
+    you "Looks like it'll be a long night."
 
     return 
