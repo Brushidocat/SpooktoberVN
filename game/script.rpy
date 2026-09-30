@@ -27,8 +27,16 @@ define creak = "Furniture3_Overwrite-Save-Question.ogg"
 define solve = "Glass1_Save-Game-Question.ogg"
 define tink = "Glass2_Click-Dialogue.ogg"
 define paper = "Cloth_Overwrite-Save-Question.ogg"
+define unlock = "Glass3_Confirm-Question.ogg"
 
-
+label cheatcodes: 
+    menu: 
+        "Mainhall":
+            jump mainhall 
+        "Ballroom":
+            jump ballroom 
+        "Hallway":
+            jump hallway 
 # The game starts here.
 
 label start:
@@ -36,6 +44,9 @@ label start:
     # Show a background. This uses a placeholder by default, but you can
     # add a file (named either "bg room.png" or "bg room.jpg") to the
     # images directory to show it.
+    jump cheatcodes
+
+    play music starreaction
 
     scene shops_closed
 
@@ -44,7 +55,10 @@ label start:
     "Up the stairs, turn right, turn right, keep going past the three beauty salons and one comic shop, and there you were."
     
     "Your pride and joy. A rather nondescript storefront, painted black, with no windows and a few framed posters on the wall."
-    "It currently looked like it had been thrown up by the ghost of Spirit Halloween, thanks to the mall decorators. Cheap bat banners 'borrowed' from the Spirit Halloween, cobwebs made of cheap nylon, and a couple of limp green streamers."
+
+    "It currently looked like it had been thrown up by the ghost of Spirit Halloween, thanks to the mall decorators." 
+
+    "Cheap bat banners 'borrowed' from the Spirit Halloween, cobwebs made of cheap nylon, and a couple of limp green streamers. Someone had even stuck stickers onto the wall."
 
     "Above was a large sign, in neon and had taken almost half of your budget. {b}{color=[green]} LOCK&KEY ESCAPE ROOMS.{/color}{/b}"
 
@@ -58,15 +72,17 @@ label start:
     
     "In one hour, the newest addition to L&K would be opened."
 
-    "And in one hour, because of a scheduling error and what would only ever be described as the Ceiling Incident-"
+    "And in one hour, because of a scheduling error, traffic delays, and what would only ever be described as the Ceiling Incident-"
 
-    "-YOU would have to finish the final runthrough."
+    "-YOU, the owner of the room would have to finish the final runthrough tonight."
     
     "If you didn't?"
     
-    "You would have to either delay the opening of the Halloween Themed Escape Room to the day AFTER the biggest Halloween event of the year, or open it and face the possibility of an angry mob should something go horribly wrong."
+    "You would have to either A: delay the opening of the Halloween Themed Escape Room to the day AFTER the biggest Halloween event of the year." 
+    
+    "Or B: open it and face the possibility of an angry mob should something go horribly wrong."
 
-    "A full year of begging for funds, planning, designing, hiring, and dealing with a particularly hungry safety inspector, down the drain."
+    "A full year of begging for funds, planning, designing, hiring, and dealing with a particularly hungry safety inspector, would all go down the drain."
     
     "Your lease would be gone, and your store would probably join the row of pastels."
 
@@ -75,6 +91,7 @@ label start:
     "You got this."
 
     scene regal_hallway_light
+    play music communisumbra
 
     "The walls were made of the finest styrofoam you could salvage from the local depo. Pillars made of balsam wood. Every detail was thinned at the top to give the illusion of high vaulted ceilings."
 
@@ -174,7 +191,7 @@ label start:
     
     neil_v "WELCOME TO MY {bt=h5-s0.5-p10.0} HAUNTED MANSION!{/bt}"
 
-    neil_v "IN HERE, YOU SHALL BECOME MY NEXT {sc} {color=red} SAAAAAACRIFICE! {/color}{/sc}"
+    neil_v "IN HERE, YOU SHALL BECOME MY NEXT {sc} {color=[red]} SAAAAAACRIFICE! {/color}{/sc}"
 
     "It was the same voice. Only now they'd put on what was admitedly a pretty good Hungarian accent. It was ruined a little bit by the mic peaking on every third syllable." 
 
@@ -245,12 +262,13 @@ label start:
 
 label mainhall_start: 
     scene mainhall 
-    play music Through_The_Eyes_Of_The_Doll fadein 0.5
+    play music doll
     "Soft, flickering light greeted you through the door. On cue, the music started from various hidden bluetooth speakers."
 
     megan "'scuse."
 
     "Megan trots past you to take her place by the wall."
+    show megan default 
 
     megan_b "{i}You should have never come here, strange traveler.{/i}"
     "Her voice is super flat."
@@ -261,13 +279,14 @@ label mainhall_start:
 
     neil_v "WELCOME TO MY {bt=h5-s0.5-p10.0} HAUNTED MANSION!{/bt}"
 
-    neil_v "IN HERE, YOU SHALL BECOME MY NEXT {sc} {color=red} SAAAAAACRIFICE! {/color}{/sc}"
+    neil_v "IN HERE, YOU SHALL BECOME MY NEXT {sc} {color=[red]} SAAAAAACRIFICE! {/color}{/sc}"
+    neil_v "NOW THAT YOU ARE TRAPPED, YOU SHALL NEVER ESCAAAAAAAPE-" 
 
     "Megan clicked her tongue, but kept quiet." 
 
     "Clearly, he'd practiced this, it was better to play along for now."
 
-    neil_v "FOOLISH MORTALS! YOU SHALL NEVER ESCAPE MY LAIR~"
+    neil_v "FOOLISH MORTALS!"
 
     neil_v "TONIGHT, ME AND MY BRETHEREN SHALL FEAST!"
 
@@ -285,49 +304,56 @@ label mainhall_start:
     
 label mainhall: 
     hide megan 
-    show screen mainhall 
+    call screen mainhall 
 
 ##Keys and important flags for Mainhall 
 
-define chestKey = "urem"
+define chestKey = "UREM"
 default chestisLocked = True 
 default chestKey_try = ""
 default gargoyleisLocked = True 
-define gargoyleKey = {"red", "blue", "blue"}
-default gargoyleKey_try = {}
+define gargoyleKey = ["red", "blue", "red", "purple"]
+default gargoyleKey_try = []
 default tabletCollected = 0 
 
 label letter: 
     "Each word inside the letter was wriiten as clearly as possible."
-    "{i} Dear Unfortunate So{color=red}U{/color}l,"
-    "{i} If you are reading this, then I fea{color=red}R{/color} the worst has come to pass.{/i}"
+    "{i} Dear Unfortunate So{color=[red]}U{/color}l,"
+    "{i} If you are reading this, then I fea{color=[red]}R{/color} the worst has come to pass.{/i}"
     "{i} Fear not, if you are unsure where to start, the hint is close at hand.{/i}"
-    "{i}Signed, a fri{color=red}E{/color}nd."
-    "{i}PS, do not trust the bride, she {color=red}M{/color}erely wants more company."
+    "{i}Signed, a fri{color=[red]}E{/color}nd."
+    "{i}PS, do not trust the bride, she {color=[red]}M{/color}erely wants more company."
+    jump mainhall
 
 label chest:
     scene chest 
     "There's a large chest. It's been rather roughly painted gold, but the material is genuine wood."
     if chestisLocked == True: 
-        "There's a large lock keeping the chest shut. It's one of those word-based locks, with four turning dials."
+        "There's a large lock keeping the chest shut. It's one of those word-based ones, with four turning dials."
         "Try the code?"
         menu: 
             "Yes.":
                 jump chest_code
             "No":
                 jump mainhall 
+    else: 
+        menu: 
+            "Leave it alone.":
+                jump mainhall 
 
 label chest_code: 
     python: 
-        chestKey_try = renpy.input()
+        chestKey_try = renpy.input("Enter the Code")
         chestKey_try = chestKey_try.strip()
         chestKey_try = chestKey_try.upper()
-    if chestKey_Attmpet == chestKey: 
+    if chestKey_try == chestKey: 
         "The lock becomes heavier under your fingers as the lock loosens. You put it to the side."
         menu: 
             "Open the chest.":
+                play sound creak 
                 "Using two hands, you push the lid open."
                 "Inside the chest lays a broken piece of tablet lays at the bottom."
+                $ chestisLocked = False 
                 $ tabletCollected += 1
                 menu: 
                     "Take the tablet.":
@@ -380,7 +406,7 @@ label paintings:
     return 
 
 label gargoyle: 
-    if gagoyleisLocked:
+    if gargoyleisLocked:
         scene gargoyle_tablet
     else:
         scene gargoyle_notablet
@@ -395,7 +421,7 @@ label gargoyle:
             "Below the gargoyle, is a row of buttons with images on them."
             "From right to left, was an engraving of a moon, a lily, and a gem."
             jump gargoylelook
-        "Try a code.":
+        "Try a code." if gargoyleisLocked:
             jump gargoyle_code
         "Leave.": 
             jump mainhall 
@@ -405,42 +431,53 @@ define codenumber = 0
 label gargoyle_code: 
     menu: 
         "Press the red button.": 
-            $ gargoyleKey_try = gargoyleKey_try.append("red")
+            $ gargoyleKey_try.append("red")
             $ codenumber += 1 
-            if codenumber ==3: 
+            if codenumber ==4: 
                 jump gargoylecheck
             else: 
                 jump gargoyle_code
 
         "Press the blue button.":
-            $ gargoyleKey_try = gargoyleKey_try.append("blue")
+            $ gargoyleKey_try.append("blue")
             $ codenumber += 1 
-            if codenumber ==3: 
+            if codenumber ==4: 
                 jump gargoylecheck
             else: 
                 jump gargoyle_code
 
         "Press the green button.":
-            $ gargoyleKey_try = gargoyleKey_try.append("green")
+            $ gargoyleKey_try.append("green")
             $ codenumber += 1 
-            if codenumber ==3: 
+            if codenumber ==4: 
                 jump gargoylecheck
             else: 
                 jump gargoyle_code
+        "Press the purple button.":
+            $ gargoyleKey_try.append("purple")
+            $ codenumber += 1 
+            if codenumber == 4: 
+                jump gargoylecheck 
+            else: 
+                jump gargoyle_code
+        "Leave.":
+            jump mainhall 
     
 label gargoylecheck: 
     if gargoyleKey == gargoyleKey_try:
         "The tablet loosens from the gargoyle's grip. You take it out easily."
+        $ gargoyleisLocked = False 
         scene gargoyle_notablet
         $ tabletCollected += 1 
+        $ mainhall = "images/mainhall/mainhall_gargoyle.png"
         jump mainhall 
     else: 
         "The gargoyle remains still."
         $ codenumber = 0 
-        $ gargoyleKey_try = {}
+        $ gargoyleKey_try = []
 
 label carpet: 
-    "Red, green, yellow, green, red, blue"
+    "There is a large carpet under the table with an alternating red-yellow-green-red pattern, and embroidered blue roses at the center."
     jump mainhall 
 
 default mainhall_Doors = True
@@ -460,7 +497,7 @@ label mainhall_Doors:
 
 label MainhallDoors_Code: 
     python: 
-        mh_incantation_try = renpy.input()
+        mh_incantation_try = renpy.input("Speak!")
         mh_incantation_try = mh_incantation_try.strip()
         mh_incantation_try = mh_incantation_try.upper()
     if mh_incantation_try == mh_incantation:
@@ -477,12 +514,14 @@ label MainhallDoors_Code:
 label table: 
     #TODO: Drag and Drop?
     scene table_notablet
-    "The large wooden table dominates the room. There are several scratches all over the front. Some of them end abruptly, forming a rectangle in their negative space."
+    "The large wooden table dominates the room. There are strange burns all over the front. Some of them end abruptly, forming a rectangle in their negative space."
     menu: 
         "Put the tablets down on the table." if tabletCollected == 3: 
             scene table_withtablet
             "You put all three tablets on the table, and arrange them."
             "Together, they spell out the words. 'Red Rivers Run Deep Tonight.'"
+        "Read the letter.":
+            jump letter
         "Go back.": 
             jump mainhall 
 
@@ -547,10 +586,8 @@ label mainhall_End:
 
 
 default haveGem = False 
-default bookcaseCode = ""
+default bookcaseCode = "69463"
 define bookcaseCode_try = ""
-define drawerCode = ""
-define drawerCode_Try = ""
 default endRoute = ""
     
 
@@ -664,7 +701,7 @@ label firstdrawer:
             "I have hidden it within the hallways of our castle, and the code closeby."
             "No one shall be able to REVERSE the curse you've casted on this place."
             "Your most loyal servant, the Pumpkin."
-            "PS. eerhT ytneveS derdnuH eviF dnasuohT ytnewT."
+            "PS. xis dna derdnuh xis dnasuoht eno"
             menu: 
                 "Take the paper.":
                     $ havePaper == True 
@@ -702,7 +739,7 @@ label mirror:
         "Place the paper to the mirror?" if havePaper:
             "You hold the paper to the mirror, and immediately you see words."
             "Decoded, it writes:"
-            "Twenty Thousand Five Hundred Seventy Three."
+            "one thousand six hundred and six"
             jump mirrorchoice
         "Leave.":
             jump hallway 
@@ -724,8 +761,8 @@ label bookcase:
     "He was fine, thankfully."
     "The floor on the other hand...It was good they were having a carpet sale at the depo."
     "As you get closer to the bookcase, Brian immediately perks up and, doing his best to be inconspicuous, shuffles closer to you. He keeps glancing at it in intervals."
-    menu: 
-        "Look at the bookcase closer.":
+    menu book: 
+        "Look closer at the bookshelf.":
             "Walking to the side, you spot a small keypad with numbers."
             menu tryBookcase: 
                 "Try a code?":
@@ -734,20 +771,49 @@ label bookcase:
                     you "Uh, Brian-sorry, I can't concentrate with you that close."
                     "Brian immediately walks backwards and almost trips over his own feet."
                     jump bookcase_code
-                "Leave the bookcase."
+                "Leave the bookcase.":
+                    jump hallway 
+        "Look closer at the book": 
+            "Not all of the books are fake. Some can be taken."
+            menu: 
+                "Pull out a book.":
+                    jump booklist  
+                "Leave it be.": 
+                    jump book 
     jump hallway 
+
+label bookfail: 
+    "You open the book, but find nothing. You place it back into the shelf."
+    jump booklist 
+
+label booklist: 
+    menu: 
+        "Little Women, 1869,": 
+            jump bookfail 
+        "Demonologie, 1597": 
+            jump bookfail
+        "Carmilla, 1872":
+            jump bookfail 
+        "The Phantom World, 1746":
+            jump bookfail
+        "Dracula, 1897":
+            jump bookfail
+        "Macbeth, 1606":
+            jump booksuccess
+        "Leave it alone.":
+            jump book
 
 label bookcase_code: 
     python: 
-        bookcaseCode_try = renpy.input()
+        bookcaseCode_try = renpy.input("Input Code")
         bookcaseCode_try = bookcaseCode_try.strip()
         bookcaseCode_try = bookcaseCode_try.upper()
     if bookcaseCode_try == bookcaseCode:
         jump hiddenCompartment
     else: 
         "There is a faint negative *beep* as you get the code wrong."
-        brian "D'oh!"
-        "...You were going to give Brian a cookie later."
+        brian "D'oh! It's okay, you can try again!" 
+        "...Urge to give cookie...Rising..."
         $ bookcaseCode_try = ""
         jump tryBookcase
 
@@ -945,7 +1011,8 @@ label brian_ballroom:
     jump ballroom 
 
 
-define pianoKey = {1, 2, 3, 4}
+define pianoKey = [1, 2, 3, 4, 5]
+define pianoKey_Try = []
 label piano: 
     scene ballroom piano
     "Red paint has been splattered against the keys to look like blood."
@@ -958,6 +1025,31 @@ label piano:
     jump ballroom 
 
 label pianoCodeCheck: 
+    "There isn't a chair to sit on, so you have to bend a little awkwardly."
+    menu pianoplay: 
+        "Press the far left piano key.":
+            $ pianoKey_Try.append(1)
+            jump pianoplay
+        "Press the middle left piano key.":
+            $ pianoKey_Try.append(4)
+        "Press the middle key.":
+            $ pianoKey_Try.append(3)
+        "Press the middle right piano key.":
+            $ pianoKey_Try.append(2)
+        "Press the far right key.": 
+            $ pianoKey_Try.append(5)
+            if pianoKey_Try == pianoKey: 
+                jump pianoCodeTrue 
+        "Give up":
+            jump ballroom 
+label pianoCodeTrue: 
+    stop music fadeout 1.0 
+    play music communisumbra
+    "The piano starts to play itself, undercut by a low burbling sound coming from the pillar."
+    "It seems something has happened."
+    jump ballroom 
+    
+    
 
 
 define banquetTableKey = {"eye", "fingers", "fruit", "flower"}
@@ -1123,19 +1215,19 @@ label end:
     "You can see the cogs turning in that young adult's head, before it clicked."
     neil "Ahem."
     "He quickly gets into character, hair mussed, but back fully straight."
-    if endRoute = "moon": 
+    if endRoute == "moon": 
         "The vampire stalks towards the halpless captives."
         neil_v "Such fools! How {i}easy{/i} it was to deceive you." 
         neil_v "My servant has always been loyal to me, he shall be greatly rewarded!"
         neil_v "Did you truly think you could stop me?"
         neil_v "Ah, with my Moon Dagger in my midst, I can feel my strength returning to me! The Bride will suffer for her transgressions, but first!"
         neil_v "IT WILL BE EASY TO DEVOUR YOU! MUAHAHAHAH!"
-    elif endRoute = "sun": 
+    elif endRoute == "sun": 
         "With a cringe, the vampire collapses onto the floor."
         neil "GAH! ZOUNDS! THE SUN LANTERN?!"
         neil "How could my servant fail me!? Curse you, Bride!"
         neil "My powers! My mansion! I have lived for centuries! How could I, the great COUNT BLUD, be bested by some mere mortals?!"
-        neil "AGH! I'M MELTING! {}MELTING!!!" 
+        neil "AGH! I'M MELTING! {sc}MELTING!!!{/sc}" 
         "The vampire collapses onto the floor, and after a little more gasps, lays still."
     brian "Uh-guys?!"
     "Suddenly, Brian is standing at the ballroom entrance. Four cold water bottles somehow dangling from his hands.."
@@ -1144,7 +1236,7 @@ label end:
     megan "Pee?"
 
     brian "There's people, lots-lots of people!"
-    play music SwingingThatElectro fadein
+    play music SwingingThatElectro 
 
     scene shops_warm 
 

@@ -30,17 +30,23 @@ define config.version = "1.0"
 ## triple-quotes, and leave a blank line between paragraphs.
 
 define gui.about = _p("""
-
+Characters by Ocwitch9
 Audio: 
-Through the Eyes of the Doll - Clement Panchout  https://clement-panchout.itch.io/
+Doll Dance- Tim Reichart  https://fulminisictus.itch.io/
 Monster Musuem - Clement Panchout https://clement-panchout.itch.io/ 
 Danger - Clement Panchout https://clement-panchout.itch.io/
-Shenanigans -  https://fulminisictus.itch.io/
-Time to Rest - https://fulminisictus.itch.io/
-Swinging That Electro- https://fulminisictus.itch.io/
+Shenanigans -  Tim Reichart https://fulminisictus.itch.io/
+Swinging That Electro- Tim Reichart https://fulminisictus.itch.io/
 GOTHIC VISUAL NOVEL SOUNDS - https://rohhsa.itch.io/ (500 Ui sounds what the fu-) 
 Haunted Hijinks - Melancholy Marionette, https://melancholy-marionette.itch.io/love-terror-bgm-pack-vol-02, https://melancholy-marionette.itch.io/
-
+Star Reaction - Retro Indie Josh 
+Contains music ©2026 Arkeia (https://arkeiamusic.itch.io/)
+Licensed under Creative Commons Attribution 4.0 International
+3D Props: 
+Blenderkit 
+piano, with some modifications - https://www.fab.com/listings/8d0fb4d5-5031-4900-b78d-69d99bbbfb77
+gargoyle stone - https://museumscan.com/ 
+Everything Else - Brushidobee
 Backgrounds: 
 "Shopping Backgrounds" by Unicorn Creates (https://unicorncreates.itch.io/) licensed under CC BY 4.0 (http://creativecommons.org/licenses/by/4.0/)
 "Regal Hallway" by Knickknack PJ (https://knickknackpj.itch.io/)
