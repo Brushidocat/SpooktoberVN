@@ -38,6 +38,7 @@ Danger - Clement Panchout https://clement-panchout.itch.io/
 Shenanigans -  Tim Reichart https://fulminisictus.itch.io/
 Swinging That Electro- Tim Reichart https://fulminisictus.itch.io/
 GOTHIC VISUAL NOVEL SOUNDS - https://rohhsa.itch.io/ (500 Ui sounds what the fu-) 
+Gurgling sound - Bevibeldesign https://pixabay.com/sound-effects/film-special-effects-viscious-liquid-gurgling-54710/ 
 Haunted Hijinks - Melancholy Marionette, https://melancholy-marionette.itch.io/love-terror-bgm-pack-vol-02, https://melancholy-marionette.itch.io/
 Star Reaction - Retro Indie Josh 
 Contains music ©2026 Arkeia (https://arkeiamusic.itch.io/)

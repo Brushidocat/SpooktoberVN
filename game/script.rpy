@@ -23,13 +23,15 @@ default spooky = False
 default mall = ""
 define red = '#f31b1b'
 define green = '#38ff7b'
-define creak = "Furniture3_Overwrite-Save-Question.ogg"
-define solve = "Glass1_Save-Game-Question.ogg"
-define tink = "Glass2_Click-Dialogue.ogg"
-define paper = "Cloth_Overwrite-Save-Question.ogg"
-define unlock = "Glass3_Confirm-Question.ogg"
+define creak = "SFX/Furniture3_Overwrite-Save-Question.wav"
+define solve = "SFX/Glass1_Save-Game-Question.wav"
+define tink = "SFX/Glass3_Click-Dialogue.wav"
+define paper = "SFX/Cloth_Overwrite-Save-Question.wav"
+define unlock = "SFX/Glass3_Confirm-Question.wav"
+define gurgle = "SFX/freesound_community-viscious-liquid-gurgling-54710"
 
 label cheatcodes: 
+    
     menu: 
         "Mainhall":
             jump mainhall 
@@ -44,8 +46,8 @@ label start:
     # Show a background. This uses a placeholder by default, but you can
     # add a file (named either "bg room.png" or "bg room.jpg") to the
     # images directory to show it.
+   
     jump cheatcodes
-
     play music starreaction
 
     scene shops_closed
@@ -350,7 +352,7 @@ label chest_code:
         "The lock becomes heavier under your fingers as the lock loosens. You put it to the side."
         menu: 
             "Open the chest.":
-                play sound creak 
+                play sound creak volume 1.5
                 "Using two hands, you push the lid open."
                 "Inside the chest lays a broken piece of tablet lays at the bottom."
                 $ chestisLocked = False 
@@ -387,19 +389,21 @@ label paintings:
         "Look at the second painting.": 
             "Here is a regal garden filled with red roses, white lilies, and purple wolfsbane."
             menu: 
-                "Check behind the painting?":
-                    "You turn it over, but find nothing."
-            jump paintings
-        "Look at the third painting.": 
-            "A portrait of an extremely pale man. He wears a red brooch, a black cape, and has a white dagger in his hands."
-            menu: 
                 "Check the painting?":
                     scene painting_back 
-                    "Oh! You found something! A  tablet piece, cold and smooth."
+                    "Oh! You found something! You've collected a tablet piece."
                     $ tabletCollected += 1
                     menu: 
                         "Take the tablet.":
                             jump paintings
+                
+            jump paintings
+        "Look at the third painting.": 
+            "A portrait of an extremely pale man. He wears a red brooch, a black cape, and has a white dagger in his hands."
+            menu: 
+                
+                "Check behind the painting?":
+                    "You turn it over, but find nothing."
             jump paintings 
         "Go back.":
             jump mainhall 
@@ -481,7 +485,7 @@ label carpet:
     jump mainhall 
 
 default mainhall_Doors = True
-default mh_incantation = "red rivers run deep tonight"
+default mh_incantation = "RED RIVERS RUN DEEP TONIGHT"
 define mh_incantation_try = ""
 
 label mainhall_Doors: 
@@ -498,7 +502,6 @@ label mainhall_Doors:
 label MainhallDoors_Code: 
     python: 
         mh_incantation_try = renpy.input("Speak!")
-        mh_incantation_try = mh_incantation_try.strip()
         mh_incantation_try = mh_incantation_try.upper()
     if mh_incantation_try == mh_incantation:
         jump mainhall_End
@@ -510,6 +513,8 @@ label MainhallDoors_Code:
                 jump MainhallDoors_Code
             "Leave.":
                 jump mainhall
+
+default tabletplaced = False 
         
 label table: 
     #TODO: Drag and Drop?
@@ -520,6 +525,10 @@ label table:
             scene table_withtablet
             "You put all three tablets on the table, and arrange them."
             "Together, they spell out the words. 'Red Rivers Run Deep Tonight.'"
+            $tabletCollected = 0   
+            menu: 
+                "Leave the table":
+                    jump mainhall 
         "Read the letter.":
             jump letter
         "Go back.": 
@@ -529,8 +538,13 @@ label table:
 default brideHints = 0
 
 label Megan: 
-    show megan default 
+    if gargoyleisLocked:
+        scene mainhall no megan 
+    else: 
+        scene mainhall no megan gargoyle
+    show megan phone 
     "Megan looks at you as you approach and stuff her phone back in her pocket."
+    show megan default 
     you "We need to run through your lines."
     "Megan raised an eyebrow. Then she shrugs." 
     megan_b "{i}Do you need a hint? The vampire lord changes the incantation every time."
@@ -557,23 +571,27 @@ label BrideHints:
         megan_b "{i} The great beast contains part of the code in its mouth. It seems to have a fondness for the paintings in this gallery.{/i}"
         megan "Have to admit, I like the gargoyle."
         megan "Once this is all over, you mind if I take it home? I can use it to scare the neighbors."
-        megan "You sure people'll notice those hints on the paintings?" 
         $ brideHints += 1 
     else: 
         megan "That's all I got for you, boss."
         megan "Unless you want to talk about my salary."
     jump Megan  
 
+default mainhallfinished = False 
 label mainhall_End:
-    scene mainhall 
+    scene mainhall finished
+    $ mainhallfinished = True
+    $ mainhall = "images/mainhall/mainhall finished.png"
     "The moment the three words leave your mouth, the door should have unlocked and swing open on its own, as if by a ghost."
     "Instead-"
+    play music haunted_hijinks
     neil_v "HOW?! HOW COULD YOU HAVE FIGURED OUT MY SECRET PASSWORD!? {bt=h5-s0.5-p10.0}INCONCEIVABLE!!!"
     "He sounds a little different, as if he had something in his mouth."
     neil_v "COULD IT BE?! CURSE YOU, MY FORMER BRIDE!" 
     "Megan ignores him."
     neil_v "NO MATTER! EVEN WITH HELP, THERE'S NO WAY YOU SHALL DEFEAT MEE!" 
     neil_v "{bt=h5-s0.5-p10.0}MUAHAHAHAHAHAHAHA{/bt}-ack."
+    play music shenanigans
     neil "*Cough*! *Cough*!"
     you "You alright there?"
     neil "I-hrk! NO BREATH MINT CAN-gack-STOP ME! I SHALL {bt=h5-s0.5-p10.0}RETUUUURN.{/bt}"
@@ -593,10 +611,12 @@ default endRoute = ""
 
 label hallway_start:
     scene hallway 
-    play music Monster_Musuem
-    "The long, thin hallway stretches out far in front of you. The door on the other side was flanked by two large boxes. One yellow, one blue. And there, standing on the side of the room trying to right a chair, was a long, lanky figure."
+    play music monster_musuem
+    "The long, thin hallway stretches out far in front of you. The door on the other side was flanked by two small boxes." 
+    "And there, standing on the side of the room trying to right a chair, was a long, lanky figure."
     "His pumpkin mask eyes glow with an eerie light, and his suit is slightly wrinkled."
     show brian default 
+    show hallway no brian
     brian "Hey boss! Er-Oh, sorry. One sec." 
     "He finally turns the chair upright, then straightens his back."
     brian_s "{i}Ah! Another guest for the master?"
@@ -607,11 +627,13 @@ label hallway_start:
     brian_s "{i}You should find the moon dagger instead! It is his main source of power. Without it, he will have nothing.{/i}" 
     brian_s "{i}Who knows, perhaps you may even become the new count!{/i}"
     brian_s "{i}I'm quite tired of his Lord Count Blud myself,"
-    brian_s "{i}The master is quite clever, however. He's encased both artefacts in magical containers, there is only one key, the Blood Ruby." 
+    brian_s "{i}The master is quite clever, however. He's encased both artefacts in magical containers, there is only one way to do so, the Blood Ruby." 
     "He gestures behind you, where a large glass gem resides inside a glass case." 
     "Underneath, in large industrial text, was the phrase: DO NOT BREAK!"
     brian_s "{i}I would open the case itself, but avast-alas, I have no way to open it myself!"
-    "Something falls out of his pocket. A thick, heaavy looking key that looks like it would perfectly fit the lock on the glass case."
+    stop music 
+    play sound tink
+    "Something falls out of his pocket. A thick, heavy looking key that looks like it would perfectly fit the lock on the glass case."
     "He pauses, unblinking, looks down, then looks back up."
     "Then he lunges for the key with all the grace of an american linebacker and shoves it into his pocket."
     brian_s "{i}P-perhaps you can find it? Remember though, the Ruby can only be used once! Choose wisely who you side with.{/i}"
@@ -782,9 +804,13 @@ label bookcase:
                     jump book 
     jump hallway 
 
+default havesmallKey = False 
 label bookfail: 
     "You open the book, but find nothing. You place it back into the shelf."
     jump booklist 
+label booksuccess: 
+    "Inside the book, you find one half of the thick tomb has been modified. A small recess, large enough for a tiny key."
+    "It's not big enough to fit in the lock. (And you know better than to try.) but maybe it could unlock something else?"
 
 label booklist: 
     menu: 
@@ -819,7 +845,7 @@ label bookcase_code:
 
 
 
-
+default havebigkey = False
 label hiddenCompartment: 
     scene bookcase open
     "The hidden compartment swings open." 
@@ -829,12 +855,24 @@ label hiddenCompartment:
     "He quickly puts the key back on the pillow."
     menu: 
         "Take the key.":
+            play sound tink
+            $havebigkey = True 
             jump hallway
         "Take the key while staring directly at Brian.":
             "Brian stares back at you."
             brian "I realise now I could have just given it to you."
             you "Yup."
     jump hallway 
+
+label hallwaydoors: 
+    "Unlike the first door, this door has two boxes screwed on either side, painted a deep blue with yellow stars."
+    you "Brian, you remembered to put the tokens back after you cleaned them, right?"
+    brian "Yes Boss!" 
+    menu: 
+        "Look at the Moon Box":
+            jump moonbox
+        "Look at the Sun Box":
+            jump sunbox
 
 label moonbox: 
     scene hallway_moon
@@ -875,7 +913,9 @@ label gemcase:
     "It almost completely fills your vision."
     menu: 
         "Break the glass.":
-            brian "Hey what are you doing with that vase-"
+            scene black
+            brian "Hey what are you doing with that lamp-"
+            stop music
             "SMASH!"
             "..."
             #Black
@@ -887,8 +927,9 @@ label gemcase:
                     return
                 "Rethink your choices?":
                     jump gemcase
-        "Use the key" if haveKey: 
-            "Easy as pie. You take the gem from it's cushion. Each facet refracts the pale light like glitter."
+        "Use the key" if havebigkey: 
+            "Easy as pie. You take the gem from it's cushion. Each facet refracts the yellow light like glitter and casted pretty lights over the walls."
+            "Brian looks pleased for you too."
             $ hasGem = True 
         "Leave the case.":
             jump hallway
@@ -896,12 +937,14 @@ label gemcase:
 
 label ballroom_start: 
     "The box was empty."
+    play music haunted_hijinks fadein 1.0
     "Wait, why...?"
     "You stare at the empty box, the little pedestal where the 'relic' should be. Nothing."
     "You look at Brian."
     "He looks just as confused as you are. Which is even more worrying."
     show brian default at left 
     brian "I know I put it in there, honest!"
+    show brian panic at left 
     neil_v "MUAHAHAHAHAHAH~"
     neil_v "FOOLS! DID YOU THINK I WOULD PUT MY RELICS OF POWER IN SUCH FLIMSY SECURITY!?"
     "Megan wandered into the hallway. Her eyes immediately lock onto the empty case."
@@ -911,8 +954,9 @@ label ballroom_start:
     megan "What is he doing this time?"
     brian "I don't know! Um-He said something about wanting to talk to the Boss about adding something before the runthrough." 
     brian "But since the Boss was late, I thought he just forgot about it!"
+    brian "What do we do? This isn't in the script at all!"
     megan "What exactly did he say?"
-    brian "Uh-a boss fight?"
+    brian "Uh-uh-a boss fight?"
     "Both you and Megan slowly turn to Brian incredulously. Even he seems to realise what he just said."
     megan "A boss fight? In an escape room?"
     neil_v "IF YOU WISH TO VANQUISH ME, COME TO THE BALLROOM! WHERE WE SHALL HAVE A BATTLE FOR THE AGESSS!"
@@ -946,7 +990,7 @@ label ballroom_start:
     "MMMmph! MMMPH!!"
     "Except one."
     "The coffin. Originally, once the puzzle was complete, Neil was meant to open the door to 'confront' the players, then depending on whether they used the Sun Lantern or the Moon dagger, they would be lead to two different endings."
-    "It connected straight into a smaller room, where Neil could wait."
+    "It connected straight into a smaller room, where Neil could wait or go to the staff room. So why...?"
     ## thunk sound 
     "*Thunk!* *Thunk!*"
     "Something was hitting the lid of the wood."
@@ -956,12 +1000,14 @@ label ballroom_start:
     "Brian immediately ran to the coffin and started trying to pry the lid open with his fingers."
     brian "Neil, open the door!"
     neil "I can't!"
+    brian "I MEANT THE OTHER DOOR!"
+    neil "The-the handle is stuck! I can't move it!"
     you "Neil, there's an emergency unlock in the staff room, Megan's heading there. She can let you out."
     "The thumping stops. Too abruptly." 
     neil "..."
     "Your stomach sinks into your gut."
     you "Neil. Did you lock both doors to the staff room?"
-    neil "Yeah."
+    neil "...Yeah."
     "Looks like you have a stuck vampire on your hands."
     "Even if you had the heart to leave him in there, the props he had were the main part of the escape room! You didn't have enough time to change it."
     "You could call the fire department to get him out, "
@@ -974,7 +1020,19 @@ label ballroom_start:
 label ballroom: 
     call screen ballroom 
 
+label coffin:
+    scene ballroom coffin  
+    "The coffin is rattling rather loudly. Maybe you bolted it a little too tight to the wall."
+    "Unfortunately, the entire lid was lined with a strong magnet. Nothing short of a power outage could open it now."
+    "Brian is looking at the walls, which is worrying in of itself, while Megan is leaning against a pillar, chilling."
+    menu: 
+        "Speak to Brian":
+            jump brian_ballroom
+        "Speak to Megan":
+            jump megan_ballroom
+
 label megan_ballroom: 
+    scene ballroom 
     show megan default 
     "Megan arrived barely five minutes later, arms folded."
     megan "So Neil's really stuck? Damn." 
@@ -997,6 +1055,7 @@ label megan_ballroom:
     jump ballroom
 
 label brian_ballroom: 
+    scene ballroom 
     show brian default 
     brian "Hey Boss!"
     brian "Do you think I can fit in those vents? I've been kind of going ham on the candy, but I think if I take off my mask I can fit in!"
@@ -1009,7 +1068,6 @@ label brian_ballroom:
     you "I'll...think about it."
     hide brian default 
     jump ballroom 
-
 
 define pianoKey = [1, 2, 3, 4, 5]
 define pianoKey_Try = []
@@ -1028,32 +1086,53 @@ label pianoCodeCheck:
     "There isn't a chair to sit on, so you have to bend a little awkwardly."
     menu pianoplay: 
         "Press the far left piano key.":
+            #play sound piano1
             $ pianoKey_Try.append(1)
             jump pianoplay
         "Press the middle left piano key.":
+            #play sound piano2
             $ pianoKey_Try.append(4)
+            jump pianoplay 
         "Press the middle key.":
+            #play sound piano3
             $ pianoKey_Try.append(3)
+            jump pianoplay
         "Press the middle right piano key.":
+            #play sound piano4
             $ pianoKey_Try.append(2)
+            jump pianoplay
         "Press the far right key.": 
+            #play sound piano5
             $ pianoKey_Try.append(5)
             if pianoKey_Try == pianoKey: 
                 jump pianoCodeTrue 
+            else: 
+                jump pianoplay 
         "Give up":
             jump ballroom 
 label pianoCodeTrue: 
     stop music fadeout 1.0 
     play music communisumbra
+    play sound burble 
     "The piano starts to play itself, undercut by a low burbling sound coming from the pillar."
     "It seems something has happened."
     jump ballroom 
     
+label pianocheck: 
+    python: 
+        if lens(pianoKey_Try) == 5: 
+            if pianoKey_Try == pianoKey: 
+                renpy.jump("pianoCodeTrue")
+            else: 
+                pianoKey_Try = []
+                renpy.jump("pianoCodeCheck")
+        else: 
+            renpy.jump("pianoCodeCheck")
     
 
 
-define banquetTableKey = {"eye", "fingers", "fruit", "flower"}
-default banquetTable_Try = {}
+define banquetTableKey = ["eye", "fingers", "fruit", "flower"]
+default banquetTable_Try = []
 default bloodLevel = 0 
 
 label banquetTable:
@@ -1081,37 +1160,38 @@ label banquetTable:
 label banquetTry: 
     menu: 
         "Add Eyes.": 
-            ## add tink sound 
+            play sound tink  
             $ banquetTable_Try.append("eye")
             jump banquetTry
         "Add Fingers": 
-            ## add tink sound 
+            play sound tink 
             $ banquetTable_Try.append("fingers")
             jump banquetTry
         "Place a Fruit": 
-            ## add tink sound 
+            play sound tink 
             $ banquetTable_Try.append("fruit")
             jump banquetTry
         "Take a flower.": 
-            ## add tink sound 
+            play sound tink 
             $ banquetTable_Try.append("flower")
             jump banquetTry
         "Add the Heart": 
-            ## add tink sound 
+            play sound tink 
             $ banquetTable_Try.append("heart")
             jump banquetTry
         "Put a fake chocolate.": 
-            ## add tink sound 
+            play sound tink 
             $ banquetTable_Try.append("chocolate")
             jump banquetTry
         "Empty the bowl": 
-            ## add tink sound 
-            $ banquetTable_Try = {}
+            play sound tink 
+            $ banquetTable_Try = []
         "Finish.": 
             jump banquetTable
 
 
 label pedestalBlood:
+    scene ballroom
     "The stone pedestal stands right in the middle of the room. This was important to solving the puzzle, you know."
     "A second, smaller pillar stands near it, with a small round indent perfect for a bowl."
     if bloodLevel == 0:
@@ -1121,13 +1201,11 @@ label pedestalBlood:
         scene ballroom bowl02
         "There's a thin layer of dark red liquid in the bowl."
     elif bloodLevel == 2: 
-        scene ballroom bowl03
-        "There is more liquid inside the bowl than before. Thick and viscous, it looks likes you just need a little more to fill the bowl."
-    elif bloodLevel == 3: 
         scene ballroom bowl04
         "The blood level is full, and burbling too, the hidden pipe was now spewing little compressed air bubbles under the liquid."
+        jump pedestalSolve
     menu: 
-        "Put bowl of ingredients in the indent." if banquetTable_Try != {}: 
+        "Put bowl of ingredients in the indent." if banquetTable_Try != []: 
             python: 
                 for item in banquetTable_try: 
                     if item not in banquetTable: 
@@ -1135,16 +1213,34 @@ label pedestalBlood:
                         renpy.jump("pedestalBlood")  
                     else: 
                         "As you place the ingredients down, you hear a small click. The pedestal instantly lights up, glowing from hidden lights placed on the underside."
+                        renpy.play(gurgle, sound)
                         "Then, burbling fills the room."
                         bloodLevel += 1
-                        banquetTable_Try = {}
+                        banquetTable_Try = []
                         renpy.jump("pedestalBlood")
         "Leave the pedestal alone.": 
             jump ballroom
                 
     jump ballroom 
 
-
+label pedestalSolve:
+    "The plinth to the right begins to glow slightly. That meant it was active, but..." 
+    show megan default at left 
+    megan "Huh."
+    "Megan and Brian had been busy trying to pry the lid of the coffin open, but to no avail. Now, they wander towards you."
+    show brian default at right 
+    brian "b-boss, what are you doing?"
+    you "I was trying to see if we could open the coffin using the puzzle."
+    "Brian's posture straightens as something inside him clicks."
+    brian "Oh! That's smart!"
+    megan "Not really, Neil took the tokens, remember?"
+    brian "Ah. Right."
+    brian "Maybe if all four of tried, we could make a gap big enough that he could slide them through?"
+    megan "Or chop his fingers off."
+    neil "I WOULD LIKE TO KEEP MY FINGERS PLEASE."
+    brian "Mmmaybe we could just push it?"
+    "Brian sticks his finger into the hole and presses. Nothing occurs."
+    you "It's not a button, the token is metal, so when you put it into the slot, it allows an electrical charge to turn off the magnets keeping the lid closed."
 
 
 
