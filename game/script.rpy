@@ -29,6 +29,11 @@ define tink = "SFX/Glass3_Click-Dialogue.wav"
 define paper = "SFX/Cloth_Overwrite-Save-Question.wav"
 define unlock = "SFX/Glass3_Confirm-Question.wav"
 define gurgle = "SFX/freesound_community-viscious-liquid-gurgling-54710"
+define demon = "demon.png"
+define nova = "nova.png"
+define vega = "vega.png"
+define larissa = "larissa.png"
+define kiddo = "kiddo.png"
 
 label cheatcodes: 
     
@@ -39,6 +44,8 @@ label cheatcodes:
             jump ballroom 
         "Hallway":
             jump hallway 
+        "end":
+            jump end
 # The game starts here.
 
 label start:
@@ -47,7 +54,7 @@ label start:
     # add a file (named either "bg room.png" or "bg room.jpg") to the
     # images directory to show it.
    
-    jump cheatcodes
+  
     play music starreaction
 
     scene shops_closed
@@ -563,18 +570,32 @@ label BrideHints:
         megan "I see why we have a color printer in the back now." 
         megan "Glad that's not out of my paycheck."
         $ brideHints += 1
+        menu: 
+            "Much appreciated, Megan":
+                "Megan gives a short nod, and starts looking at her phone again."
+                jump mainhall
+            
     elif brideHints == 1: 
         megan_b "{i}I've seen those paintings move and shake sometimes, as if they are alive. Perhaps you should take a closer look."
         megan "Hey, do I have to clean off fingerprints off those frames every time they check them?"
         $ brideHints += 1 
+        menu: 
+            "Only after the session":
+                megan "Ew."
+                jump mainhall
     elif brideHints == 2: 
         megan_b "{i} The great beast contains part of the code in its mouth. It seems to have a fondness for the paintings in this gallery.{/i}"
         megan "Have to admit, I like the gargoyle."
         megan "Once this is all over, you mind if I take it home? I can use it to scare the neighbors."
         $ brideHints += 1 
+        menu: 
+            "It's going to be on for a while.":
+                megan "Something to look forward then. "
+                jump mainhall
     else: 
         megan "That's all I got for you, boss."
         megan "Unless you want to talk about my salary."
+        jump mainhall
     jump Megan  
 
 default mainhallfinished = False 
@@ -594,11 +615,14 @@ label mainhall_End:
     play music shenanigans
     neil "*Cough*! *Cough*!"
     you "You alright there?"
-    neil "I-hrk! NO BREATH MINT CAN-gack-STOP ME! I SHALL {bt=h5-s0.5-p10.0}RETUUUURN.{/bt}"
+    megan "Did you steal my peppermints?"
+    neil "I-hrk! NO CANDY CAN-gack-STOP ME! I SHALL {bt=h5-s0.5-p10.0}RETUUUURN.{/bt}"
     megan "Open the door Neil."
     "Silence."
     "The double doors unlock with an audible click. Then the PA system turned off."
-    megan "See ya, Boss. Catch you after the break."
+    megan "I'm going to make him pay later."
+    "Probably literally."
+    megan "See ya, Boss. Catch you after my mandated 15 minute break."
     jump hallway_start
 
 
@@ -658,6 +682,7 @@ label hallway:
     call screen hallway
 
 label brian: 
+    scene hallway no brian
     show brian default 
     "Brian perks up when you approach him."
     brian "Something up, boss?"
@@ -679,12 +704,26 @@ label servant_hints:
         "Brian's head twitches towards the drawer before he realises it."
         brian "Alright, alright. *ahem*"
         brian_s "{i}Are you stuck, dear guest? Fear not, while I do not know the exact location of the key, perhaps a look around the area will do you well?"
-        $ servant_hints += 1
+        $ servantHints += 1
+        menu: 
+            "Thanks Brian.":
+                brian "Happy to help!"
+                jump hallway
     elif servantHints == 2:
         brian_s "{i}Feel free to explore more of the mansion. Especially the MAIN HALL." 
-        $ servant_hints +=1
+        you "Please don't yell at the customers. This isn't that kind of escape room."
+        brian "Okay!"
+        $ servantHints +=1
+        menu: 
+            "Thanks anyways, Brian.":
+                "Brian looks happy."
+                jump hallway
     elif servantHints == 1: 
         brian_s "{i} The master has a fondness for mirrors. Windows to the soul, he says. And yet, I've never gotten a glimpse of his reflection."
+        menu: 
+            "Thanks Brian.":
+                brian "I quite like this line for some reason, feels spooky."
+                jump hallway
     else: 
         "Brian goes very silent."
         brian "Um...I think I ran out of lines."
@@ -694,6 +733,7 @@ label servant_hints:
         brian "Oh, I must have left it in the staff room. But I can run and grab it if you need it." 
         you "I don't think that's necessary."
         "Brian looks very relieved."
+        jump hallway
     jump brian  
 
 default havePaper = False 
@@ -719,8 +759,8 @@ label firstdrawer:
     menu: 
         "Check the paper." if not havePaper:
             "Dear His Most Illustrious Count Blud,"
-            "As you have requested, I have taken care to hide the key to the Blood Ruby in a secure place."
-            "I have hidden it within the hallways of our castle, and the code closeby."
+            "As you have requested, I have taken care to hide the key to the Blood Ruby."
+            "It is within the hallways of this castle. I have endeavored a clever plan to keep the code safe in another room."
             "No one shall be able to REVERSE the curse you've casted on this place."
             "Your most loyal servant, the Pumpkin."
             "PS. xis dna derdnuh xis dnasuoht eno"
@@ -741,11 +781,13 @@ label seconddrawer:
             "You use the small key. The drawer, thankfully, opens smoothly." 
             "Brian breathes a sigh of relief."
             jump seconddrawer_open
+        "Leave it alone.": 
+            jump hallway 
 label seconddrawer_open:
     menu: 
         "Look at the clock.":
             "The clock is just a shell. There isn't anything inside. Instead, some of the numbers on the front have small colored paint underneath them."
-            "A red dot under the 6, a blue dot under the 3, a yellow dot on the nine, and a green dot on the 4.w"
+            "A red dot under the 6, a blue dot under the 3, a yellow dot on the 9, and a green dot on the 4"
             menu clockcheck: 
                 "Put down the clock.":
                     "You put the clock back into the shelf."
@@ -811,6 +853,7 @@ label bookfail:
 label booksuccess: 
     "Inside the book, you find one half of the thick tomb has been modified. A small recess, large enough for a tiny key."
     "It's not big enough to fit in the lock. (And you know better than to try.) but maybe it could unlock something else?"
+    jump hallway
 
 label booklist: 
     menu: 
@@ -820,8 +863,6 @@ label booklist:
             jump bookfail
         "Carmilla, 1872":
             jump bookfail 
-        "The Phantom World, 1746":
-            jump bookfail
         "Dracula, 1897":
             jump bookfail
         "Macbeth, 1606":
@@ -1064,6 +1105,7 @@ label brian_ballroom:
     brian "Um..Boss?"
     brian "Is it okay if you-uh-give Neil a break?"
     brian "He's-look, we kind of know each other. He's-he's not normally like this."
+    brian "He was really quiet and shy."
     brian "And this is his favorite holiday, so maybe-maybe he got too excited?"
     you "I'll...think about it."
     hide brian default 
@@ -1109,11 +1151,12 @@ label pianoCodeCheck:
             else: 
                 jump pianoplay 
         "Give up":
+            $ pianoKey_Try = []
             jump ballroom 
 label pianoCodeTrue: 
     stop music fadeout 1.0 
     play music communisumbra
-    play sound burble 
+    play sound gurgle 
     "The piano starts to play itself, undercut by a low burbling sound coming from the pillar."
     "It seems something has happened."
     jump ballroom 
@@ -1152,6 +1195,7 @@ label banquetTable:
             "With it, the vampire will weaken."
             jump banquetchoice
         "Take a closer look at the table.": 
+            "You grab a nearby empty bowl for ease."
             jump banquetTry 
         "Finish":
             jump ballroom 
@@ -1160,33 +1204,57 @@ label banquetTable:
 label banquetTry: 
     menu: 
         "Add Eyes.": 
-            play sound tink  
+            play sound tink 
+            "The little round ball rolls around as you place it on the bowl.." 
             $ banquetTable_Try.append("eye")
             jump banquetTry
-        "Add Fingers": 
+        "Add Hand": 
             play sound tink 
+            "Another ingredient in the bowl."
             $ banquetTable_Try.append("fingers")
-            jump banquetTry
-        "Place a Fruit": 
-            play sound tink 
-            $ banquetTable_Try.append("fruit")
-            jump banquetTry
-        "Take a flower.": 
-            play sound tink 
-            $ banquetTable_Try.append("flower")
             jump banquetTry
         "Add the Heart": 
             play sound tink 
+            "It's quite large, you rest it in the center for balance."
             $ banquetTable_Try.append("heart")
             jump banquetTry
         "Put a fake chocolate.": 
             play sound tink 
+            "Even if it was fake, you were starting to feel a little hungry. Hopefully the stores would give you a discount."
             $ banquetTable_Try.append("chocolate")
             jump banquetTry
-        "Empty the bowl": 
-            play sound tink 
-            $ banquetTable_Try = []
+        "Cont.":
+            jump banquetTryCont
         "Finish.": 
+            jump banquetTable
+
+label banquetTryCont:
+    menu: 
+        "Place a Fruit": 
+            play sound tink 
+            $ banquetTable_Try.append("fruit")
+            jump banquetTryCont
+        "Take a flower.": 
+            play sound tink 
+            "You very carefully take a rose from the vase."
+            $ banquetTable_Try.append("flower")
+            jump banquetTryCont
+        "Add Batwings.":
+            play sound tink 
+            "It feels leathery under your fingers." 
+            $ banquetTable_Try.append("batwings")
+            jump banquetTryCont
+        "Add spiders.":
+            play sound tink
+            "Gingerly, you pick up a fake spider by its leg."
+            $ banquetTable_Try.append("spider")
+            jump banquetTryCont
+        "Empty the bowl": 
+            play sound tink
+            "You put all of the ingredients back where they belong." 
+            $ banquetTable_Try = []
+            jump banquetTryCont
+        "Finish":
             jump banquetTable
 
 
@@ -1207,21 +1275,30 @@ label pedestalBlood:
     menu: 
         "Put bowl of ingredients in the indent." if banquetTable_Try != []: 
             python: 
-                for item in banquetTable_try: 
-                    if item not in banquetTable: 
-                        "You wait, but nothing happens. You take the bowl of ingredients back. Best try again." 
-                        renpy.jump("pedestalBlood")  
+                for item in banquetTable_Try: 
+                    if item not in banquetTableKey: 
+                        renpy.jump("pedestalFail")  
                     else: 
-                        "As you place the ingredients down, you hear a small click. The pedestal instantly lights up, glowing from hidden lights placed on the underside."
-                        renpy.play(gurgle, sound)
-                        "Then, burbling fills the room."
                         bloodLevel += 1
                         banquetTable_Try = []
-                        renpy.jump("pedestalBlood")
+                        renpy.jump("pedestalTrue")
         "Leave the pedestal alone.": 
             jump ballroom
                 
     jump ballroom 
+label pedestalTrue: 
+    "As you place the ingredients down, you hear a small click."
+    play sound gurgle
+    "Then, burbling fills the room."
+    jump pedestalBlood
+
+
+label pedestalFail: 
+    "You wait, but nothing happens. You take the bowl of ingredients back. Best try again." 
+    jump pedestalBlood
+
+default sawPM=False 
+default sawWrappers = False
 
 label pedestalSolve:
     "The plinth to the right begins to glow slightly. That meant it was active, but..." 
@@ -1239,17 +1316,71 @@ label pedestalSolve:
     megan "Or chop his fingers off."
     neil "I WOULD LIKE TO KEEP MY FINGERS PLEASE."
     brian "Mmmaybe we could just push it?"
-    "Brian sticks his finger into the hole and presses. Nothing occurs."
+    "Brian immediately sticks his thumb into the hole and presses. Nothing occurs."
+    megan "Wouldn't be much of an escape room if the whole thing was just 'push a button.'"
     you "It's not a button, the token is metal, so when you put it into the slot, it allows an electrical charge to turn off the magnets keeping the lid closed."
+    "Brian takes his hand out so fast it almost looked like he was shocked."
+    brian "An-an electric shock!? That's-that's dangerous!"
+    megan "So we need metal."
+    brian "A round metal thing. Like a coin?" 
+    "You all start turning out your pockets." 
+    "Megan's pockets had her phone and a peppermint."
+    "You didn't have much, you left most of your things in the locker before arriving. Just a pen and a sheet of paper."
+    "Meanwhile Brian had a key, some paper receipts and..."
+    megan "Why do you have so many wrappers?"
+    brian "I get the munchies when I get bored. So I brought some snacks from home." 
+    you "How do you two not have coins?"
+    megan "I usually use my phone."
+    brian "I left my wallet in the locker...It kept falling out of my pants."
+    "You have something here, but what?"
+    menu items: 
+        "Look at the Key.":
+            megan "What's this for?"
+            brian "It's the key to my house! I always keep it with me, just in case!"
+            "Well, unless you could melt it down under a fake candle, it wasn't going to be entirely helpful."
+            "Though..."
+            jump items 
+        "Look at the peppermint.": 
+            $ sawPM = True 
+            megan "Don't you dare eat it."
+            brian "I've never seen someone like peppermints so much."
+            megan "It's literally the only thing keeping me awake right now."
+            brian "Concerning!"
+            jump items 
+        "Look at the wrappers.": 
+            $ sawWrappers = True 
+            megan "What's with these wrappers? Aren't they kind of thick?"
+            brian "Oh, these aren't store stuff, these are homemade! My ma likes to make homemade stuff for Trick or Treating."
+            megan "..."
+            you "..."
+            megan "Somehow that explains a lot." 
+            brian "?" 
+            jump items
+        "You have an idea..." if sawWrappers and sawPM: 
+            "This was going to be so dumb."
+            megan "What are you planning?"
+            you "Brian...give me the wrappers. Megan, I'm sorry, but can I borrow your peppermint?" 
+            megan "...Fine."
+            "You take the wrappers, then the peppermint, then get to work."
+            "Finally, you get a peppermint wrapped in foil!"
+            "It would be a terrible conductor, but you didn't need that much of a charge."
+            megan "This is the stupidest thing I've ever seen."
+            "And yet...As you shove the peppermint into the slot, something behind you guys clicked."
+            jump end 
+
+        
+        
 
 
 
-label end: 
+
+
+label end:
     show brian default at left 
     show megan default at right 
     show neil sad
     "With the final piece in place, the coffin door swings open, and a floppy pile of stick thin limbs and black velvet cloth crumples to the floor."
-    play music shenanigans 
+    play music timeforrest
     "Neil gasps, flops over onto his back to meet all three sets of eyes."
     neil_v "You have-gasp-done it! I am-wheeze-the great Count Blud-!"
     megan "Dude."
@@ -1320,19 +1451,27 @@ label end:
         neil_v "IT WILL BE EASY TO DEVOUR YOU! MUAHAHAHAH!"
     elif endRoute == "sun": 
         "With a cringe, the vampire collapses onto the floor."
-        neil "GAH! ZOUNDS! THE SUN LANTERN?!"
-        neil "How could my servant fail me!? Curse you, Bride!"
-        neil "My powers! My mansion! I have lived for centuries! How could I, the great COUNT BLUD, be bested by some mere mortals?!"
-        neil "AGH! I'M MELTING! {sc}MELTING!!!{/sc}" 
+        neil_v "GAH! ZOUNDS! THE SUN LANTERN?!"
+        neil_v "How could my servant fail me!? Curse you, Bride!"
+        neil_v "My powers! My mansion! I have lived for centuries! How could I, the great COUNT BLUD, be bested by some mere mortals?!"
+        neil_v "AGH! I'M MELTING! {sc}MELTING!!!{/sc}" 
         "The vampire collapses onto the floor, and after a little more gasps, lays still."
+
+    megan "..."
+
+    "She claps politely as Neil recomposes himself."
+
+    neil "How did I do? Too much? Not enough?" 
+
+    you "Just right, Neil."
     brian "Uh-guys?!"
-    "Suddenly, Brian is standing at the ballroom entrance. Four cold water bottles somehow dangling from his hands.."
+    "Suddenly, Brian is standing at the ballroom entrance. Four cold water bottles somehow dangling from his hands."
     brian "You-uh-there's-pee-pe-"
 
     megan "Pee?"
 
     brian "There's people, lots-lots of people!"
-    play music SwingingThatElectro 
+    play music swing
 
     scene shops_warm 
 
@@ -1340,20 +1479,63 @@ label end:
 
     "Outside, you see the source."
 
-    "A rather sizable crowd was waiting at the front. More than you'd ever seen. Many of them had halloween costumes on, and all of them looked like they were waiting for something to happen." 
+    show demon at right 
+    show nova at left 
+
+    "A rather sizable crowd was waiting at the front. More than you'd ever seen."
+
+    hide demon 
+
+    show vega at right 
+    show nova at left 
+    
+    "Many of them had halloween costumes on, and all of them looked like they were waiting for something to happen." 
+
+    hide vega
+    hide nova
+
+    show kiddo at right 
+
+    show larissa at left 
+
+    show megan default 
 
     megan "What the hell? Why are there so many?"
+
+    hide megan default 
+    show brian default 
 
     brian "I don't know! Do-oh gosh, are we going to be able to handle this?"
 
     "Neil looks outside, unusually quiet."
+    hide brian default 
+
+    show neil default 
 
     neil "I uh- may have told my theatre troupe about this place."
 
     megan "Is your theatre troupe a small army?"
 
+    neil "I might have told them to tell their friends. And family."
+
     "You stare at the crowd, take a deep breath, and roll your shoulders."
 
     you "Looks like it'll be a long night."
+
+    hide boy 
+    hide larissa
+
+    show megan default at left
+    show brian default at right 
+
+    megan "I better get overtime."
+
+    brian "Let's go!"
+
+    "Neil takes a deep breath and smiles."
+
+    "With a deep breath, you open the doors."
+
+    "END"
 
     return 

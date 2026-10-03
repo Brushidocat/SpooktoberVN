@@ -42,6 +42,7 @@ screen hallway():
         hotspot (1136, 13, 451, 1048) action Jump("bookcase") hovered ShowTransient("the_img", img="hallway/hws/hws_bookshelf.png") unhovered Hide("the_img")
         ## Gem Case 
         hotspot (1709, 4, 209, 1075) action Jump("gemcase") hovered ShowTransient("the_img", img="hallway/hws/hws_gemcase.png") unhovered Hide("the_img")
+        hotspot (671, 221, 246, 704) action Jump("brian") hovered ShowTransient("the_img", img="hallway/hws/hws_brian.png") unhovered Hide("the_img")
         ## door 
         hotspot (295, 331, 401, 381) action Jump("hallwaydoors") hovered ShowTransient("the_img", img = "hallway/hws/hws_brd.png") unhovered Hide("the_img")
         hotspot (871, 259, 147, 250) action Jump("mirror") hovered ShowTransient("the_img", img="hallway/hws/hws_mirror.png") unhovered Hide("the_img")
@@ -52,9 +53,11 @@ screen hallway():
 screen ballroom():
     imagemap:
         ground "images/ballroom/ballroom.png" at parallax_shift(z_pos=0.6, sprite = False)
-        hotspot (14, 431, 476, 323) action jump("piano") hovered ShowTransient("the_img", img="ballroom/brs/brs_piano.png") unhovered Hide("the_img")
-        hotspot (772, 406, 457, 282) action jump("banquetTable") hovered ShowTransient("the_img", img="ballroom/brs/brs_bt.png") unhovered Hide("the_img")
-        hotspot (1654, 331, 210, 544) action jump("coffin") hovered ShowTransient("the_img", img="ballroom/brs/brs_coffin.pmg") unhovered Hide("the_img")
+        hotspot (14, 431, 476, 323) action Jump("piano") hovered ShowTransient("the_img", img="ballroom/brs/brs_piano.png") unhovered Hide("the_img")
+        hotspot (772, 406, 457, 282) action Jump("banquetTable") hovered ShowTransient("the_img", img="ballroom/brs/brs_bt.png") unhovered Hide("the_img")
+        hotspot (1654, 331, 210, 544) action Jump("coffin") hovered ShowTransient("the_img", img="ballroom/brs/brs_coffin.png") unhovered Hide("the_img")
+        hotspot (760, 525, 269, 271) action Jump("pedestalBlood") hovered ShowTransient("the_img", img="ballroom/brs/brs_pillar.png") unhovered Hide("the_img")
+        #Shotspot 
         ##Piano 
         ##banquettable 
         ##shoutyman 

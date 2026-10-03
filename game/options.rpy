@@ -12,7 +12,7 @@
 ##
 ## The _() surrounding the string marks it as eligible for translation.
 
-define config.name = _("The Mansion of Count Blud")
+define config.name = _("Count Blud's Mystery Mansion")
 
 
 ## Determines if the title given above is shown on the main menu screen. Set
@@ -30,7 +30,10 @@ define config.version = "1.0"
 ## triple-quotes, and leave a blank line between paragraphs.
 
 define gui.about = _p("""
-Characters by Ocwitch9
+Neil, Brian, Megan by Sandy Ye 
+Galaxie Girls by https://st-chem-atelier.itch.io/, 
+Boy by https://knickknackpj.itch.io/, 
+Demon by Amigaux_cllb, https://amigaux-cllb.itch.io/ 
 Audio: 
 Doll Dance- Tim Reichart  https://fulminisictus.itch.io/
 Monster Musuem - Clement Panchout https://clement-panchout.itch.io/ 
@@ -73,7 +76,7 @@ Or, if something already available does not quite fit your next project, you can
 ## distribution. This must be ASCII-only, and must not contain spaces, colons,
 ## or semicolons.
 
-define build.name = "DarkFantasyGUIKitbyayperosia"
+define build.name = "CountBludMysteryMansion"
 
 
 ## Sounds and music ############################################################
@@ -98,7 +101,7 @@ define config.has_voice = True
 ## the player is at the main menu. This file will continue playing into the
 ## game, until it is stopped or another file is played.
 
-# define config.main_menu_music = "main-menu-theme.ogg"
+define config.main_menu_music = "communisumbra.ogg"
 
 
 ## Transitions #################################################################
@@ -179,7 +182,8 @@ default preferences.afm_time = 15
 ## This generally should not be changed, and if it is, should always be a
 ## literal string, not an expression.
 
-define config.save_directory = "DarkFantasyGUIKitbyayperosia-1754665009"
+define config.save_directory = "CountBlud'sMysteryMansion"
+define build.itch_project = "Brushibee/count-bluds-mystery-mansion"
 
 
 ## Icon ########################################################################
