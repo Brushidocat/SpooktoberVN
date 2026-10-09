@@ -287,8 +287,9 @@ label mainhall_start:
     show megan default: 
         offscreenleft
         normal
-        toright
-        walkto(center, 10,4, 5, 2)
+        walkto(center, 5, 2, 1, 1)
+    
+
     megan "'scuse."
 
     "Megan trots past you to take her place by the wall."
@@ -304,7 +305,7 @@ label mainhall_start:
     neil_v "WELCOME TO MY {bt=h5-s0.5-p10.0} HAUNTED MANSION!{/bt}"
 
     neil_v "IN HERE, YOU SHALL BECOME MY NEXT {sc} {color=[red]} SAAAAAACRIFICE! {/color}{/sc}"
-    neil_v "NOW THAT YOU ARE TRAPPED, YOU SHALL NEVER ESCAAAAAAAPE-" 
+    neil_v "NOW THAT YOU ARE TRAPPED, YOU SHALL NEVER ESCAAAAAAAPE! MY POWERS ARE LEGENDARY!!" 
 
     "Megan clicked her tongue, but kept quiet." 
 
@@ -661,7 +662,7 @@ label hallway_start:
     show brian default: 
         unpose
     brian_s "{i}Ah! Another guest for the master?"
-    brian_s "{i}Poor soul, much like the pale megan-madam-{/i} shit-"
+    brian_s "{i}Poor soul, much like the pale megan-{b}madam{/b}-{/i} shit-"
     brian_s "{i}Much like the pale madam next door, you have been trapped here. I assume she's tasked you with getting the Sun Lantern?"
     "The pumpkin headed servant shook his head."
     brian_s "{i}Don't be fooled, she's merely distracting you. She is a lonely spectre." 
@@ -991,6 +992,10 @@ label gemcase:
     "It almost completely fills your vision."
     menu: 
         "Break the glass.":
+            "Shiny. Red. Glittering. The Gem calls to you from the void."
+            "Give in."
+            "Give IN."
+            "GIVE IN!"
             scene black
             brian "Hey what are you doing with that lamp-"
             stop music
@@ -1000,13 +1005,15 @@ label gemcase:
             "Not only did you break your own set, you even managed to cut your hand."
             "You had no choice but to delay the opening of your new escape room."
             "Lock n Key studios closed down not a month later."
+            "But."
+            "You had a shiny new toy with you."
             menu: 
                 "End Game?":
                     return
                 "Rethink your choices?":
                     jump gemcase
         "Use the key" if havebigkey: 
-            "Easy as pie. You take the gem from it's cushion. Each facet refracts the yellow light like glitter and casted pretty lights over the walls."
+            "Easy as pie. You take the gem from it's cushion. Each facet refracts the yellow light like glitter and casted pretty glitters over the walls."
             "Brian looks pleased for you too."
             $ hasGem = True 
         "Leave the case.":
@@ -1022,13 +1029,14 @@ label ballroom_start:
     "He looks just as confused as you are. Which is even more worrying."
     show brian default at left 
     brian "I know I put it in there, honest!"
-    show brian panic at left 
+    show brian panic at left: 
+        jump 
     neil_v "MUAHAHAHAHAHAH~"
     neil_v "FOOLS! DID YOU THINK I WOULD PUT MY RELICS OF POWER IN SUCH FLIMSY SECURITY!?"
     "Megan wandered into the hallway. Her eyes immediately lock onto the empty case."
     megan "Seriously?"
-    "She looks mildly more annoyed than she usually does."
     show megan default at right 
+    "She looks mildly more annoyed than she usually does."
     megan "What is he doing this time?"
     brian "I don't know! Um-He said something about wanting to talk to the Boss about adding something before the runthrough." 
     brian "But since the Boss was late, I thought he just forgot about it!"
@@ -1055,26 +1063,33 @@ label ballroom_start:
     "Both you and Brian stepped through the threshold and...."
     scene ballroom
     play music haunted_hijinks
-
     "Nothing."
+    show brian panic 
     brian "Wh-where is he?"
     "There was a tremor in Brian's voice as he tiptoed across the fake marble tiles."
     "THUNK!"
-    hide brian default 
-    show brian panic
+    show brian panic: 
+        jump 
     "Brian actually shrieks and jumps a foot in the air."
+    show ballroom with vpunch 
     "THUNK THUNK!"
     "Despite it's grand name, the ballroom wasn't actually that large, there weren't many places for Neil to hide." 
+    show ballroom with hpunch 
     "MMMmph! MMMPH!!"
     "Except one."
     "The coffin. Originally, once the puzzle was complete, Neil was meant to open the door to 'confront' the players, then depending on whether they used the Sun Lantern or the Moon dagger, they would be lead to two different endings."
     "It connected straight into a smaller room, where Neil could wait or go to the staff room. So why...?"
+    show ballroom with hpunch 
     ## thunk sound 
     "*Thunk!* *Thunk!*"
     "Something was hitting the lid of the wood."
+    show ballroom with vpunch 
     neil "Help! I'm stuck!!"
     "Well that's...anticlimatic."
-    show brian panic at right
+    show brian panic: 
+        offscreenleft 
+        normal 
+        walkto(centerright)
     "Brian immediately ran to the coffin and started trying to pry the lid open with his fingers."
     brian "Neil, open the door!"
     neil "I can't!"
@@ -1457,6 +1472,7 @@ label end:
     neil "Stole company property."
     you "and?"
     neil "And...lock myself in a coffin."
+    show ballroom with vpunch
     you "...AND?" 
     neil "And-uh-Oh, right. Locked both entrances to the staff room."
     you "You do realise how much of a fire hazard that was, right?"
@@ -1520,6 +1536,7 @@ label end:
 
     you "Just right, Neil."
     brian "Uh-guys?!"
+    show brian default 
     "Suddenly, Brian is standing at the ballroom entrance. Four cold water bottles somehow dangling from his hands."
     brian "You-uh-there's-pee-pe-"
 
@@ -1573,6 +1590,8 @@ label end:
 
     megan "Is your theatre troupe a small army?"
 
+    hide megan default
+
     show neil default 
 
     neil "I might have told them to tell their friends. And family."
@@ -1596,6 +1615,8 @@ label end:
     "With a deep breath, you open the doors."
 
     scene black with fade 
+
+    "All in all, not the worst runthrough you'd ever done."
 
     "END"
 
