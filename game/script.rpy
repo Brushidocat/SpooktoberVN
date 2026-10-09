@@ -12,13 +12,13 @@
 
 define you = Character("You")
 define player_m = Character ("You", window_background="mall_gui/textbox.png")
-define megan = Character("Megan", window_background="mall_gui/textbox.png")
-define brian = Character("Brian", window_background="mall_gui/textbox.png")
-define megan_b = Character("The Bride", window_background = Image("gui/textbox.png", xalign = 0.5, yalign = 1.1), color = "#ffff")
-define brian_s = Character("The Pumpkin",  window_background = Image("gui/textbox.png", xalign = 0.5, yalign = 1.1), color = "#e9820dff")
-define neil = Character("Neil", window_background="mall_gui/textbox.png")
-define neil_v = Character("Count Blud", window_background = Image("gui/textbox.png", xalign = 0.5, yalign = 1.1), color = "#b91313ff")
-define mystery = Character("???")
+define megan = Character("Megan", window_background="mall_gui/textbox.png", callback = name_callback, cb_name = "megan")
+define brian = Character("Brian", window_background="mall_gui/textbox.png", callback = name_callback, cb_name = "brian")
+define megan_b = Character("The Bride", window_background = Image("gui/textbox.png", xalign = 0.5, yalign = 1.1), color = "#ffff", callback = name_callback, cb_name = "megan")
+define brian_s = Character("The Pumpkin",  window_background = Image("gui/textbox.png", xalign = 0.5, yalign = 1.1), color = "#e9820dff", callback = name_callback, cb_name = "brian")
+define neil = Character("Neil", window_background="mall_gui/textbox.png", callback = name_callback, cb_name = "neil")
+define neil_v = Character("Count Blud", window_background = Image("gui/textbox.png", xalign = 0.5, yalign = 1.1), color = "#b91313ff", callback = name_callback, cb_name = "neil")
+define mystery = Character("???", callback = name_callback, cb_name = "???")
 default spooky = False  
 default mall = ""
 define red = '#f31b1b'
@@ -35,15 +35,22 @@ define vega = "vega.png"
 define larissa = "larissa.png"
 define kiddo = "kiddo.png"
 
+image megan phone = At('megan phone.png', sprite_highlight('megan'))
+image megan default = At('megan default.png', sprite_highlight('megan'))
+image brian default = At('brian default.png', sprite_highlight('brian'))
+image brian panic = At('brian panic.png', sprite_highlight('brian'))
+image neil default = At('neil default.png', sprite_highlight('neil'))
+image neil sad = At('neil sad.png', sprite_highlight('neil'))
 label cheatcodes: 
     
     menu: 
-        "Mainhall":
-            jump mainhall 
+        "Mainhall start":
+            jump mainhall_start
+        
         "Ballroom":
-            jump ballroom 
-        "Hallway":
-            jump hallway 
+            jump ballroom_start
+        "Hallway start":
+            jump hallway_start
         "end":
             jump end
 # The game starts here.
@@ -54,7 +61,7 @@ label start:
     # add a file (named either "bg room.png" or "bg room.jpg") to the
     # images directory to show it.
    
-  
+    jump cheatcodes
     play music starreaction
 
     scene shops_closed
@@ -99,7 +106,7 @@ label start:
 
     "You got this."
 
-    scene regal_hallway_light
+    scene regal_hallway_light with fade
     play music communisumbra
 
     "The walls were made of the finest styrofoam you could salvage from the local depo. Pillars made of balsam wood. Every detail was thinned at the top to give the illusion of high vaulted ceilings."
@@ -153,8 +160,12 @@ label start:
             "She stares at you pointedly. Fair enough."
 
     megan "Oh. Right."
-    show megan default 
+    show megan default: 
+        pickup
+        2
     "Megan hands out a neatly folded envelope to you. It was sealed with fake wax, and had been dyed with tea around the edges to look a little old."
+
+    show megan default 
 
     megan "Printer finally started working."
 
@@ -263,21 +274,25 @@ label start:
     menu: 
         "It's time.":
             $ spooky = True 
-            you "TIme to get spooky."
+            you "Time to get spooky."
 
 
 
     jump mainhall_start
 
 label mainhall_start: 
-    scene mainhall 
+    scene mainhall no megan
     play music doll
     "Soft, flickering light greeted you through the door. On cue, the music started from various hidden bluetooth speakers."
-
+    show megan default: 
+        offscreenleft
+        normal
+        toright
+        walkto(center, 10,4, 5, 2)
     megan "'scuse."
 
     "Megan trots past you to take her place by the wall."
-    show megan default 
+   
 
     megan_b "{i}You should have never come here, strange traveler.{/i}"
     "Her voice is super flat."
@@ -295,17 +310,15 @@ label mainhall_start:
 
     "Clearly, he'd practiced this, it was better to play along for now."
 
-    neil_v "FOOLISH MORTALS!"
+    neil_v "YOU'll NEVER FIGURE OUT THE THREE PIECES OF MY {bt=h5-s0.5-p10.0} SECRET INCANTATION {/bt} TO OPEN THE DOOR!"
 
     neil_v "TONIGHT, ME AND MY BRETHEREN SHALL FEAST!"
-
-    neil_v "YOU'll NEVER FIGURE OUT THE THREE PIECES OF MY {bt=h5-s0.5-p10.0} SECRET INCANTATION {/bt} TO OPEN THE DOOR!"
 
     "Click."
 
     show megan phone 
 
-    megan "Right, what he said." 
+    megan "What he said." 
     
     megan_b "{i}Maybe there's a hint in that letter.{/i}"
 
@@ -430,7 +443,7 @@ label gargoyle:
         "Check the base.":
             scene gargoyle_close
             "Below the gargoyle, is a row of buttons with images on them."
-            "From right to left, was an engraving of a moon, a lily, and a gem."
+            "From right to left, was an engraving of a moon, a rose, a gem and another flower."
             jump gargoylelook
         "Try a code." if gargoyleisLocked:
             jump gargoyle_code
@@ -642,7 +655,11 @@ label hallway_start:
     show brian default 
     show hallway no brian
     brian "Hey boss! Er-Oh, sorry. One sec." 
+    show brian default:
+        bowright
     "He finally turns the chair upright, then straightens his back."
+    show brian default: 
+        unpose
     brian_s "{i}Ah! Another guest for the master?"
     brian_s "{i}Poor soul, much like the pale megan-madam-{/i} shit-"
     brian_s "{i}Much like the pale madam next door, you have been trapped here. I assume she's tasked you with getting the Sun Lantern?"
@@ -658,10 +675,19 @@ label hallway_start:
     stop music 
     play sound tink
     "Something falls out of his pocket. A thick, heavy looking key that looks like it would perfectly fit the lock on the glass case."
-    "He pauses, unblinking, looks down, then looks back up."
+    show brian default: 
+        bowright
+    "He pauses, unblinking, looks down." 
+    show brian default: 
+        unpose
+    "Then looks back up."    
+    
+    show brian default: 
+        pickup(5, 0.2)
+    
     "Then he lunges for the key with all the grace of an american linebacker and shoves it into his pocket."
     brian_s "{i}P-perhaps you can find it? Remember though, the Ruby can only be used once! Choose wisely who you side with.{/i}"
-    "After a brief pause, he rights himself and takes off the mask with a bright smile."
+    "After a brief pause, he rights himself."
     brian "How was that? I finally managed to remember most of my lines!"
     brian "Neil helped me practice." 
     menu:
@@ -675,7 +701,7 @@ label hallway_start:
             brian "I'll put it back in the bookshelf later."
     brian_s "I am your humble servant, if you are able to job my memory, perhaps I can help guide your way!"
     hide brian default 
-    "Brian quickly jams the helmet back on his head. With a quick thunk, the light flickers back on, and he starts pretending to dust the furniture."
+    "Brian quickly starts pretending to dust the furniture."
     jump hallway 
 
 label hallway: 
@@ -732,7 +758,7 @@ label servant_hints:
         "Other than a few candy wrappers, nothing comes up."
         brian "Oh, I must have left it in the staff room. But I can run and grab it if you need it." 
         you "I don't think that's necessary."
-        "Brian looks very relieved."
+        "Brian looks very relieved, though he does go and pick up the candy wrappers quickly."
         jump hallway
     jump brian  
 
@@ -741,20 +767,31 @@ default havePaper = False
 label firstdrawer: 
     scene drawer
     "You open the drawer. It opens smoothly. Until it gets halfway. Then it stops."
+    scene drawer with vpunch 
     "You try again. Nothing. It feels like the drawer's hit something solid."
     "Immediately, Brian comes over."
     brian "Huh, that's weird."
     brian "Here, let me-"
     ##Shake 
+    scene drawer with vpunch 
     ## rattle sound 
     "He grips the handle and tugs a little harder. It doesn't budge."
+    scene drawer with hpunch 
     brian "Maybe some paint got in the-Hang on."
+    scene drawer with vpunch 
     "The drawer rattles ominously as he yanks harder. And yet still, it doesn't move." 
     brian "COme onnnn-!"
+    scene drawer with vpunch 
+    show brian default: 
+        offscreenleft 
+        normal 
+        walkto(offscreenright, 1, 0.2, 0, 0)
     play sound creak 
     "The drawer suddenly flies open, and Brian stumbles backwards. Eyes wide, limbs flailing, his back hits the opposite wall." 
     megan "Did Brian fall again?"
     brian "I'm fine! I'll-uh-go sweep a corner." 
+    "You watch him move, but he genuinely seems okay. Maybe the pumpkin mask protected his head."
+    "Inside the drawer, you only manage to find a piece of paper."
 
     menu: 
         "Check the paper." if not havePaper:
@@ -857,8 +894,6 @@ label booksuccess:
 
 label booklist: 
     menu: 
-        "Little Women, 1869,": 
-            jump bookfail 
         "Demonologie, 1597": 
             jump bookfail
         "Carmilla, 1872":
@@ -867,6 +902,8 @@ label booklist:
             jump bookfail
         "Macbeth, 1606":
             jump booksuccess
+        "Little Women, 1869,": 
+            jump bookfail 
         "Leave it alone.":
             jump book
 
@@ -1376,13 +1413,19 @@ label pedestalSolve:
 
 
 label end:
-    show brian default at left 
-    show megan default at right 
-    show neil sad
+    scene ballroom 
+    show brian default at left
+    show megan default at right
+    show neil sad at center: 
+        vibrate(10)
+        ypos 0.4
+    
     "With the final piece in place, the coffin door swings open, and a floppy pile of stick thin limbs and black velvet cloth crumples to the floor."
+    show neil sad at center: 
+        ypos 0.3
     play music timeforrest
-    "Neil gasps, flops over onto his back to meet all three sets of eyes."
-    neil_v "You have-gasp-done it! I am-wheeze-the great Count Blud-!"
+    "Neil gasps, flops over onto his back."
+    neil_v "Imp-Impossible-gasp! I am-wheeze-the great Count Blud-!"
     megan "Dude."
     "Neil's eyes take a moment to focus on Megan's face. Then Brian's, and then yours."
     neil "...I messed up big time, didn't I?" 
@@ -1393,13 +1436,20 @@ label end:
     brian "I'll go grab some water, there's some at the cooler out front, right?"
     you "Yeah, got it for the receptionists. You'll have to ask them."
     brian "No worries! They like me!"
-    "Yeah, he did kind of have the 'sweet patootie' vibe older women seemed to adore."
+    "Yeah, he did kind of have the 'cutie patootie' vibe older women seemed to adore."
     "Brian bolts to the door, and vanishes out the front."
     hide brian default 
+    show megan default at rightish 
+    show neil sad at leftish
     megan "So, boss, what do we do?"
     "You slowly turn to Neil, who gingerly stands up."
+    show neil sad: 
+        ypos 0.0
     "His hair was stuck to his head, and he was visibly melting."
     you "First off, Neil? Give."
+    show neil sad: 
+        pickup 
+        2
     "Neil automatically hands you the two small discs and the metal key."
     you "Do you understand what you did wrong, Neil?"
     neil "I...should not have hijacked the entire escape room runthrough right before it opened."
@@ -1441,6 +1491,11 @@ label end:
     you "You saw what I picked in the hallway, right?"
     "You can see the cogs turning in that young adult's head, before it clicked."
     neil "Ahem."
+    show neil sad: 
+        jump 
+    show neil default: 
+        jump
+        ypos 0.0
     "He quickly gets into character, hair mussed, but back fully straight."
     if endRoute == "moon": 
         "The vampire stalks towards the halpless captives."
@@ -1514,7 +1569,11 @@ label end:
 
     neil "I uh- may have told my theatre troupe about this place."
 
+    show megan default 
+
     megan "Is your theatre troupe a small army?"
+
+    show neil default 
 
     neil "I might have told them to tell their friends. And family."
 
@@ -1522,7 +1581,7 @@ label end:
 
     you "Looks like it'll be a long night."
 
-    hide boy 
+    hide kiddo
     hide larissa
 
     show megan default at left
@@ -1535,6 +1594,8 @@ label end:
     "Neil takes a deep breath and smiles."
 
     "With a deep breath, you open the doors."
+
+    scene black with fade 
 
     "END"
 

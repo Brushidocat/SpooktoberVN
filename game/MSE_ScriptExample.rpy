@@ -78,7 +78,7 @@ image womanbouncing_front:
 
 
 
-label start:
+label MSEExample:
 
     scene black
     menu:
@@ -236,7 +236,7 @@ label walk_to:
         medlong
         toright
 
-        walkto(rightish,10,4, 5, 2)
+        walkto(rightish)
     "You can also adjust the 'bounce' and 'sway'. Mix and match them to show a variety of energy levels."
     show man:
         walkto(leftish)

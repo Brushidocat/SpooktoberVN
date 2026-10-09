@@ -36,13 +36,17 @@ transform toright:
 ## Shot Lengths
 ################################################################################
 
+transform normal: 
+    ypos 1.2
+    zoom 1 
+
 transform full:
     ypos 1.0
     zoom 1/scale
 
 transform medlong:
-    ypos 1.45
-    zoom 1.5/scale
+    ypos 1.0
+    zoom 5/scale
 
 transform medium:
     ypos 1.9
@@ -73,32 +77,27 @@ transform farleft:
     xpos 0.0
 
 transform left: # ^
-    anchor (0.5,1.0)
-    xpos 0.1
+    xpos -0.05
 
 transform leftish:
-    anchor (0.5,1.0)
-    xpos 0.25
+    xpos 0.15
 
 transform centerleft:
     anchor (0.5,1.0)
     xpos 0.4
 
 transform center: # ^
-    anchor (0.5,1.0)
-    xpos 0.5
+    xpos 0.3
 
 transform centerright:
     anchor (0.5,1.0)
     xpos 0.6
 
 transform rightish:
-    anchor (0.5,1.0)
-    xpos 0.75
+    xpos 0.5
 
 transform right: # ^
-    anchor (0.5,1.0)
-    xpos 0.9
+    xpos 0.6
 
 transform farright:
     anchor (0.5,1.0)
@@ -402,9 +401,9 @@ transform seesaw_right:
 
 ## Pickup ##############################
 
-transform pickup(depth=1):
-    ease 0.5 yoffset 100*depth
-    ease 0.5 yoffset 0
+transform pickup(depth=1, speed = 0.5):
+    ease speed yoffset 100*depth
+    ease speed yoffset 0
 transform itempickup(location=(0.5,0.5)):
     anchor (0.5,0.5)
     pos (location[0],1.0)
