@@ -61,7 +61,7 @@ label start:
     # add a file (named either "bg room.png" or "bg room.jpg") to the
     # images directory to show it.
    
-    jump cheatcodes
+    #jump cheatcodes
     play music starreaction
 
     scene shops_closed
@@ -80,7 +80,7 @@ label start:
 
     "Below was a smaller poster, designed with more enthusiasm than experience-{i}{b}COMING SOON: {color=[red]} COUNT BLUD'S MYSTERY MANSION!{/color}{/b}{/i}"
 
-    "Below it, in smaller text: {size=-10}Opening {u}31st October, 8pm.{/u}"
+    "Below it, in smaller text: {size=-5}Opening {u}31st October, 8pm.{/u}"
 
     "It was now October 31th, 2026. 7pm."
 
