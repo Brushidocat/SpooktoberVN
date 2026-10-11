@@ -55,6 +55,7 @@ Backgrounds:
 "Shopping Backgrounds" by Unicorn Creates (https://unicorncreates.itch.io/) licensed under CC BY 4.0 (http://creativecommons.org/licenses/by/4.0/)
 "Regal Hallway" by Knickknack PJ (https://knickknackpj.itch.io/)
 Tools: 
+MSE Transforms - https://edgessystem.itch.io/ 
 Kinetic Text Tags by Daniel Westfall <SoDaRa2595@gmail.com> -https://wattson.itch.io/
 RWParallax by Rythen Winds — https://rythen-winds.itch.io/
 Fonts: 
