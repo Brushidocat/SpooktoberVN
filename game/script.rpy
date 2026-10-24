@@ -284,10 +284,7 @@ label mainhall_start:
     scene mainhall no megan
     play music doll
     "Soft, flickering light greeted you through the door. On cue, the music started from various hidden bluetooth speakers."
-    show megan default: 
-        offscreenleft
-        normal
-        walkto(center, 5, 2, 1, 1)
+    show megan default with easeinright
     
 
     megan "'scuse."
@@ -302,6 +299,8 @@ label mainhall_start:
     megan_b "{i}There is a way out of here. Unlike me, you are mortal. Find the sun lantern, confront Count Blud and we shall be freed.{/i}"
     megan_b "{i}Unfortu-"
 
+    play music shenanigans
+
     neil_v "WELCOME TO MY {bt=h5-s0.5-p10.0} HAUNTED MANSION!{/bt}"
 
     neil_v "IN HERE, YOU SHALL BECOME MY NEXT {sc} {color=[red]} SAAAAAACRIFICE! {/color}{/sc}"
@@ -314,6 +313,7 @@ label mainhall_start:
     neil_v "YOU'll NEVER FIGURE OUT THE THREE PIECES OF MY {bt=h5-s0.5-p10.0} SECRET INCANTATION {/bt} TO OPEN THE DOOR!"
 
     neil_v "TONIGHT, ME AND MY BRETHEREN SHALL FEAST!"
+    play music doll
 
     "Click."
 
